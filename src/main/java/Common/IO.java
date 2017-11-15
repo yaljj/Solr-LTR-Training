@@ -7,13 +7,17 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import DataStructure.FeatureConfig;
+import DataStructure.Product;
 
 public class IO {
-	
-    public static void main(String[] args){  
-
-    }  
 	
     public static List<String> readTxtFile(String filePath,String encoding){
     	List<String> rows = new ArrayList<String>();
@@ -91,6 +95,91 @@ public class IO {
 		raf.close();
 	}
 	
+	/***
+	 * 读取商品特征配置文件
+	 * @return 返回商品特征配置对象
+	 */
+	static FeatureConfig readFeaturesCongfig(){
+		  List<String> rows = IO.readTxtFile(Path.featureConfig_json, Path.code);
+		  String jsonStr = "";
+		  for(String row:rows){
+			  jsonStr+=row;
+		  }
+		  JSONObject jsonObj = new JSONObject(jsonStr);
+		  JSONArray featureJSON = jsonObj.getJSONArray("rank_feature");
+		  JSONArray valueJSON = jsonObj.getJSONArray("value_prop");
+		  JSONArray strJSON = jsonObj.getJSONArray("str_prop");
+		  FeatureConfig featureConfig = new FeatureConfig(featureJSON,valueJSON,strJSON);
+		  return featureConfig;
+	}
+	
+	static  Map<Integer,Product> readPropJson(Map<Integer,Product> productFeatureSet,FeatureConfig conf){
+//		
+		List<String> rows = IO.readTxtFile(Path.prop_json, Path.code);
+		JSONObject propJson = new JSONObject(rows.get(0));
+		List<String> features = new ArrayList<String>();
+		for(Object o:propJson.keySet()){
+			features.add(o.toString());
+		}
+		for(String row:rows){
+			Product product = new Product();
+			propJson = new JSONObject(row);
+			for(String feature:features){
+				if(conf.strProp.contains(feature)){
+					product.strProp.put(feature, propJson.getString(feature));
+				}
+				else if(conf.valueProp.contains(feature)){
+					product.valueProp.put(feature, Integer.valueOf(propJson.getString(feature)));
+				}
+				else{
+					product.rank_feqture.put(feature, Double.valueOf(propJson.getString(feature)));
+//					System.out.println(feature+":"+Double.valueOf(propJson.getString(feature)));
+				}
+			}
+			productFeatureSet.put(product.valueProp.get("product_id"), product);
+		}
+		return productFeatureSet;
+	}
 
+	static  Map<Integer,Product> readComplexJson(Map<Integer,Product> productFeatureSet,FeatureConfig conf){
 
+		List<String> rows = IO.readTxtFile(Path.complex_json, Path.code);
+		JSONObject complexJson = new JSONObject(rows.get(0));
+		List<String> features = new ArrayList<String>();
+		for(Object o:complexJson.keySet()){
+			features.add(o.toString());
+		}
+		for(String row:rows){
+			Product product = new Product();
+			complexJson = new JSONObject(row);
+			for(String feature:features){
+				int product_id = complexJson.getInt("product_id");
+				if(productFeatureSet.get(product_id)!=null){
+					if(conf.strProp.contains(feature)){
+						productFeatureSet.get(product_id).strProp.put(feature, complexJson.getString(feature));
+					}
+					else if(conf.valueProp.contains(feature)){
+						productFeatureSet.get(product_id).valueProp.put(feature,complexJson.getInt(feature));
+					}
+					else{
+						productFeatureSet.get(product_id).rank_feqture.put(feature, complexJson.getDouble(feature));
+//						System.out.println(feature+":"+Double.valueOf(propJson.getString(feature)));
+					}
+				}
+			}
+
+		}
+		return productFeatureSet;
+		
+	}
+    public static void main(String[] args){ 
+    	FeatureConfig conf = readFeaturesCongfig();
+    	Map<Integer,Product> productFeatureSet = new HashMap<Integer,Product>();
+    	productFeatureSet = IO.readPropJson(productFeatureSet,conf);
+    	productFeatureSet = IO.readComplexJson(productFeatureSet, conf);
+    	for(Integer id:productFeatureSet.keySet()){
+    		System.out.println(id+":"+productFeatureSet.get(id).rank_feqture.toString());
+    	}
+    
+    }  
 }

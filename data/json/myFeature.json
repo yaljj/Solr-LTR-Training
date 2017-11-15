@@ -1,6 +1,6 @@
 [
   {
-    "name" : "originalScore",
+    "name" : "BM25",
     "class" : "org.apache.solr.ltr.feature.OriginalScoreFeature",
     "params" : {}
   },

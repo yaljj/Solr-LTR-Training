@@ -9,7 +9,7 @@ import Calculation.standardization;
 import Common.IO;
 import Common.Path;
 import DataStructure.ProductFeature;
-import DataStructure.Prop;
+import DataStructure.productProp;
 import DataStructure.productComplex;
 
 /***
@@ -20,8 +20,8 @@ import DataStructure.productComplex;
 public class ToJsonSet {
 	private static JSONArray products2Json(){
 		// TODO Auto-generated method stub
-		Map<Integer,Prop> productPropDict = GetSampleSet.readProductProp();
-		Map<Integer,productComplex> productComplexDict = GetSampleSet.readProductComplex();
+		Map<Integer,productProp> productPropDict = SampleSetFactory.readProductProp();
+		Map<Integer,productComplex> productComplexDict = SampleSetFactory.readProductComplex();
 		Map<Integer,ProductFeature> productInfoDict = new HashMap<Integer,ProductFeature>();
 		for(Integer id:productPropDict.keySet()){
 

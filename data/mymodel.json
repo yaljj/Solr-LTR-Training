@@ -2,9 +2,9 @@
    "class" : "org.apache.solr.ltr.model.MultipleAdditiveTreesModel",
    "name" : "LambdaMART2",
    "features":[
-       { "name" : "BM25"},
-       { "name" : "price_weight"},
-       { "name" : "basket_weight"},
+    { "name" : "BM25"},
+    { "name" : "price_weight"},
+    { "name" : "basket_weight"},
 	   { "name" : "pay_num_weight"},
 	   { "name" : "review_weight"},
 	   { "name" : "add_time_weight"}

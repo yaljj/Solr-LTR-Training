@@ -14,6 +14,7 @@ public class KeywordProductPair {
 		this.keyword = keyword;
 		this.productID = productID;
 		this.relevancy = relevancy;
-
 	}
+	
+	
 }

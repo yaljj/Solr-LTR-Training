@@ -19,7 +19,7 @@ public class ProductFeature {
 	public double price;
 	public double add_time;
 	
-	public ProductFeature(productComplex complex,Prop prop){
+	public ProductFeature(productComplex complex,productProp prop){
 		this.product = prop.product;
 		this.catID = prop.catID;
 		this.brandID = prop.brandID;

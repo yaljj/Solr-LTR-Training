@@ -162,9 +162,10 @@ public class DBhelper {
 	    }
 	    
 	    public void getProductPropAll(){
-	    	System.out.println("---更新原始特征数据Product_prop.txt---");
+	    	System.out.println("---更新原始特征数据rop---");
 	    	try{
-		    	IO.writeTxtFile("", Path.product_prop_txt);
+//		    	IO.writeTxtFile("", Path.product_prop_txt);
+		    	IO.writeTxtFile("", Path.prop_json);
 	    	}
 	    	catch(Exception e){
 	    		e.printStackTrace();
@@ -176,15 +177,21 @@ public class DBhelper {
 		    		System.out.println(sql);
 		    		ResultSet rs = this.st.executeQuery(sql);
 		    		while(rs.next()){
-		    			int products_id = rs.getInt(1);
-		    			String products_name = rs.getString(2);
-		    			float products_price = rs.getFloat(3);
-		    			int categories_id = rs.getInt(4);
+		    			int product_id = rs.getInt(1);
+		    			String product_name = rs.getString(2).replace("\"", "");
+		    			float price = rs.getFloat(3);
+		    			int cat_id = rs.getInt(4);
 		    			int brand_id = rs.getInt(5);
 		    			int add_time = rs.getInt(6);
-		    			String row = products_id+"``"+products_name+"``"+products_price+"``"+categories_id+"``"+brand_id+"``"+add_time+"\n";
+		    			String row = "{\"product_id\":\""+product_id+"\",\"product_name\":\""+product_name
+		    					+"\",\"price\":\""+price+"\",\"add_time\":\""+add_time+"\",\"cat_id\":\""+cat_id
+		    					+"\",\"brand_id\":\""+brand_id+"\"}"+"\n";
+//		    			String row = product_id+"``"+product_name+"``"+price+"``"+cat_id+"``"+brand_id+"``"+add_time+"\n";
 		    			System.out.println(row);
-		    			IO.append(Path.product_prop_txt, row, Path.code);
+//		    			IO.append(Path.product_prop_txt, row, Path.code);
+		    			IO.append(Path.prop_json, row, Path.code);
+
+		    			
 		    		}
 		    		rs.close();
 		    	}
@@ -192,7 +199,7 @@ public class DBhelper {
 		    		e.printStackTrace();
 		    	}
 	    	}
-	    	System.out.println("---原始特征数据Product_prop.跟新完毕---");
+	    	System.out.println("---原始特征数据prop跟新完毕---");
 	    }
 	    
 	    public int getProductNum(){
@@ -237,7 +244,8 @@ public class DBhelper {
 	    public void getProductComplexAll(){
 	    	System.out.println("---更新原始特征数据Product_complex.txt---");
 	    	try{
-		    	IO.writeTxtFile("", Path.product_complex_txt);
+	    		IO.writeTxtFile("", Path.complex_json);
+//		    	IO.writeTxtFile("", Path.product_complex_txt);
 	    	}
 	    	catch(Exception e){
 	    		e.printStackTrace();
@@ -247,12 +255,14 @@ public class DBhelper {
 	    		ResultSet rs = this.st.executeQuery(sql);
 	    		while (rs.next()){
 	    			long product_id = rs.getInt(1);
-		    		float avgBasket = rs.getFloat(2);
+		    		float basket = rs.getFloat(2);
 	                int review = rs.getInt(3);
-	                float avgPayNum =  rs.getFloat(4);
-	                String row = product_id+"``"+avgBasket+"``"+review+"``"+avgPayNum+"\n";
+	                float pay_num =  rs.getFloat(4);
+//	                String row = product_id+"``"+basket+"``"+review+"``"+pay_num+"\n";
+	                String row = "{\"product_id\":\""+product_id+"\",\"basket\":\""+basket+"\",\"review\":\""+review+"\",\"pay_num\":\""+pay_num+"\"}"+"\n";
 	                System.out.println(row);
-	                IO.append(Path.product_complex_txt,row,Path.code);
+	                IO.append(Path.complex_json,row,Path.code);
+//	                IO.append(Path.product_complex_txt,row,Path.code);
 	    		}
 	    		rs.close();
 	    	}
@@ -313,6 +323,8 @@ public class DBhelper {
 		public static void main(String[] args) throws InterruptedException {
 			DBhelper db = new DBhelper();
 			db.connect2dc();
-			db.updateOriginalData();
+//			db.updateOriginalData();
+//			db.getProductPropAll();
+			db.getProductComplexAll();
 		}
 }
