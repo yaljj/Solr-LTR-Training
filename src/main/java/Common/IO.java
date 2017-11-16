@@ -99,7 +99,7 @@ public class IO {
 	 * 读取商品特征配置文件
 	 * @return 返回商品特征配置对象
 	 */
-	static FeatureConfig readFeaturesCongfig(){
+	static public FeatureConfig readFeaturesCongfig(){
 		  List<String> rows = IO.readTxtFile(Path.featureConfig_json, Path.code);
 		  String jsonStr = "";
 		  for(String row:rows){
@@ -113,7 +113,7 @@ public class IO {
 		  return featureConfig;
 	}
 	
-	static  Map<Integer,Product> readPropJson(Map<Integer,Product> productFeatureSet,FeatureConfig conf){
+	static public HashMap<Integer,Product> readPropJson(HashMap<Integer,Product> productFeatureSet,FeatureConfig conf){
 //		
 		List<String> rows = IO.readTxtFile(Path.prop_json, Path.code);
 		JSONObject propJson = new JSONObject(rows.get(0));
@@ -132,7 +132,7 @@ public class IO {
 					product.valueProp.put(feature, Integer.valueOf(propJson.getString(feature)));
 				}
 				else{
-					product.rank_feqture.put(feature, Double.valueOf(propJson.getString(feature)));
+					product.rank_feature.put(feature, Double.valueOf(propJson.getString(feature)));
 //					System.out.println(feature+":"+Double.valueOf(propJson.getString(feature)));
 				}
 			}
@@ -141,7 +141,7 @@ public class IO {
 		return productFeatureSet;
 	}
 
-	static  Map<Integer,Product> readComplexJson(Map<Integer,Product> productFeatureSet,FeatureConfig conf){
+	static public HashMap<Integer,Product> readComplexJson(HashMap<Integer,Product> productFeatureSet,FeatureConfig conf){
 
 		List<String> rows = IO.readTxtFile(Path.complex_json, Path.code);
 		JSONObject complexJson = new JSONObject(rows.get(0));
@@ -162,7 +162,7 @@ public class IO {
 						productFeatureSet.get(product_id).valueProp.put(feature,complexJson.getInt(feature));
 					}
 					else{
-						productFeatureSet.get(product_id).rank_feqture.put(feature, complexJson.getDouble(feature));
+						productFeatureSet.get(product_id).rank_feature.put(feature, complexJson.getDouble(feature));
 //						System.out.println(feature+":"+Double.valueOf(propJson.getString(feature)));
 					}
 				}
@@ -170,16 +170,22 @@ public class IO {
 
 		}
 		return productFeatureSet;
-		
 	}
-    public static void main(String[] args){ 
+	
+	/**
+	 * 读取商品特征
+	 * @return 商品特征哈希集
+	 */
+	public static HashMap<Integer,Product> readProductFeatureDict(){
     	FeatureConfig conf = readFeaturesCongfig();
-    	Map<Integer,Product> productFeatureSet = new HashMap<Integer,Product>();
-    	productFeatureSet = IO.readPropJson(productFeatureSet,conf);
-    	productFeatureSet = IO.readComplexJson(productFeatureSet, conf);
-    	for(Integer id:productFeatureSet.keySet()){
-    		System.out.println(id+":"+productFeatureSet.get(id).rank_feqture.toString());
-    	}
-    
+    	HashMap<Integer,Product> productFeatureDict = new HashMap<Integer,Product>();
+    	productFeatureDict = IO.readPropJson(productFeatureDict,conf);
+    	productFeatureDict = IO.readComplexJson(productFeatureDict, conf);
+    	return productFeatureDict;
+	}
+	
+    public static void main(String[] args){ 
+
+    	
     }  
 }

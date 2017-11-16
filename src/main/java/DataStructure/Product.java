@@ -11,5 +11,5 @@ import java.util.Map;
 public class Product {
 	public Map<String,Integer> valueProp = new HashMap<String,Integer>();
 	public Map<String,String> strProp = new HashMap<String,String>();
-	public Map<String,Double> rank_feqture = new HashMap<String,Double>();
+	public Map<String,Double> rank_feature = new HashMap<String,Double>();
 }

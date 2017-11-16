@@ -3,6 +3,7 @@ package Calculation;
 import java.util.HashMap;
 import java.util.Map;
 
+import DataStructure.Product;
 import DataStructure.ProductFeature;
 
 public class BM25 {
@@ -13,6 +14,11 @@ public class BM25 {
 	
 	public BM25(Map<Integer,ProductFeature> productInfoDict){
 		AvgDocLen = ValueCalculation.getAvgDocLength(productInfoDict);
+		IDF = ValueCalculation.getIDF();
+	}
+	
+	public BM25(HashMap<Integer,Product> productInfoDict){
+		AvgDocLen = ValueCalculation.getAvgDocLength2(productInfoDict);
 		IDF = ValueCalculation.getIDF();
 	}
 	

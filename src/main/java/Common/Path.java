@@ -19,8 +19,8 @@ public class Path {
     
     static public String complex_json = "data/OriginalDataSet/complex.json";
     static public String prop_json = "data/OriginalDataSet/prop.json";
-    static public String featureConfig_json = "data/featureConfig.json";
+    static public String featureConfig_json = "conf/featureConfig.json";
     static public String products_json = "data/json/products.json"; //上传solr的产品数据
-    static public String model_txt = "data/mymodel.txt"; //ranlib训练的模型
+    static public String model_txt = "model/mymodel.txt"; //ranlib训练的模型
 
 }

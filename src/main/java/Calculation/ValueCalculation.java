@@ -8,6 +8,7 @@ import java.util.Set;
 
 import Common.IO;
 import Common.Path;
+import DataStructure.Product;
 import DataStructure.ProductFeature;
 
 public class ValueCalculation {
@@ -21,6 +22,15 @@ public class ValueCalculation {
 		double sum = 0;
 		for(Integer id:productInfoDict.keySet()){
 			sum += productInfoDict.get(id).product.split(" ").length;
+		}
+		return sum/num;
+	}
+
+	static public double getAvgDocLength2(Map<Integer,Product> productInfoDict){
+		double num = productInfoDict.keySet().size();
+		double sum = 0;
+		for(Integer id:productInfoDict.keySet()){	
+			sum += productInfoDict.get(id).strProp.get("product_name").split(" ").length;
 		}
 		return sum/num;
 	}

@@ -10,7 +10,9 @@ import Calculation.ValueCalculation;
 import Calculation.standardization;
 import Common.IO;
 import Common.Path;
+import DataStructure.FeatureConfig;
 import DataStructure.KeywordProductPair;
+import DataStructure.Product;
 import DataStructure.ProductFeature;
 import DataStructure.productProp;
 import DataStructure.productComplex;
@@ -80,7 +82,7 @@ public class SampleSetFactory {
 	 * 获取关键词和对应标号（ranklib训练时需要标号）
 	 * @return keywordID,{keyword:index}
 	 */
-	public static Map<String,Integer> getKeywordID(){
+	private static Map<String,Integer> readKeywordID(){
 		Map<String,Integer> keywordID = new HashMap<String,Integer>();
 		List<String> rows = IO.readTxtFile(Path.keyword_txt_path,Path.code);
 		int i=0;
@@ -96,14 +98,14 @@ public class SampleSetFactory {
 	 * 获取相关样本集，并保存至data/SampleSet
 	 * @throws Exception
 	 */
-	public static void getSampleSet() throws Exception{
+	public static void createSampleSet() throws Exception{
 		List<KeywordProductPair> pairList = SampleSetFactory.readPairRelevancy();
 		Map<Integer,ProductFeature> productInfoDict = new HashMap<Integer,ProductFeature>();
 		System.out.println("====更新训练集，验证集，测试集====");
 		System.out.println("---读取原始数据---");
 		Map<Integer,productProp> productPropDict = SampleSetFactory.readProductProp();
 		Map<Integer,productComplex> productComplexDict = SampleSetFactory.readProductComplex();
-		Map<String,Integer> keywordID = SampleSetFactory.getKeywordID();
+		Map<String,Integer> keywordID = SampleSetFactory.readKeywordID();
 		for(KeywordProductPair pair:pairList){
 			Integer id = pair.productID;
 			System.out.println(id);
@@ -156,8 +158,63 @@ public class SampleSetFactory {
 		System.out.println("===训练集，验证集，测试集已更新===");
 	}
 	
+	/***
+	 * 获取相关样本集，并保存至data/SampleSet
+	 * @throws Exception
+	 */
+	public static void createSampleSetByJSON() throws Exception{
+		List<KeywordProductPair> pairList = SampleSetFactory.readPairRelevancy();
+		System.out.println("====更新训练集，验证集，测试集====");
+		System.out.println("---读取原始数据---");
+		HashMap<Integer,Product> productDict = IO.readProductFeatureDict();
+		Map<String,Integer> keywordID = SampleSetFactory.readKeywordID();
+
+		System.out.println("---数据预处理---");
+//		standardization.standard(productInfoDict);
+		BM25 bm25 = new BM25(productDict);
+		FeatureConfig conf = IO.readFeaturesCongfig();
+		//清空文件
+		System.out.println("---清空原文件---");
+		IO.writeTxtFile("",Path.testSetPath);
+		IO.writeTxtFile("",Path.trainSetPath);
+		IO.writeTxtFile("",Path.valiSetPath);
+		//
+		System.out.println("---更新数据集---");
+		for(KeywordProductPair pair:pairList){
+			try{
+				double value = bm25.getValue(pair.keyword,productDict.get(pair.productID).strProp.get("product_name"));
+				if(value > 0){
+					Product product = productDict.get(pair.productID);
+					product.rank_feature.put("BM25", value);
+					String row =pair.relevancy+" "+keywordID.get(pair.keyword);
+					for(int i=0;i<conf.rank_feqture.size();i++){
+						row+= " "+(i+1)+":"+product.rank_feature.get(conf.rank_feqture.get(i));
+					}
+					row+="\n";
+					double r = Math.random();
+					if(r>0.666){
+						IO.append(Path.testSetPath, row, Path.code);
+					}
+					else if(r>0.333&&r<0.666){
+						IO.append(Path.trainSetPath, row, Path.code);
+					}
+					else{
+						IO.append(Path.valiSetPath, row, Path.code);
+					}
+				}
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			}
+			
+		System.out.println("===训练集，验证集，测试集已更新===");
+	}
+	
+	
+	
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		
+		SampleSetFactory.createSampleSetByJSON();
 	}
 }
