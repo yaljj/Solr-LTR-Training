@@ -1,0 +1,32 @@
+[
+  {
+    "name" : "BM25",
+    "class" : "org.apache.solr.ltr.feature.OriginalScoreFeature",
+    "params" : {}
+  },
+  {
+  "name":  "add_time",
+  "class": "org.apache.solr.ltr.feature.FieldValueFeature",
+  "params": {"field": "add_time_weight"}
+  },
+  {
+  "name":  "price",
+  "class": "org.apache.solr.ltr.feature.FieldValueFeature",
+  "params": {"field": "price_weight"}
+  },
+  {
+  "name":  "basket",
+  "class": "org.apache.solr.ltr.feature.FieldValueFeature",
+  "params": {"field": "basket_weight"}
+  },
+  {
+  "name":  "pay_num",
+  "class": "org.apache.solr.ltr.feature.FieldValueFeature",
+  "params": {"field": "pay_num_weight"}
+  },
+  {
+  "name":  "review",
+  "class": "org.apache.solr.ltr.feature.FieldValueFeature",
+  "params": {"field": "review_weight"}
+  }
+]

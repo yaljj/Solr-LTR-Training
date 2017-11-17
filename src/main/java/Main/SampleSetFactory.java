@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Random;
 import Calculation.BM25;
 import Calculation.ValueCalculation;
-import Calculation.standardization;
+import Calculation.Normalization;
 import Common.IO;
 import Common.Path;
 import DataStructure.FeatureConfig;
@@ -28,7 +28,7 @@ public class SampleSetFactory {
 	 * 读取关键词和对应商品和关键词对商品的转换率因子，计算作为衡量搜索结果的指标
 	 * @return
 	 */
-	private static List<KeywordProductPair> readPairRelevancy(){ 
+	public static List<KeywordProductPair> readPairRelevancy(){ 
 		List<String> rows = IO.readTxtFile(Path.keyword_product_pair_txt_path, Path.code);
 		List<KeywordProductPair> pairList= new ArrayList<KeywordProductPair>();
 		for(String row:rows){
@@ -98,71 +98,71 @@ public class SampleSetFactory {
 	 * 获取相关样本集，并保存至data/SampleSet
 	 * @throws Exception
 	 */
-	public static void createSampleSet() throws Exception{
-		List<KeywordProductPair> pairList = SampleSetFactory.readPairRelevancy();
-		Map<Integer,ProductFeature> productInfoDict = new HashMap<Integer,ProductFeature>();
-		System.out.println("====更新训练集，验证集，测试集====");
-		System.out.println("---读取原始数据---");
-		Map<Integer,productProp> productPropDict = SampleSetFactory.readProductProp();
-		Map<Integer,productComplex> productComplexDict = SampleSetFactory.readProductComplex();
-		Map<String,Integer> keywordID = SampleSetFactory.readKeywordID();
-		for(KeywordProductPair pair:pairList){
-			Integer id = pair.productID;
-			System.out.println(id);
-			try{
-				productInfoDict.put(id, new ProductFeature(productComplexDict.get(id),productPropDict.get(id)));				
-			}
-			catch(Exception e){
-				e.printStackTrace();
-			}
-		}
-		System.out.println("---数据预处理---");
-		standardization.standard(productInfoDict);
-		BM25 bm25 = new BM25(productInfoDict);
-		
-		//清空文件
-		System.out.println("---清空原文件---");
-		IO.writeTxtFile("",Path.testSetPath);
-		IO.writeTxtFile("",Path.trainSetPath);
-		IO.writeTxtFile("",Path.valiSetPath);
-		//
-		System.out.println("---更新数据集---");
-		for(KeywordProductPair pair:pairList){
-//			System.out.println(pair.productID);
-//			productInfoDict.get(pair.productID).print();
-			try{
-				double value = bm25.getValue(pair.keyword,productInfoDict.get(pair.productID).product);
-				if(value > 0){
-					ProductFeature features = productInfoDict.get(pair.productID);
-					String row =pair.relevancy+" "+keywordID.get(pair.keyword)+" 1:"+value+" 2:"+features.price
-							+" 3:"+features.basket+ " 4:"+features.pay_num+" 5:"+features.review+" 6:"+features.add_time+"\n";
-//					System.out.println(pair.relevancy+" "+keywordID.get(pair.keyword)+" 1:"+value+" 2:"+features.price
-//							+" 3:"+features.basket+ " 4:"+features.pay_num+" 5:"+features.review+" 6:"+features.add_time);
-					double r = Math.random();
-					if(r>0.666){
-						IO.append(Path.testSetPath, row, Path.code);
-					}
-					else if(r>0.333&&r<0.666){
-						IO.append(Path.trainSetPath, row, Path.code);
-					}
-					else{
-						IO.append(Path.valiSetPath, row, Path.code);
-					}
-				}
-			}
-			catch(Exception e){
-				e.printStackTrace();
-			}
-			}
-			
-		System.out.println("===训练集，验证集，测试集已更新===");
-	}
+//	public static void createSampleSet() throws Exception{
+//		List<KeywordProductPair> pairList = SampleSetFactory.readPairRelevancy();
+//		Map<Integer,ProductFeature> productInfoDict = new HashMap<Integer,ProductFeature>();
+//		System.out.println("====更新训练集，验证集，测试集====");
+//		System.out.println("---读取原始数据---");
+//		Map<Integer,productProp> productPropDict = SampleSetFactory.readProductProp();
+//		Map<Integer,productComplex> productComplexDict = SampleSetFactory.readProductComplex();
+//		Map<String,Integer> keywordID = SampleSetFactory.readKeywordID();
+//		for(KeywordProductPair pair:pairList){
+//			Integer id = pair.productID;
+//			System.out.println(id);
+//			try{
+//				productInfoDict.put(id, new ProductFeature(productComplexDict.get(id),productPropDict.get(id)));				
+//			}
+//			catch(Exception e){
+//				e.printStackTrace();
+//			}
+//		}
+//		System.out.println("---数据预处理---");
+//		standardization.standard(productInfoDict);
+//		BM25 bm25 = new BM25(productInfoDict);
+//		
+//		//清空文件
+//		System.out.println("---清空原文件---");
+//		IO.writeTxtFile("",Path.testSetPath);
+//		IO.writeTxtFile("",Path.trainSetPath);
+//		IO.writeTxtFile("",Path.valiSetPath);
+//		//
+//		System.out.println("---更新数据集---");
+//		for(KeywordProductPair pair:pairList){
+////			System.out.println(pair.productID);
+////			productInfoDict.get(pair.productID).print();
+//			try{
+//				double value = bm25.getValue(pair.keyword,productInfoDict.get(pair.productID).product);
+//				if(value > 0){
+//					ProductFeature features = productInfoDict.get(pair.productID);
+//					String row =pair.relevancy+" "+keywordID.get(pair.keyword)+" 1:"+value+" 2:"+features.price
+//							+" 3:"+features.basket+ " 4:"+features.pay_num+" 5:"+features.review+" 6:"+features.add_time+"\n";
+////					System.out.println(pair.relevancy+" "+keywordID.get(pair.keyword)+" 1:"+value+" 2:"+features.price
+////							+" 3:"+features.basket+ " 4:"+features.pay_num+" 5:"+features.review+" 6:"+features.add_time);
+//					double r = Math.random();
+//					if(r>0.666){
+//						IO.append(Path.testSetPath, row, Path.code);
+//					}
+//					else if(r>0.333&&r<0.666){
+//						IO.append(Path.trainSetPath, row, Path.code);
+//					}
+//					else{
+//						IO.append(Path.valiSetPath, row, Path.code);
+//					}
+//				}
+//			}
+//			catch(Exception e){
+//				e.printStackTrace();
+//			}
+//			}
+//			
+//		System.out.println("===训练集，验证集，测试集已更新===");
+//	}
 	
 	/***
 	 * 获取相关样本集，并保存至data/SampleSet
 	 * @throws Exception
 	 */
-	public static void createSampleSetByJSON() throws Exception{
+	public static void createSampleSet() throws Exception{
 		List<KeywordProductPair> pairList = SampleSetFactory.readPairRelevancy();
 		System.out.println("====更新训练集，验证集，测试集====");
 		System.out.println("---读取原始数据---");
@@ -187,8 +187,8 @@ public class SampleSetFactory {
 					Product product = productDict.get(pair.productID);
 					product.rank_feature.put("BM25", value);
 					String row =pair.relevancy+" "+keywordID.get(pair.keyword);
-					for(int i=0;i<conf.rank_feqture.size();i++){
-						row+= " "+(i+1)+":"+product.rank_feature.get(conf.rank_feqture.get(i));
+					for(int i=0;i<conf.rank_feature.size();i++){
+						row+= " "+(i+1)+":"+product.rank_feature.get(conf.rank_feature.get(i));
 					}
 					row+="\n";
 					double r = Math.random();
@@ -207,14 +207,14 @@ public class SampleSetFactory {
 				e.printStackTrace();
 			}
 			}
-			
 		System.out.println("===训练集，验证集，测试集已更新===");
+		
 	}
 	
-	
+
 	
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		SampleSetFactory.createSampleSetByJSON();
+		SampleSetFactory.createSampleSet();
 	}
 }
