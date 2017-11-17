@@ -83,7 +83,10 @@ public class Normalization {
 		
 	}
 	
-	public void getlinerNormParms(){
+	/**
+	 * 计算各特征的最少值和最大值，用于修改solr-ltr的feature配置文件
+	 */
+	public static void getlinerNormParms(){
 		List<KeywordProductPair> pairList = SampleSetFactory.readPairRelevancy();
 		HashMap<Integer,Product> productDict = IO.readProductFeatureDict();
 		FeatureConfig conf = IO.readFeaturesCongfig();
@@ -91,24 +94,51 @@ public class Normalization {
 		Map<String,Double> minDict = new HashMap<String,Double>();
 		BM25 bm25 = new BM25(productDict);
 		for(String feature:conf.rank_feature){
-			maxDict.put(feature, Double.MAX_VALUE);
-			minDict.put(feature, Double.MIN_VALUE);
+			maxDict.put(feature, Double.MIN_VALUE);
+			minDict.put(feature, Double.MAX_VALUE);
 		}
 		for(KeywordProductPair pair:pairList){
 			try{
 				double value = bm25.getValue(pair.keyword,productDict.get(pair.productID).strProp.get("product_name"));
-				if(value>maxDict.get("BM25"));
+				System.out.println(value);
+				if(value>maxDict.get("BM25")){
+					maxDict.put("BM25", value);
+				}
+				if(value<minDict.get("BM25")){
+					minDict.put("BM25", value);
+				}
 			}
 			catch(Exception e){
 				;
 			}
 		}
+		conf.rank_feature.remove(0);
+		
+	   for(Integer id:productDict.keySet()){
+		   for(String feature:conf.rank_feature){
+			   try{
 
+				   if(productDict.get(id).rank_feature.get(feature)>maxDict.get(feature)){
+					   maxDict.put(feature, productDict.get(id).rank_feature.get(feature));
+				   }
+				   if(productDict.get(id).rank_feature.get(feature)<minDict.get(feature)){
+					   minDict.put(feature, productDict.get(id).rank_feature.get(feature));
+				   }
+			   }
+			   catch(Exception e){
+				   ;
+			   }
+		   }	
+	   }
+	   for(String feature:maxDict.keySet()){
+		   System.out.println(feature+" "+"max:"+maxDict.get(feature)+" min:"+minDict.get(feature));
+	   }
+	   
 	}
 	 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println();
+		getlinerNormParms();
 	}
 
 }

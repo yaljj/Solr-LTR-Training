@@ -58,7 +58,7 @@ public class ProductJsonSetFactory {
 	 }
 	
 	/**
-	 * 读取.json产品原始数据，并转换为jsonArray类 
+	 * 将productDict转换为jsonArray类 
 	 * @return
 	 */
 	private static JSONArray products2Json(HashMap<Integer,Product> productDict){
@@ -82,11 +82,12 @@ public class ProductJsonSetFactory {
 	 }
 	
 	/*
-	 * 将porducts相关特征，以json的形式，保存到本地
+	 * 将porducts相关特征，以json的形式，并保存到data目录下的json文件夹
 	 */
 	static public void createProductsJson(){
 			
 		JSONArray productsJson = products2Json(IO.readProductFeatureDict());
+
 		try{
 			IO.writeTxtFile(productsJson.toString(), Path.products_json);	
 		}
