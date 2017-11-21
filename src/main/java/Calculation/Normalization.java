@@ -20,7 +20,7 @@ import Main.SampleSetFactory;
 public class Normalization {
 	
 	public static void getLinerStandardParms(){
-//		
+
 		
 	}
 	public static void linerNorm(Map<Integer,ProductFeature> productInfoDict){	
@@ -72,7 +72,6 @@ public class Normalization {
 				min_add_time=productInfoDict.get(id).add_time;
 			}
 		}
-		
 		for(Integer id:productInfoDict.keySet()){
 			productInfoDict.get(id).basket = (productInfoDict.get(id).basket-min_basket)/(max_basket-min_basket);
 			productInfoDict.get(id).price = (productInfoDict.get(id).price - min_price)/(max_price-min_price);
@@ -83,15 +82,31 @@ public class Normalization {
 		
 	}
 	
+	
+	/**
+	 * 获取归log+最大最小归一化结果
+	 * @param value 特征值
+	 * @param max 特征最大值
+	 * @param min 特征最小值
+	 * @return
+	 */
+	public static double getLogLinerNormResult(double value,double max,double min){
+		return (Math.log(value+1)-min)/(max-min);
+	}
+	
+	public static double getLinerNormResult(double value,double max,double min){
+		return (value-min)/(max-min);
+	}
+	
 	/**
 	 * 计算各特征的最少值和最大值，用于修改solr-ltr的feature配置文件
 	 */
-	public static void getlinerNormParms(){
+	public static void getlinerNormParms(Map<String,Double> maxDict,Map<String,Double> minDict){
 		List<KeywordProductPair> pairList = SampleSetFactory.readPairRelevancy();
 		HashMap<Integer,Product> productDict = IO.readProductFeatureDict();
 		FeatureConfig conf = IO.readFeaturesCongfig();
-		Map<String,Double> maxDict = new HashMap<String,Double>();
-		Map<String,Double> minDict = new HashMap<String,Double>();
+//		Map<String,Double> maxDict = new HashMap<String,Double>();
+//		Map<String,Double> minDict = new HashMap<String,Double>();
 		BM25 bm25 = new BM25(productDict);
 		for(String feature:conf.rank_feature){
 			maxDict.put(feature, Double.MIN_VALUE);
@@ -131,14 +146,21 @@ public class Normalization {
 		   }	
 	   }
 	   for(String feature:maxDict.keySet()){
+		   if(feature.equals("BM25")){
+			   System.out.println(feature+" "+"max:"+maxDict.get(feature)+" min:"+minDict.get(feature));
+			   continue;
+		   }
+		   maxDict.put(feature,Math.log(maxDict.get(feature)+1));
+		   minDict.put(feature,Math.log(minDict.get(feature)+1));
 		   System.out.println(feature+" "+"max:"+maxDict.get(feature)+" min:"+minDict.get(feature));
 	   }
-	   
 	}
 	 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		getlinerNormParms();
+		Map<String,Double> maxDict = new HashMap<String,Double>();
+		Map<String,Double> minDict = new HashMap<String,Double>();
+		Normalization.getlinerNormParms(maxDict,minDict);
 	}
 
 }

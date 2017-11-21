@@ -20,8 +20,6 @@ public class OriginalDataFactory{
     
 	public static void main(String[] args) {
 
-		OriginalDataFactory.updateOriginalData();
-	    
+		OriginalDataFactory.updateOriginalData();	    
 	}
-
 }

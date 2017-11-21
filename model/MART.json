@@ -2,7 +2,12 @@
    "class" : "org.apache.solr.ltr.model.MultipleAdditiveTreesModel",
    "name" : "LambdaMART",
    "features":[
-    { "name" : "BM25"},
+    { "name" : "BM25"
+				"norm" : {
+			"class" : "org.apache.solr.ltr.norm.MinMaxNormalizer",
+			"params" : { "min":"0.0", "max":"92.47450525426174" }
+		}
+	},
     { "name" : "price"},
     { "name" : "basket"},
     { "name" : "pay_num"},
@@ -15,1446 +20,66 @@
 				"weight" : "0.1",
 				"root": {
 					"feature" : "pay_num",
-					"threshold" : "0.12890625",
+					"threshold" : "0.34135595",
 					"left" : {
 						"feature" : "price",
-						"threshold" : "0.012702095",
+						"threshold" : "0.1963398",
 						"left" : {
-							"value" : "0.5925678014755249"
+							"value" : "0.3290064334869385"
 						},
 						"right" : {
-							"feature" : "pay_num",
-							"threshold" : "0.015625",
-							"left" : {
-								"value" : "-1.1954975128173828"
-							},
-							"right" : {
-								"feature" : "BM25",
-								"threshold" : "0.97747433",
-								"left" : {
-									"value" : "-0.5415930151939392"
-								},
-								"right" : {
-									"value" : "0.05160680413246155"
-								}
-							}
+							"value" : "-0.8738656044006348"
 						}
 					},
 					"right" : {
-						"feature" : "price",
-						"threshold" : "0.16099185",
+						"feature" : "basket",
+						"threshold" : "0.3515625",
 						"left" : {
-							"feature" : "pay_num",
-							"threshold" : "0.89453125",
-							"left" : {
-								"feature" : "review",
-								"threshold" : "0.40625",
-								"left" : {
-									"value" : "0.42670369148254395"
-								},
-								"right" : {
-									"value" : "1.0084000825881958"
-								}
-							},
-							"right" : {
-								"value" : "1.2554327249526978"
-							}
+							"value" : "1.5220487117767334"
 						},
 						"right" : {
-							"feature" : "pay_num",
-							"threshold" : "0.57421875",
+							"feature" : "price",
+							"threshold" : "0.4891115",
 							"left" : {
-								"value" : "-0.14297839999198914"
-							},
-							"right" : {
 								"feature" : "price",
-								"threshold" : "0.91415",
+								"threshold" : "0.48535803",
 								"left" : {
-									"value" : "0.7603885531425476"
-								},
-								"right" : {
-									"value" : "0.22988790273666382"
-								}
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "pay_num",
-					"threshold" : "0.55078125",
-					"left" : {
-						"feature" : "pay_num",
-						"threshold" : "0.12890625",
-						"left" : {
-							"value" : "-0.8349651098251343"
-						},
-						"right" : {
-							"value" : "-0.004992824979126453"
-						}
-					},
-					"right" : {
-						"feature" : "price",
-						"threshold" : "0.28976992",
-						"left" : {
-							"feature" : "add_time",
-							"threshold" : "0.99998987",
-							"left" : {
-								"feature" : "BM25",
-								"threshold" : "0.34034666",
-								"left" : {
-									"value" : "1.7113263607025146"
-								},
-								"right" : {
-									"feature" : "add_time",
-									"threshold" : "0.9999726",
+									"feature" : "review",
+									"threshold" : "0.66319865",
 									"left" : {
-										"feature" : "review",
-										"threshold" : "0.06640625",
-										"left" : {
-											"value" : "-0.6689702272415161"
-										},
-										"right" : {
-											"feature" : "price",
-											"threshold" : "0.17660129",
-											"left" : {
-												"value" : "1.1038661003112793"
-											},
-											"right" : {
-												"value" : "0.6565774083137512"
-											}
-										}
-									},
-									"right" : {
-										"value" : "1.512970209121704"
-									}
-								}
-							},
-							"right" : {
-								"value" : "0.7407951354980469"
-							}
-						},
-						"right" : {
-							"feature" : "price",
-							"threshold" : "0.9180524",
-							"left" : {
-								"value" : "0.6450816988945007"
-							},
-							"right" : {
-								"value" : "0.23336441814899445"
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "pay_num",
-					"threshold" : "0.55078125",
-					"left" : {
-						"feature" : "pay_num",
-						"threshold" : "0.015625",
-						"left" : {
-							"value" : "-1.1619879007339478"
-						},
-						"right" : {
-							"feature" : "price",
-							"threshold" : "0.14928477",
-							"left" : {
-								"value" : "0.2502301037311554"
-							},
-							"right" : {
-								"value" : "-0.44956788420677185"
-							}
-						}
-					},
-					"right" : {
-						"feature" : "price",
-						"threshold" : "0.28976992",
-						"left" : {
-							"feature" : "add_time",
-							"threshold" : "0.99998987",
-							"left" : {
-								"feature" : "add_time",
-								"threshold" : "0.9999726",
-								"left" : {
-									"feature" : "BM25",
-									"threshold" : "0.34034666",
-									"left" : {
-										"value" : "1.517689824104309"
-									},
-									"right" : {
 										"feature" : "price",
-										"threshold" : "0.17660129",
+										"threshold" : "0.17006542",
 										"left" : {
+											"value" : "0.8538822531700134"
+										},
+										"right" : {
 											"feature" : "add_time",
-											"threshold" : "0.99943674",
+											"threshold" : "0.7983399",
 											"left" : {
-												"value" : "1.2112089395523071"
-											},
-											"right" : {
-												"value" : "0.7673911452293396"
-											}
-										},
-										"right" : {
-											"value" : "0.5968728065490723"
-										}
-									}
-								},
-								"right" : {
-									"value" : "1.345719575881958"
-								}
-							},
-							"right" : {
-								"value" : "0.5496514439582825"
-							}
-						},
-						"right" : {
-							"value" : "0.3884548246860504"
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "pay_num",
-					"threshold" : "0.171875",
-					"left" : {
-						"feature" : "price",
-						"threshold" : "0.012702095",
-						"left" : {
-							"value" : "0.7250099778175354"
-						},
-						"right" : {
-							"value" : "-0.6532062292098999"
-						}
-					},
-					"right" : {
-						"feature" : "price",
-						"threshold" : "0.28196517",
-						"left" : {
-							"feature" : "pay_num",
-							"threshold" : "0.73828125",
-							"left" : {
-								"value" : "0.4147894084453583"
-							},
-							"right" : {
-								"feature" : "pay_num",
-								"threshold" : "0.74609375",
-								"left" : {
-									"value" : "1.5340924263000488"
-								},
-								"right" : {
-									"feature" : "add_time",
-									"threshold" : "0.99998987",
-									"left" : {
-										"feature" : "add_time",
-										"threshold" : "0.9999726",
-										"left" : {
-											"feature" : "price",
-											"threshold" : "0.27025804",
-											"left" : {
-												"value" : "0.7355015277862549"
-											},
-											"right" : {
-												"value" : "1.6273562908172607"
-											}
-										},
-										"right" : {
-											"value" : "1.29804265499115"
-										}
-									},
-									"right" : {
-										"value" : "0.47629472613334656"
-									}
-								}
-							}
-						},
-						"right" : {
-							"feature" : "pay_num",
-							"threshold" : "0.5703125",
-							"left" : {
-								"value" : "-0.30145448446273804"
-							},
-							"right" : {
-								"value" : "0.3458932042121887"
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "pay_num",
-					"threshold" : "0.15234375",
-					"left" : {
-						"feature" : "pay_num",
-						"threshold" : "0.015625",
-						"left" : {
-							"value" : "-0.9805256128311157"
-						},
-						"right" : {
-							"value" : "-0.2963673770427704"
-						}
-					},
-					"right" : {
-						"feature" : "price",
-						"threshold" : "0.17660129",
-						"left" : {
-							"feature" : "pay_num",
-							"threshold" : "0.73828125",
-							"left" : {
-								"value" : "0.4432962238788605"
-							},
-							"right" : {
-								"feature" : "pay_num",
-								"threshold" : "0.74609375",
-								"left" : {
-									"value" : "1.399062991142273"
-								},
-								"right" : {
-									"feature" : "add_time",
-									"threshold" : "0.99998987",
-									"left" : {
-										"feature" : "add_time",
-										"threshold" : "0.9999726",
-										"left" : {
-											"value" : "0.7499381899833679"
-										},
-										"right" : {
-											"value" : "1.3696448802947998"
-										}
-									},
-									"right" : {
-										"value" : "0.3919832408428192"
-									}
-								}
-							}
-						},
-						"right" : {
-							"feature" : "pay_num",
-							"threshold" : "0.5859375",
-							"left" : {
-								"value" : "-0.17270098626613617"
-							},
-							"right" : {
-								"feature" : "price",
-								"threshold" : "0.4536697",
-								"left" : {
-									"value" : "0.4781465530395508"
-								},
-								"right" : {
-									"value" : "0.22973324358463287"
-								}
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "pay_num",
-					"threshold" : "0.1328125",
-					"left" : {
-						"feature" : "price",
-						"threshold" : "0.012702095",
-						"left" : {
-							"value" : "0.7329630851745605"
-						},
-						"right" : {
-							"feature" : "pay_num",
-							"threshold" : "0.0",
-							"left" : {
-								"value" : "-1.3979302644729614"
-							},
-							"right" : {
-								"value" : "-0.4100622832775116"
-							}
-						}
-					},
-					"right" : {
-						"feature" : "price",
-						"threshold" : "0.17660129",
-						"left" : {
-							"feature" : "pay_num",
-							"threshold" : "0.73828125",
-							"left" : {
-								"value" : "0.4010355770587921"
-							},
-							"right" : {
-								"feature" : "pay_num",
-								"threshold" : "0.74609375",
-								"left" : {
-									"value" : "1.3128148317337036"
-								},
-								"right" : {
-									"feature" : "add_time",
-									"threshold" : "0.99998987",
-									"left" : {
-										"value" : "0.7213917970657349"
-									},
-									"right" : {
-										"value" : "0.3431238830089569"
-									}
-								}
-							}
-						},
-						"right" : {
-							"feature" : "pay_num",
-							"threshold" : "0.5859375",
-							"left" : {
-								"value" : "-0.1393301635980606"
-							},
-							"right" : {
-								"feature" : "price",
-								"threshold" : "0.4536697",
-								"left" : {
-									"value" : "0.39285707473754883"
-								},
-								"right" : {
-									"value" : "0.18230944871902466"
-								}
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "pay_num",
-					"threshold" : "0.1328125",
-					"left" : {
-						"feature" : "pay_num",
-						"threshold" : "0.0",
-						"left" : {
-							"value" : "-1.3284389972686768"
-						},
-						"right" : {
-							"feature" : "price",
-							"threshold" : "0.012702095",
-							"left" : {
-								"value" : "0.8346295952796936"
-							},
-							"right" : {
-								"feature" : "basket",
-								"threshold" : "0.11328125",
-								"left" : {
-									"value" : "-0.2634396553039551"
-								},
-								"right" : {
-									"value" : "-0.9336110949516296"
-								}
-							}
-						}
-					},
-					"right" : {
-						"feature" : "price",
-						"threshold" : "0.17660129",
-						"left" : {
-							"feature" : "pay_num",
-							"threshold" : "0.71875",
-							"left" : {
-								"value" : "0.3671073019504547"
-							},
-							"right" : {
-								"feature" : "add_time",
-								"threshold" : "0.999696",
-								"left" : {
-									"value" : "0.849092960357666"
-								},
-								"right" : {
-									"value" : "0.46228501200675964"
-								}
-							}
-						},
-						"right" : {
-							"feature" : "review",
-							"threshold" : "0.8671875",
-							"left" : {
-								"value" : "-0.05978928506374359"
-							},
-							"right" : {
-								"feature" : "price",
-								"threshold" : "0.3092818",
-								"left" : {
-									"value" : "0.475893497467041"
-								},
-								"right" : {
-									"value" : "0.26330021023750305"
-								}
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "pay_num",
-					"threshold" : "0.12890625",
-					"left" : {
-						"feature" : "price",
-						"threshold" : "0.012702095",
-						"left" : {
-							"value" : "0.6640042066574097"
-						},
-						"right" : {
-							"feature" : "pay_num",
-							"threshold" : "0.015625",
-							"left" : {
-								"value" : "-0.7948514223098755"
-							},
-							"right" : {
-								"value" : "-0.23463177680969238"
-							}
-						}
-					},
-					"right" : {
-						"feature" : "price",
-						"threshold" : "0.17660129",
-						"left" : {
-							"feature" : "pay_num",
-							"threshold" : "0.71875",
-							"left" : {
-								"value" : "0.36647626757621765"
-							},
-							"right" : {
-								"feature" : "add_time",
-								"threshold" : "0.999696",
-								"left" : {
-									"value" : "0.7718338370323181"
-								},
-								"right" : {
-									"value" : "0.3994066119194031"
-								}
-							}
-						},
-						"right" : {
-							"feature" : "add_time",
-							"threshold" : "0.9995923",
-							"left" : {
-								"value" : "-0.20713649690151215"
-							},
-							"right" : {
-								"feature" : "price",
-								"threshold" : "0.7736645",
-								"left" : {
-									"feature" : "price",
-									"threshold" : "0.69561696",
-									"left" : {
-										"value" : "0.1913224756717682"
-									},
-									"right" : {
-										"value" : "0.8607021570205688"
-									}
-								},
-								"right" : {
-									"value" : "0.005557514727115631"
-								}
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "pay_num",
-					"threshold" : "0.171875",
-					"left" : {
-						"feature" : "price",
-						"threshold" : "0.012702095",
-						"left" : {
-							"value" : "0.7580749988555908"
-						},
-						"right" : {
-							"feature" : "pay_num",
-							"threshold" : "0.0",
-							"left" : {
-								"value" : "-1.2234967947006226"
-							},
-							"right" : {
-								"value" : "-0.24890448153018951"
-							}
-						}
-					},
-					"right" : {
-						"feature" : "price",
-						"threshold" : "0.28196517",
-						"left" : {
-							"feature" : "pay_num",
-							"threshold" : "0.73828125",
-							"left" : {
-								"value" : "0.2898510694503784"
-							},
-							"right" : {
-								"feature" : "pay_num",
-								"threshold" : "0.74609375",
-								"left" : {
-									"value" : "1.175873041152954"
-								},
-								"right" : {
-									"feature" : "price",
-									"threshold" : "0.27025804",
-									"left" : {
-										"feature" : "basket",
-										"threshold" : "0.90234375",
-										"left" : {
-											"value" : "0.5849133133888245"
-										},
-										"right" : {
-											"value" : "0.2687254250049591"
-										}
-									},
-									"right" : {
-										"value" : "1.380746841430664"
-									}
-								}
-							}
-						},
-						"right" : {
-							"feature" : "review",
-							"threshold" : "0.9375",
-							"left" : {
-								"value" : "-0.15218845009803772"
-							},
-							"right" : {
-								"value" : "0.2149401605129242"
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "price",
-					"threshold" : "0.17660129",
-					"left" : {
-						"feature" : "review",
-						"threshold" : "0.1875",
-						"left" : {
-							"value" : "0.0739806592464447"
-						},
-						"right" : {
-							"feature" : "price",
-							"threshold" : "0.17269893",
-							"left" : {
-								"feature" : "pay_num",
-								"threshold" : "0.0703125",
-								"left" : {
-									"value" : "-1.0499073266983032"
-								},
-								"right" : {
-									"feature" : "basket",
-									"threshold" : "0.12890625",
-									"left" : {
-										"value" : "1.1719478368759155"
-									},
-									"right" : {
-										"feature" : "add_time",
-										"threshold" : "0.99998987",
-										"left" : {
-											"value" : "0.43542635440826416"
-										},
-										"right" : {
-											"value" : "0.041964754462242126"
-										}
-									}
-								}
-							},
-							"right" : {
-								"value" : "0.9839392304420471"
-							}
-						}
-					},
-					"right" : {
-						"feature" : "pay_num",
-						"threshold" : "0.1796875",
-						"left" : {
-							"value" : "-0.4728602170944214"
-						},
-						"right" : {
-							"feature" : "add_time",
-							"threshold" : "0.9995923",
-							"left" : {
-								"value" : "-0.190951868891716"
-							},
-							"right" : {
-								"feature" : "price",
-								"threshold" : "0.28196517",
-								"left" : {
-									"value" : "0.3508179485797882"
-								},
-								"right" : {
-									"value" : "0.09595438838005066"
-								}
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "price",
-					"threshold" : "0.17660129",
-					"left" : {
-						"feature" : "review",
-						"threshold" : "0.1875",
-						"left" : {
-							"value" : "0.07244404405355453"
-						},
-						"right" : {
-							"feature" : "price",
-							"threshold" : "0.17269893",
-							"left" : {
-								"feature" : "pay_num",
-								"threshold" : "0.0703125",
-								"left" : {
-									"value" : "-0.9660077095031738"
-								},
-								"right" : {
-									"feature" : "basket",
-									"threshold" : "0.12890625",
-									"left" : {
-										"value" : "1.045446515083313"
-									},
-									"right" : {
-										"value" : "0.31271228194236755"
-									}
-								}
-							},
-							"right" : {
-								"value" : "0.9342542886734009"
-							}
-						}
-					},
-					"right" : {
-						"feature" : "pay_num",
-						"threshold" : "0.1796875",
-						"left" : {
-							"value" : "-0.42774444818496704"
-						},
-						"right" : {
-							"feature" : "BM25",
-							"threshold" : "0.64925706",
-							"left" : {
-								"value" : "-0.3025747835636139"
-							},
-							"right" : {
-								"feature" : "BM25",
-								"threshold" : "0.72326684",
-								"left" : {
-									"value" : "0.48854586482048035"
-								},
-								"right" : {
-									"feature" : "BM25",
-									"threshold" : "0.82301915",
-									"left" : {
-										"value" : "-0.29108282923698425"
-									},
-									"right" : {
-										"value" : "0.13694478571414948"
-									}
-								}
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "price",
-					"threshold" : "0.03221391",
-					"left" : {
-						"value" : "0.47572189569473267"
-					},
-					"right" : {
-						"feature" : "pay_num",
-						"threshold" : "0.1796875",
-						"left" : {
-							"feature" : "pay_num",
-							"threshold" : "0.00390625",
-							"left" : {
-								"value" : "-0.973243236541748"
-							},
-							"right" : {
-								"feature" : "basket",
-								"threshold" : "0.11328125",
-								"left" : {
-									"value" : "-0.06777840852737427"
-								},
-								"right" : {
-									"value" : "-0.5355854034423828"
-								}
-							}
-						},
-						"right" : {
-							"feature" : "price",
-							"threshold" : "0.28196517",
-							"left" : {
-								"feature" : "price",
-								"threshold" : "0.07123755",
-								"left" : {
-									"value" : "-0.08194443583488464"
-								},
-								"right" : {
-									"feature" : "basket",
-									"threshold" : "0.109375",
-									"left" : {
-										"value" : "0.9393879175186157"
-									},
-									"right" : {
-										"feature" : "pay_num",
-										"threshold" : "0.77734375",
-										"left" : {
-											"value" : "0.14158371090888977"
-										},
-										"right" : {
-											"value" : "0.431785523891449"
-										}
-									}
-								}
-							},
-							"right" : {
-								"feature" : "BM25",
-								"threshold" : "0.7747519",
-								"left" : {
-									"value" : "-0.2669471800327301"
-								},
-								"right" : {
-									"value" : "0.06432917714118958"
-								}
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "price",
-					"threshold" : "0.03221391",
-					"left" : {
-						"value" : "0.431149959564209"
-					},
-					"right" : {
-						"feature" : "pay_num",
-						"threshold" : "0.015625",
-						"left" : {
-							"value" : "-0.6446093320846558"
-						},
-						"right" : {
-							"feature" : "price",
-							"threshold" : "0.18440601",
-							"left" : {
-								"feature" : "price",
-								"threshold" : "0.07123755",
-								"left" : {
-									"value" : "-0.07897539436817169"
-								},
-								"right" : {
-									"feature" : "pay_num",
-									"threshold" : "0.77734375",
-									"left" : {
-										"value" : "0.21825741231441498"
-									},
-									"right" : {
-										"value" : "0.46519365906715393"
-									}
-								}
-							},
-							"right" : {
-								"feature" : "BM25",
-								"threshold" : "0.98390996",
-								"left" : {
-									"feature" : "add_time",
-									"threshold" : "0.9997133",
-									"left" : {
-										"value" : "-0.35457736253738403"
-									},
-									"right" : {
-										"feature" : "BM25",
-										"threshold" : "0.27920815",
-										"left" : {
-											"value" : "0.7007043957710266"
-										},
-										"right" : {
-											"feature" : "review",
-											"threshold" : "0.9296875",
-											"left" : {
-												"value" : "-0.11813477426767349"
-											},
-											"right" : {
-												"value" : "0.1747625321149826"
-											}
-										}
-									}
-								},
-								"right" : {
-									"value" : "0.18485334515571594"
-								}
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "price",
-					"threshold" : "0.03221391",
-					"left" : {
-						"value" : "0.42896518111228943"
-					},
-					"right" : {
-						"feature" : "basket",
-						"threshold" : "0.0078125",
-						"left" : {
-							"value" : "-0.7788138389587402"
-						},
-						"right" : {
-							"feature" : "price",
-							"threshold" : "0.18440601",
-							"left" : {
-								"feature" : "add_time",
-								"threshold" : "0.99988616",
-								"left" : {
-									"value" : "0.3233792781829834"
-								},
-								"right" : {
-									"value" : "-0.024108145385980606"
-								}
-							},
-							"right" : {
-								"feature" : "add_time",
-								"threshold" : "0.9995923",
-								"left" : {
-									"value" : "-0.23981940746307373"
-								},
-								"right" : {
-									"feature" : "BM25",
-									"threshold" : "0.27920815",
-									"left" : {
-										"value" : "0.6116839051246643"
-									},
-									"right" : {
-										"feature" : "add_time",
-										"threshold" : "0.9996269",
-										"left" : {
-											"value" : "0.5379639863967896"
-										},
-										"right" : {
-											"feature" : "price",
-											"threshold" : "0.20001546",
-											"left" : {
-												"value" : "-0.6517074108123779"
-											},
-											"right" : {
-												"feature" : "price",
-												"threshold" : "0.20391782",
-												"left" : {
-													"value" : "1.4461581707000732"
-												},
-												"right" : {
-													"value" : "-0.01244280394166708"
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "price",
-					"threshold" : "0.03221391",
-					"left" : {
-						"value" : "0.40121909976005554"
-					},
-					"right" : {
-						"feature" : "pay_num",
-						"threshold" : "0.1796875",
-						"left" : {
-							"feature" : "pay_num",
-							"threshold" : "0.0",
-							"left" : {
-								"value" : "-1.1503065824508667"
-							},
-							"right" : {
-								"feature" : "basket",
-								"threshold" : "0.11328125",
-								"left" : {
-									"value" : "-0.04578448832035065"
-								},
-								"right" : {
-									"value" : "-0.46559882164001465"
-								}
-							}
-						},
-						"right" : {
-							"feature" : "price",
-							"threshold" : "0.28196517",
-							"left" : {
-								"feature" : "basket",
-								"threshold" : "0.109375",
-								"left" : {
-									"value" : "0.7122671604156494"
-								},
-								"right" : {
-									"feature" : "price",
-									"threshold" : "0.27025804",
-									"left" : {
-										"feature" : "add_time",
-										"threshold" : "0.99929845",
-										"left" : {
-											"value" : "0.43660399317741394"
-										},
-										"right" : {
-											"feature" : "price",
-											"threshold" : "0.07123755",
-											"left" : {
-												"value" : "-0.32606303691864014"
-											},
-											"right" : {
-												"value" : "0.1544199287891388"
-											}
-										}
-									},
-									"right" : {
-										"value" : "1.011784315109253"
-									}
-								}
-							},
-							"right" : {
-								"value" : "-0.038727812469005585"
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "price",
-					"threshold" : "0.03221391",
-					"left" : {
-						"value" : "0.38472068309783936"
-					},
-					"right" : {
-						"feature" : "basket",
-						"threshold" : "0.0078125",
-						"left" : {
-							"value" : "-0.696606457233429"
-						},
-						"right" : {
-							"feature" : "price",
-							"threshold" : "0.18440601",
-							"left" : {
-								"feature" : "add_time",
-								"threshold" : "0.99988616",
-								"left" : {
-									"value" : "0.2918822765350342"
-								},
-								"right" : {
-									"value" : "-0.04615534842014313"
-								}
-							},
-							"right" : {
-								"feature" : "BM25",
-								"threshold" : "0.98390996",
-								"left" : {
-									"feature" : "add_time",
-									"threshold" : "0.99954045",
-									"left" : {
-										"value" : "-0.35250574350357056"
-									},
-									"right" : {
-										"feature" : "basket",
-										"threshold" : "0.015625",
-										"left" : {
-											"value" : "0.6489424109458923"
-										},
-										"right" : {
-											"feature" : "BM25",
-											"threshold" : "0.22772308",
-											"left" : {
-												"value" : "-2.47153377532959"
-											},
-											"right" : {
-												"feature" : "BM25",
-												"threshold" : "0.23415871",
-												"left" : {
-													"value" : "2.1520516872406006"
-												},
-												"right" : {
-													"value" : "-0.05309281870722771"
-												}
-											}
-										}
-									}
-								},
-								"right" : {
-									"value" : "0.1134001687169075"
-								}
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "price",
-					"threshold" : "0.03221391",
-					"left" : {
-						"value" : "0.37124326825141907"
-					},
-					"right" : {
-						"feature" : "pay_num",
-						"threshold" : "0.015625",
-						"left" : {
-							"value" : "-0.5028207898139954"
-						},
-						"right" : {
-							"feature" : "price",
-							"threshold" : "0.18440601",
-							"left" : {
-								"feature" : "add_time",
-								"threshold" : "0.99988616",
-								"left" : {
-									"feature" : "BM25",
-									"threshold" : "0.91955364",
-									"left" : {
-										"value" : "0.08678360283374786"
-									},
-									"right" : {
-										"value" : "0.535849392414093"
-									}
-								},
-								"right" : {
-									"value" : "-0.03382667526602745"
-								}
-							},
-							"right" : {
-								"feature" : "BM25",
-								"threshold" : "0.86485076",
-								"left" : {
-									"feature" : "basket",
-									"threshold" : "0.94140625",
-									"left" : {
-										"value" : "-0.10148656368255615"
-									},
-									"right" : {
-										"value" : "-0.32956817746162415"
-									}
-								},
-								"right" : {
-									"feature" : "BM25",
-									"threshold" : "0.8873755",
-									"left" : {
-										"value" : "0.27129891514778137"
-									},
-									"right" : {
-										"feature" : "BM25",
-										"threshold" : "0.913118",
-										"left" : {
-											"value" : "-0.319884330034256"
-										},
-										"right" : {
-											"value" : "0.048144154250621796"
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "price",
-					"threshold" : "0.03221391",
-					"left" : {
-						"value" : "0.3464632034301758"
-					},
-					"right" : {
-						"feature" : "pay_num",
-						"threshold" : "0.0",
-						"left" : {
-							"value" : "-1.0946621894836426"
-						},
-						"right" : {
-							"feature" : "price",
-							"threshold" : "0.14928477",
-							"left" : {
-								"feature" : "add_time",
-								"threshold" : "0.99943674",
-								"left" : {
-									"value" : "0.35961416363716125"
-								},
-								"right" : {
-									"value" : "0.03264915570616722"
-								}
-							},
-							"right" : {
-								"feature" : "price",
-								"threshold" : "0.15708949",
-								"left" : {
-									"value" : "-0.9788814783096313"
-								},
-								"right" : {
-									"feature" : "price",
-									"threshold" : "0.17660129",
-									"left" : {
-										"value" : "0.2952249348163605"
-									},
-									"right" : {
-										"feature" : "add_time",
-										"threshold" : "0.99810576",
-										"left" : {
-											"value" : "-0.6995465755462646"
-										},
-										"right" : {
-											"feature" : "BM25",
-											"threshold" : "0.27920815",
-											"left" : {
-												"value" : "0.44148242473602295"
-											},
-											"right" : {
-												"feature" : "BM25",
-												"threshold" : "0.86485076",
-												"left" : {
-													"value" : "-0.13990581035614014"
-												},
-												"right" : {
-													"value" : "0.004031025804579258"
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "price",
-					"threshold" : "0.03221391",
-					"left" : {
-						"value" : "0.3344452381134033"
-					},
-					"right" : {
-						"feature" : "pay_num",
-						"threshold" : "0.0",
-						"left" : {
-							"value" : "-1.0700217485427856"
-						},
-						"right" : {
-							"feature" : "price",
-							"threshold" : "0.14928477",
-							"left" : {
-								"value" : "0.12845565378665924"
-							},
-							"right" : {
-								"feature" : "price",
-								"threshold" : "0.15708949",
-								"left" : {
-									"value" : "-0.8646742105484009"
-								},
-								"right" : {
-									"feature" : "price",
-									"threshold" : "0.17660129",
-									"left" : {
-										"value" : "0.25684812664985657"
-									},
-									"right" : {
-										"feature" : "BM25",
-										"threshold" : "0.98390996",
-										"left" : {
-											"feature" : "add_time",
-											"threshold" : "0.99954045",
-											"left" : {
-												"value" : "-0.28333401679992676"
-											},
-											"right" : {
-												"feature" : "BM25",
-												"threshold" : "0.27920815",
-												"left" : {
-													"value" : "0.6197004318237305"
-												},
-												"right" : {
-													"feature" : "price",
-													"threshold" : "0.76195735",
-													"left" : {
-														"value" : "0.03829840570688248"
-													},
-													"right" : {
-														"value" : "-0.16838054358959198"
-													}
-												}
-											}
-										},
-										"right" : {
-											"value" : "0.07305832952260971"
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "price",
-					"threshold" : "0.03221391",
-					"left" : {
-						"value" : "0.3139212727546692"
-					},
-					"right" : {
-						"feature" : "pay_num",
-						"threshold" : "0.0",
-						"left" : {
-							"value" : "-1.0462303161621094"
-						},
-						"right" : {
-							"feature" : "price",
-							"threshold" : "0.17660129",
-							"left" : {
-								"feature" : "BM25",
-								"threshold" : "0.91955364",
-								"left" : {
-									"value" : "-0.004169848747551441"
-								},
-								"right" : {
-									"value" : "0.27437612414360046"
-								}
-							},
-							"right" : {
-								"feature" : "add_time",
-								"threshold" : "0.99810576",
-								"left" : {
-									"value" : "-0.6360070109367371"
-								},
-								"right" : {
-									"feature" : "BM25",
-									"threshold" : "0.27920815",
-									"left" : {
-										"value" : "0.36473360657691956"
-									},
-									"right" : {
-										"feature" : "BM25",
-										"threshold" : "0.86485076",
-										"left" : {
-											"value" : "-0.13013464212417603"
-										},
-										"right" : {
-											"feature" : "BM25",
-											"threshold" : "0.8873755",
-											"left" : {
-												"value" : "0.267302542924881"
+												"value" : "0.7031588554382324"
 											},
 											"right" : {
 												"feature" : "pay_num",
-												"threshold" : "0.015625",
+												"threshold" : "0.3527345",
 												"left" : {
-													"value" : "-0.484054833650589"
+													"value" : "1.105523943901062"
 												},
 												"right" : {
-													"value" : "-0.0019110088469460607"
+													"value" : "0.09161659330129623"
 												}
 											}
 										}
-									}
-								}
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "price",
-					"threshold" : "0.03221391",
-					"left" : {
-						"value" : "0.3225174844264984"
-					},
-					"right" : {
-						"feature" : "pay_num",
-						"threshold" : "0.1796875",
-						"left" : {
-							"feature" : "basket",
-							"threshold" : "0.125",
-							"left" : {
-								"value" : "-0.10346436500549316"
-							},
-							"right" : {
-								"value" : "-0.4512350857257843"
-							}
-						},
-						"right" : {
-							"feature" : "basket",
-							"threshold" : "0.89453125",
-							"left" : {
-								"feature" : "basket",
-								"threshold" : "0.8828125",
-								"left" : {
-									"feature" : "BM25",
-									"threshold" : "0.21806963",
-									"left" : {
-										"value" : "-3.0988986492156982"
 									},
 									"right" : {
-										"feature" : "BM25",
-										"threshold" : "0.27599034",
-										"left" : {
-											"value" : "1.170601725578308"
-										},
-										"right" : {
-											"feature" : "price",
-											"threshold" : "0.71512884",
-											"left" : {
-												"feature" : "price",
-												"threshold" : "0.69561696",
-												"left" : {
-													"value" : "0.159455806016922"
-												},
-												"right" : {
-													"value" : "1.599242091178894"
-												}
-											},
-											"right" : {
-												"value" : "-0.19342778623104095"
-											}
-										}
+										"value" : "0.8925799131393433"
 									}
 								},
 								"right" : {
-									"value" : "1.1749552488327026"
+									"value" : "1.7431238889694214"
 								}
 							},
 							"right" : {
-								"value" : "-0.09862253814935684"
+								"value" : "-0.7898861765861511"
 							}
 						}
 					}
@@ -1463,202 +88,133 @@
 			{
 				"weight" : "0.1",
 				"root": {
-					"feature" : "price",
-					"threshold" : "0.03221391",
+					"feature" : "pay_num",
+					"threshold" : "0.34135595",
 					"left" : {
-						"value" : "0.29730188846588135"
-					},
-					"right" : {
-						"feature" : "pay_num",
-						"threshold" : "0.0",
-						"left" : {
-							"value" : "-1.0207375288009644"
-						},
-						"right" : {
-							"feature" : "add_time",
-							"threshold" : "0.99810576",
-							"left" : {
-								"value" : "-0.6362230181694031"
-							},
-							"right" : {
-								"feature" : "price",
-								"threshold" : "0.18440601",
-								"left" : {
-									"value" : "0.10209538042545319"
-								},
-								"right" : {
-									"feature" : "BM25",
-									"threshold" : "0.23415871",
-									"left" : {
-										"value" : "0.7126193642616272"
-									},
-									"right" : {
-										"feature" : "BM25",
-										"threshold" : "0.24702998",
-										"left" : {
-											"value" : "-2.104539632797241"
-										},
-										"right" : {
-											"feature" : "BM25",
-											"threshold" : "0.2502478",
-											"left" : {
-												"value" : "1.4431664943695068"
-											},
-											"right" : {
-												"feature" : "BM25",
-												"threshold" : "0.25668344",
-												"left" : {
-													"value" : "-3.669783592224121"
-												},
-												"right" : {
-													"feature" : "BM25",
-													"threshold" : "0.27599034",
-													"left" : {
-														"value" : "1.067649483680725"
-													},
-													"right" : {
-														"value" : "-0.052644625306129456"
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "price",
-					"threshold" : "0.03221391",
-					"left" : {
-						"value" : "0.2792118787765503"
+						"value" : "-0.8435475826263428"
 					},
 					"right" : {
 						"feature" : "basket",
-						"threshold" : "0.0078125",
+						"threshold" : "0.3515625",
 						"left" : {
-							"value" : "-0.5040983557701111"
+							"feature" : "BM25",
+							"threshold" : "0.0644411",
+							"left" : {
+								"value" : "1.632079005241394"
+							},
+							"right" : {
+								"value" : "-0.008885388262569904"
+							}
 						},
 						"right" : {
 							"feature" : "price",
-							"threshold" : "0.28196517",
+							"threshold" : "0.17006542",
 							"left" : {
-								"feature" : "price",
-								"threshold" : "0.27025804",
+								"value" : "0.8768625259399414"
+							},
+							"right" : {
+								"feature" : "review",
+								"threshold" : "0.66319865",
 								"left" : {
-									"feature" : "BM25",
-									"threshold" : "0.91955364",
+									"feature" : "price",
+									"threshold" : "0.4891115",
 									"left" : {
-										"feature" : "add_time",
-										"threshold" : "0.9981576",
+										"feature" : "price",
+										"threshold" : "0.48535803",
 										"left" : {
-											"value" : "-1.0712885856628418"
-										},
-										"right" : {
 											"feature" : "add_time",
-											"threshold" : "0.9981922",
+											"threshold" : "0.5751805",
 											"left" : {
-												"value" : "1.5465195178985596"
+												"value" : "0.9984865784645081"
 											},
 											"right" : {
-												"value" : "-0.05373186990618706"
+												"value" : "0.15139347314834595"
 											}
-										}
-									},
-									"right" : {
-										"value" : "0.18786075711250305"
-									}
-								},
-								"right" : {
-									"value" : "0.8874696493148804"
-								}
-							},
-							"right" : {
-								"feature" : "price",
-								"threshold" : "0.33659843",
-								"left" : {
-									"value" : "-0.44306492805480957"
-								},
-								"right" : {
-									"feature" : "BM25",
-									"threshold" : "0.86485076",
-									"left" : {
-										"value" : "-0.15130102634429932"
-									},
-									"right" : {
-										"value" : "0.03963413089513779"
-									}
-								}
-							}
-						}
-					}
-				}
-			},
-			{
-				"weight" : "0.1",
-				"root": {
-					"feature" : "price",
-					"threshold" : "0.03221391",
-					"left" : {
-						"value" : "0.2727055549621582"
-					},
-					"right" : {
-						"feature" : "add_time",
-						"threshold" : "0.99810576",
-						"left" : {
-							"value" : "-0.6607947945594788"
-						},
-						"right" : {
-							"feature" : "pay_num",
-							"threshold" : "0.0",
-							"left" : {
-								"value" : "-0.9720091223716736"
-							},
-							"right" : {
-								"feature" : "price",
-								"threshold" : "0.18440601",
-								"left" : {
-									"value" : "0.08761011809110641"
-								},
-								"right" : {
-									"feature" : "BM25",
-									"threshold" : "0.23415871",
-									"left" : {
-										"value" : "0.6364742517471313"
-									},
-									"right" : {
-										"feature" : "BM25",
-										"threshold" : "0.24702998",
-										"left" : {
-											"value" : "-1.8844658136367798"
 										},
 										"right" : {
-											"feature" : "BM25",
-											"threshold" : "0.2502478",
-											"left" : {
-												"value" : "1.3831833600997925"
-											},
-											"right" : {
-												"feature" : "BM25",
-												"threshold" : "0.25668344",
-												"left" : {
-													"value" : "-2.999173402786255"
-												},
-												"right" : {
-													"feature" : "BM25",
-													"threshold" : "0.27599034",
-													"left" : {
-														"value" : "1.011126160621643"
-													},
-													"right" : {
-														"value" : "-0.04805140942335129"
-													}
-												}
-											}
+											"value" : "1.5617563724517822"
+										}
+									},
+									"right" : {
+										"value" : "-0.8589233160018921"
+									}
+								},
+								"right" : {
+									"feature" : "review",
+									"threshold" : "0.6825904",
+									"left" : {
+										"value" : "1.4730257987976074"
+									},
+									"right" : {
+										"value" : "0.5367977023124695"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "pay_num",
+					"threshold" : "0.34135595",
+					"left" : {
+						"value" : "-0.8955568075180054"
+					},
+					"right" : {
+						"feature" : "price",
+						"threshold" : "0.17006542",
+						"left" : {
+							"feature" : "review",
+							"threshold" : "0.8144545",
+							"left" : {
+								"feature" : "add_time",
+								"threshold" : "0.80913794",
+								"left" : {
+									"value" : "-0.48191383481025696"
+								},
+								"right" : {
+									"feature" : "add_time",
+									"threshold" : "0.8127373",
+									"left" : {
+										"value" : "1.7606186866760254"
+									},
+									"right" : {
+										"value" : "0.9097490906715393"
+									}
+								}
+							},
+							"right" : {
+								"value" : "1.7624213695526123"
+							}
+						},
+						"right" : {
+							"feature" : "basket",
+							"threshold" : "0.35546875",
+							"left" : {
+								"value" : "1.3535542488098145"
+							},
+							"right" : {
+								"feature" : "review",
+								"threshold" : "0.50806445",
+								"left" : {
+									"value" : "-0.022088786587119102"
+								},
+								"right" : {
+									"feature" : "add_time",
+									"threshold" : "0.5751805",
+									"left" : {
+										"value" : "1.4118754863739014"
+									},
+									"right" : {
+										"feature" : "review",
+										"threshold" : "0.51582116",
+										"left" : {
+											"value" : "1.2577285766601562"
+										},
+										"right" : {
+											"value" : "0.3748636245727539"
 										}
 									}
 								}
@@ -1670,66 +226,204 @@
 			{
 				"weight" : "0.1",
 				"root": {
-					"feature" : "price",
-					"threshold" : "0.03221391",
+					"feature" : "pay_num",
+					"threshold" : "0.34135595",
 					"left" : {
-						"value" : "0.2502785623073578"
+						"value" : "-0.7906280755996704"
 					},
 					"right" : {
-						"feature" : "pay_num",
-						"threshold" : "0.1796875",
+						"feature" : "price",
+						"threshold" : "0.17006542",
 						"left" : {
-							"feature" : "basket",
-							"threshold" : "0.11328125",
+							"feature" : "review",
+							"threshold" : "0.8144545",
 							"left" : {
-								"value" : "-0.06386230885982513"
+								"feature" : "review",
+								"threshold" : "0.49255103",
+								"left" : {
+									"feature" : "review",
+									"threshold" : "0.48867267",
+									"left" : {
+										"value" : "0.8702609539031982"
+									},
+									"right" : {
+										"value" : "1.5733287334442139"
+									}
+								},
+								"right" : {
+									"value" : "0.41983646154403687"
+								}
 							},
 							"right" : {
-								"value" : "-0.38259148597717285"
+								"value" : "1.61368727684021"
 							}
 						},
 						"right" : {
 							"feature" : "basket",
-							"threshold" : "0.89453125",
+							"threshold" : "0.35546875",
 							"left" : {
-								"feature" : "basket",
-								"threshold" : "0.8828125",
+								"value" : "1.1067010164260864"
+							},
+							"right" : {
+								"feature" : "review",
+								"threshold" : "0.5119428",
+								"left" : {
+									"value" : "-0.0811513289809227"
+								},
+								"right" : {
+									"feature" : "add_time",
+									"threshold" : "0.5751805",
+									"left" : {
+										"value" : "1.2149282693862915"
+									},
+									"right" : {
+										"feature" : "review",
+										"threshold" : "0.51582116",
+										"left" : {
+											"value" : "1.1909962892532349"
+										},
+										"right" : {
+											"value" : "0.3144061863422394"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "pay_num",
+					"threshold" : "0.3451488",
+					"left" : {
+						"value" : "-0.667670726776123"
+					},
+					"right" : {
+						"feature" : "price",
+						"threshold" : "0.17006542",
+						"left" : {
+							"feature" : "review",
+							"threshold" : "0.8144545",
+							"left" : {
+								"feature" : "pay_num",
+								"threshold" : "0.40583444",
+								"left" : {
+									"value" : "0.052885573357343674"
+								},
+								"right" : {
+									"feature" : "review",
+									"threshold" : "0.49255103",
+									"left" : {
+										"feature" : "review",
+										"threshold" : "0.48867267",
+										"left" : {
+											"value" : "0.9122920036315918"
+										},
+										"right" : {
+											"value" : "1.503200888633728"
+										}
+									},
+									"right" : {
+										"value" : "0.4339750111103058"
+									}
+								}
+							},
+							"right" : {
+								"value" : "1.506150722503662"
+							}
+						},
+						"right" : {
+							"feature" : "basket",
+							"threshold" : "0.35546875",
+							"left" : {
+								"value" : "1.0683512687683105"
+							},
+							"right" : {
+								"feature" : "review",
+								"threshold" : "0.5119428",
+								"left" : {
+									"value" : "-0.12665103375911713"
+								},
+								"right" : {
+									"feature" : "add_time",
+									"threshold" : "0.5751805",
+									"left" : {
+										"value" : "1.1410282850265503"
+									},
+									"right" : {
+										"value" : "0.3427809774875641"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "pay_num",
+					"threshold" : "0.3451488",
+					"left" : {
+						"value" : "-0.6101102232933044"
+					},
+					"right" : {
+						"feature" : "price",
+						"threshold" : "0.17006542",
+						"left" : {
+							"feature" : "review",
+							"threshold" : "0.8144545",
+							"left" : {
+								"feature" : "price",
+								"threshold" : "0.16255845",
 								"left" : {
 									"feature" : "pay_num",
-									"threshold" : "0.78515625",
+									"threshold" : "0.47789863",
 									"left" : {
-										"feature" : "BM25",
-										"threshold" : "0.23415871",
-										"left" : {
-											"value" : "0.9587618112564087"
-										},
-										"right" : {
-											"feature" : "basket",
-											"threshold" : "0.2734375",
-											"left" : {
-												"value" : "0.2126588225364685"
-											},
-											"right" : {
-												"value" : "-0.08486753702163696"
-											}
-										}
+										"value" : "0.2266426682472229"
 									},
 									"right" : {
-										"value" : "0.33058759570121765"
+										"value" : "0.7582629919052124"
 									}
 								},
 								"right" : {
-									"value" : "1.1401946544647217"
+									"value" : "1.1251287460327148"
 								}
 							},
 							"right" : {
-								"feature" : "BM25",
-								"threshold" : "0.7972766",
+								"value" : "1.424696922302246"
+							}
+						},
+						"right" : {
+							"feature" : "basket",
+							"threshold" : "0.35546875",
+							"left" : {
+								"value" : "0.9796510338783264"
+							},
+							"right" : {
+								"feature" : "review",
+								"threshold" : "0.50806445",
 								"left" : {
-									"value" : "-0.32890161871910095"
+									"value" : "-0.10646716505289078"
 								},
 								"right" : {
-									"value" : "-0.00948041956871748"
+									"feature" : "add_time",
+									"threshold" : "0.5751805",
+									"left" : {
+										"value" : "1.0565615892410278"
+									},
+									"right" : {
+										"feature" : "pay_num",
+										"threshold" : "0.35652736",
+										"left" : {
+											"value" : "1.3573029041290283"
+										},
+										"right" : {
+											"value" : "0.2631797790527344"
+										}
+									}
 								}
 							}
 						}
@@ -1739,65 +433,65 @@
 			{
 				"weight" : "0.1",
 				"root": {
-					"feature" : "price",
-					"threshold" : "0.012702095",
+					"feature" : "pay_num",
+					"threshold" : "0.3451488",
 					"left" : {
-						"value" : "0.327556848526001"
+						"value" : "-0.5443153381347656"
 					},
 					"right" : {
-						"feature" : "pay_num",
-						"threshold" : "0.078125",
+						"feature" : "basket",
+						"threshold" : "0.359375",
 						"left" : {
-							"value" : "-0.1626783162355423"
+							"value" : "0.9378294348716736"
 						},
 						"right" : {
 							"feature" : "price",
-							"threshold" : "0.036116276",
+							"threshold" : "0.18132587",
 							"left" : {
-								"value" : "0.28410887718200684"
-							},
-							"right" : {
-								"feature" : "BM25",
-								"threshold" : "0.21806963",
+								"feature" : "review",
+								"threshold" : "0.8144545",
 								"left" : {
-									"value" : "-2.548003673553467"
-								},
-								"right" : {
-									"feature" : "BM25",
-									"threshold" : "0.23415871",
+									"feature" : "pay_num",
+									"threshold" : "0.40583444",
 									"left" : {
-										"value" : "1.1175615787506104"
+										"value" : "-0.24502085149288177"
 									},
 									"right" : {
 										"feature" : "basket",
-										"threshold" : "0.11328125",
+										"threshold" : "0.39453125",
 										"left" : {
-											"value" : "0.2528942823410034"
+											"value" : "1.3930524587631226"
 										},
 										"right" : {
-											"feature" : "BM25",
-											"threshold" : "0.6717818",
-											"left" : {
-												"value" : "-0.24794718623161316"
-											},
-											"right" : {
-												"feature" : "price",
-												"threshold" : "0.04001864",
-												"left" : {
-													"value" : "-1.257001519203186"
-												},
-												"right" : {
-													"feature" : "pay_num",
-													"threshold" : "0.1328125",
-													"left" : {
-														"value" : "-0.43204939365386963"
-													},
-													"right" : {
-														"value" : "0.042477644979953766"
-													}
-												}
-											}
+											"value" : "0.5551448464393616"
 										}
+									}
+								},
+								"right" : {
+									"value" : "1.4239234924316406"
+								}
+							},
+							"right" : {
+								"feature" : "BM25",
+								"threshold" : "0.036748856",
+								"left" : {
+									"value" : "1.1884853839874268"
+								},
+								"right" : {
+									"feature" : "price",
+									"threshold" : "0.500372",
+									"left" : {
+										"feature" : "price",
+										"threshold" : "0.47785106",
+										"left" : {
+											"value" : "0.18481265008449554"
+										},
+										"right" : {
+											"value" : "0.834864616394043"
+										}
+									},
+									"right" : {
+										"value" : "-0.734324038028717"
 									}
 								}
 							}
@@ -1808,65 +502,3929 @@
 			{
 				"weight" : "0.1",
 				"root": {
-					"feature" : "price",
-					"threshold" : "0.012702095",
+					"feature" : "pay_num",
+					"threshold" : "0.28067032",
 					"left" : {
-						"value" : "0.3091146647930145"
+						"value" : "-0.6927100419998169"
 					},
 					"right" : {
-						"feature" : "basket",
-						"threshold" : "0.0",
+						"feature" : "price",
+						"threshold" : "0.18132587",
 						"left" : {
-							"value" : "-1.1313093900680542"
+							"feature" : "review",
+							"threshold" : "0.8144545",
+							"left" : {
+								"feature" : "BM25",
+								"threshold" : "0.061671875",
+								"left" : {
+									"value" : "0.6925066113471985"
+								},
+								"right" : {
+									"value" : "0.46017181873321533"
+								}
+							},
+							"right" : {
+								"value" : "1.3741298913955688"
+							}
 						},
 						"right" : {
-							"feature" : "price",
-							"threshold" : "0.098554075",
+							"feature" : "BM25",
+							"threshold" : "0.036748856",
 							"left" : {
-								"value" : "0.12301699072122574"
+								"value" : "1.13643479347229"
 							},
 							"right" : {
 								"feature" : "price",
-								"threshold" : "0.1063588",
+								"threshold" : "0.4891115",
 								"left" : {
-									"value" : "-0.4436734616756439"
+									"feature" : "price",
+									"threshold" : "0.48535803",
+									"left" : {
+										"feature" : "BM25",
+										"threshold" : "0.061671875",
+										"left" : {
+											"value" : "-0.6905094981193542"
+										},
+										"right" : {
+											"feature" : "review",
+											"threshold" : "0.667077",
+											"left" : {
+												"value" : "0.13279668986797333"
+											},
+											"right" : {
+												"value" : "0.6925463080406189"
+											}
+										}
+									},
+									"right" : {
+										"value" : "0.9987022280693054"
+									}
 								},
 								"right" : {
-									"feature" : "pay_num",
+									"value" : "-0.6956830620765686"
+								}
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "pay_num",
+					"threshold" : "0.28067032",
+					"left" : {
+						"value" : "-0.6488184928894043"
+					},
+					"right" : {
+						"feature" : "price",
+						"threshold" : "0.2901769",
+						"left" : {
+							"feature" : "BM25",
+							"threshold" : "0.07828722",
+							"left" : {
+								"feature" : "review",
+								"threshold" : "0.8493597",
+								"left" : {
+									"feature" : "basket",
 									"threshold" : "0.59375",
 									"left" : {
 										"feature" : "basket",
-										"threshold" : "0.71484375",
+										"threshold" : "0.58984375",
 										"left" : {
-											"feature" : "BM25",
-											"threshold" : "0.23415871",
+											"feature" : "add_time",
+											"threshold" : "0.80913794",
 											"left" : {
-												"value" : "1.0035467147827148"
+												"value" : "-0.7670459747314453"
 											},
 											"right" : {
-												"feature" : "basket",
-												"threshold" : "0.69921875",
+												"feature" : "price",
+												"threshold" : "0.16631193",
 												"left" : {
-													"feature" : "review",
-													"threshold" : "0.42578125",
-													"left" : {
-														"value" : "-0.01648731715977192"
-													},
-													"right" : {
-														"value" : "-0.3148687183856964"
-													}
+													"value" : "0.8272245526313782"
 												},
 												"right" : {
-													"value" : "1.0698662996292114"
+													"value" : "0.5268011093139648"
 												}
 											}
 										},
 										"right" : {
-											"value" : "-1.23117196559906"
+											"value" : "1.2695974111557007"
 										}
 									},
 									"right" : {
-										"value" : "0.06594116240739822"
+										"value" : "-0.7015947103500366"
+									}
+								},
+								"right" : {
+									"value" : "1.4173941612243652"
+								}
+							},
+							"right" : {
+								"value" : "0.3183443248271942"
+							}
+						},
+						"right" : {
+							"feature" : "pay_num",
+							"threshold" : "0.4475558",
+							"left" : {
+								"value" : "-0.5810765027999878"
+							},
+							"right" : {
+								"value" : "0.16705554723739624"
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.2901769",
+					"left" : {
+						"feature" : "basket",
+						"threshold" : "0.30078125",
+						"left" : {
+							"value" : "-0.4251038134098053"
+						},
+						"right" : {
+							"feature" : "review",
+							"threshold" : "0.8493597",
+							"left" : {
+								"feature" : "BM25",
+								"threshold" : "0.075518",
+								"left" : {
+									"feature" : "price",
+									"threshold" : "0.10250272",
+									"left" : {
+										"value" : "0.9157408475875854"
+									},
+									"right" : {
+										"feature" : "basket",
+										"threshold" : "0.41796875",
+										"left" : {
+											"feature" : "pay_num",
+											"threshold" : "0.40583444",
+											"left" : {
+												"value" : "0.6047233939170837"
+											},
+											"right" : {
+												"value" : "1.351728081703186"
+											}
+										},
+										"right" : {
+											"value" : "0.12995465099811554"
+										}
+									}
+								},
+								"right" : {
+									"value" : "0.2922026813030243"
+								}
+							},
+							"right" : {
+								"value" : "1.1690876483917236"
+							}
+						}
+					},
+					"right" : {
+						"feature" : "pay_num",
+						"threshold" : "0.4475558",
+						"left" : {
+							"value" : "-0.7094165086746216"
+						},
+						"right" : {
+							"feature" : "add_time",
+							"threshold" : "0.5751805",
+							"left" : {
+								"value" : "0.8653509616851807"
+							},
+							"right" : {
+								"value" : "0.047998860478401184"
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.2901769",
+					"left" : {
+						"feature" : "pay_num",
+						"threshold" : "0.52720547",
+						"left" : {
+							"feature" : "add_time",
+							"threshold" : "0.7983399",
+							"left" : {
+								"value" : "-0.46336591243743896"
+							},
+							"right" : {
+								"feature" : "add_time",
+								"threshold" : "0.84873074",
+								"left" : {
+									"value" : "0.8252286911010742"
+								},
+								"right" : {
+									"feature" : "basket",
+									"threshold" : "0.47265625",
+									"left" : {
+										"feature" : "pay_num",
+										"threshold" : "0.3603202",
+										"left" : {
+											"value" : "0.13079825043678284"
+										},
+										"right" : {
+											"value" : "0.5385518074035645"
+										}
+									},
+									"right" : {
+										"value" : "-0.18260101974010468"
+									}
+								}
+							}
+						},
+						"right" : {
+							"feature" : "add_time",
+							"threshold" : "0.5751805",
+							"left" : {
+								"value" : "1.240190863609314"
+							},
+							"right" : {
+								"value" : "0.49918124079704285"
+							}
+						}
+					},
+					"right" : {
+						"feature" : "pay_num",
+						"threshold" : "0.4475558",
+						"left" : {
+							"value" : "-0.6602016687393188"
+						},
+						"right" : {
+							"feature" : "add_time",
+							"threshold" : "0.5787798",
+							"left" : {
+								"value" : "0.7961817383766174"
+							},
+							"right" : {
+								"value" : "0.026064589619636536"
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.2901769",
+					"left" : {
+						"feature" : "review",
+						"threshold" : "0.86099476",
+						"left" : {
+							"feature" : "pay_num",
+							"threshold" : "0.07585688",
+							"left" : {
+								"value" : "-1.2614506483078003"
+							},
+							"right" : {
+								"feature" : "pay_num",
+								"threshold" : "0.54237676",
+								"left" : {
+									"feature" : "basket",
+									"threshold" : "0.45703125",
+									"left" : {
+										"feature" : "pay_num",
+										"threshold" : "0.48169148",
+										"left" : {
+											"feature" : "pay_num",
+											"threshold" : "0.3603202",
+											"left" : {
+												"value" : "0.2645346224308014"
+											},
+											"right" : {
+												"value" : "0.48854100704193115"
+											}
+										},
+										"right" : {
+											"value" : "1.1310207843780518"
+										}
+									},
+									"right" : {
+										"value" : "-0.08585117757320404"
+									}
+								},
+								"right" : {
+									"value" : "0.46127307415008545"
+								}
+							}
+						},
+						"right" : {
+							"value" : "1.4065407514572144"
+						}
+					},
+					"right" : {
+						"feature" : "pay_num",
+						"threshold" : "0.4475558",
+						"left" : {
+							"value" : "-0.6236438751220703"
+						},
+						"right" : {
+							"feature" : "add_time",
+							"threshold" : "0.5751805",
+							"left" : {
+								"value" : "0.7512946724891663"
+							},
+							"right" : {
+								"value" : "0.01101404894143343"
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "review",
+					"threshold" : "0.8648731",
+					"left" : {
+						"feature" : "pay_num",
+						"threshold" : "0.17826357",
+						"left" : {
+							"value" : "-0.8023602962493896"
+						},
+						"right" : {
+							"feature" : "price",
+							"threshold" : "0.19258632",
+							"left" : {
+								"feature" : "review",
+								"threshold" : "0.8377246",
+								"left" : {
+									"feature" : "review",
+									"threshold" : "0.49255103",
+									"left" : {
+										"value" : "0.49460968375205994"
+									},
+									"right" : {
+										"value" : "-0.013552463613450527"
+									}
+								},
+								"right" : {
+									"value" : "1.1869081258773804"
+								}
+							},
+							"right" : {
+								"feature" : "BM25",
+								"threshold" : "0.036748856",
+								"left" : {
+									"value" : "0.6906427145004272"
+								},
+								"right" : {
+									"feature" : "price",
+									"threshold" : "0.45533016",
+									"left" : {
+										"feature" : "review",
+										"threshold" : "0.721374",
+										"left" : {
+											"feature" : "review",
+											"threshold" : "0.7174956",
+											"left" : {
+												"value" : "0.0782761201262474"
+											},
+											"right" : {
+												"value" : "1.533218502998352"
+											}
+										},
+										"right" : {
+											"value" : "-0.8093112707138062"
+										}
+									},
+									"right" : {
+										"value" : "-0.5293070673942566"
+									}
+								}
+							}
+						}
+					},
+					"right" : {
+						"value" : "1.197731375694275"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "review",
+					"threshold" : "0.8648731",
+					"left" : {
+						"feature" : "price",
+						"threshold" : "0.45533016",
+						"left" : {
+							"feature" : "pay_num",
+							"threshold" : "0.121371016",
+							"left" : {
+								"value" : "-0.8501421809196472"
+							},
+							"right" : {
+								"feature" : "price",
+								"threshold" : "0.19258632",
+								"left" : {
+									"feature" : "BM25",
+									"threshold" : "0.056133427",
+									"left" : {
+										"value" : "-0.40780481696128845"
+									},
+									"right" : {
+										"feature" : "BM25",
+										"threshold" : "0.061671875",
+										"left" : {
+											"value" : "0.7206438183784485"
+										},
+										"right" : {
+											"value" : "0.3266369104385376"
+										}
+									}
+								},
+								"right" : {
+									"feature" : "price",
+									"threshold" : "0.44031623",
+									"left" : {
+										"feature" : "BM25",
+										"threshold" : "0.036748856",
+										"left" : {
+											"value" : "0.6422857046127319"
+										},
+										"right" : {
+											"feature" : "BM25",
+											"threshold" : "0.061671875",
+											"left" : {
+												"value" : "-0.4836166203022003"
+											},
+											"right" : {
+												"value" : "0.1028885468840599"
+											}
+										}
+									},
+									"right" : {
+										"value" : "0.6975518465042114"
+									}
+								}
+							}
+						},
+						"right" : {
+							"value" : "-0.6286076903343201"
+						}
+					},
+					"right" : {
+						"value" : "1.0572502613067627"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "review",
+					"threshold" : "0.8648731",
+					"left" : {
+						"feature" : "price",
+						"threshold" : "0.45533016",
+						"left" : {
+							"feature" : "pay_num",
+							"threshold" : "0.121371016",
+							"left" : {
+								"value" : "-0.7955951690673828"
+							},
+							"right" : {
+								"feature" : "price",
+								"threshold" : "0.19258632",
+								"left" : {
+									"feature" : "review",
+									"threshold" : "0.8377246",
+									"left" : {
+										"value" : "0.26934951543807983"
+									},
+									"right" : {
+										"value" : "1.163081169128418"
+									}
+								},
+								"right" : {
+									"feature" : "price",
+									"threshold" : "0.44031623",
+									"left" : {
+										"feature" : "BM25",
+										"threshold" : "0.036748856",
+										"left" : {
+											"value" : "0.5850204229354858"
+										},
+										"right" : {
+											"feature" : "review",
+											"threshold" : "0.721374",
+											"left" : {
+												"feature" : "review",
+												"threshold" : "0.7174956",
+												"left" : {
+													"value" : "0.02451411448419094"
+												},
+												"right" : {
+													"value" : "1.4153361320495605"
+												}
+											},
+											"right" : {
+												"value" : "-0.940447986125946"
+											}
+										}
+									},
+									"right" : {
+										"value" : "0.6309545040130615"
+									}
+								}
+							}
+						},
+						"right" : {
+							"value" : "-0.5860682725906372"
+						}
+					},
+					"right" : {
+						"value" : "1.0010011196136475"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "review",
+					"threshold" : "0.88814324",
+					"left" : {
+						"feature" : "price",
+						"threshold" : "0.2901769",
+						"left" : {
+							"feature" : "pay_num",
+							"threshold" : "0.52720547",
+							"left" : {
+								"feature" : "add_time",
+								"threshold" : "0.7983399",
+								"left" : {
+									"value" : "-0.39199286699295044"
+								},
+								"right" : {
+									"feature" : "add_time",
+									"threshold" : "0.8775255",
+									"left" : {
+										"value" : "0.531518816947937"
+									},
+									"right" : {
+										"feature" : "add_time",
+										"threshold" : "0.98190653",
+										"left" : {
+											"value" : "0.15572017431259155"
+										},
+										"right" : {
+											"value" : "-0.6943144202232361"
+										}
+									}
+								}
+							},
+							"right" : {
+								"value" : "0.40320271253585815"
+							}
+						},
+						"right" : {
+							"feature" : "price",
+							"threshold" : "0.609223",
+							"left" : {
+								"feature" : "pay_num",
+								"threshold" : "0.4475558",
+								"left" : {
+									"value" : "-0.40177544951438904"
+								},
+								"right" : {
+									"feature" : "add_time",
+									"threshold" : "0.5787798",
+									"left" : {
+										"value" : "0.7257784008979797"
+									},
+									"right" : {
+										"value" : "0.05837766081094742"
+									}
+								}
+							},
+							"right" : {
+								"value" : "-1.2600780725479126"
+							}
+						}
+					},
+					"right" : {
+						"value" : "1.0632914304733276"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "review",
+					"threshold" : "0.8648731",
+					"left" : {
+						"feature" : "pay_num",
+						"threshold" : "0.0",
+						"left" : {
+							"value" : "-1.2058430910110474"
+						},
+						"right" : {
+							"feature" : "price",
+							"threshold" : "0.2901769",
+							"left" : {
+								"feature" : "basket",
+								"threshold" : "0.75390625",
+								"left" : {
+									"feature" : "pay_num",
+									"threshold" : "0.52720547",
+									"left" : {
+										"feature" : "basket",
+										"threshold" : "0.45703125",
+										"left" : {
+											"feature" : "pay_num",
+											"threshold" : "0.48169148",
+											"left" : {
+												"value" : "0.24617624282836914"
+											},
+											"right" : {
+												"value" : "1.2035993337631226"
+											}
+										},
+										"right" : {
+											"value" : "-0.19570277631282806"
+										}
+									},
+									"right" : {
+										"value" : "0.40931522846221924"
+									}
+								},
+								"right" : {
+									"value" : "-1.3806555271148682"
+								}
+							},
+							"right" : {
+								"feature" : "price",
+								"threshold" : "0.609223",
+								"left" : {
+									"feature" : "BM25",
+									"threshold" : "0.047825754",
+									"left" : {
+										"value" : "0.4683494567871094"
+									},
+									"right" : {
+										"value" : "-0.1289803832769394"
+									}
+								},
+								"right" : {
+									"value" : "-1.1812591552734375"
+								}
+							}
+						}
+					},
+					"right" : {
+						"value" : "0.893133282661438"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.2901769",
+					"left" : {
+						"feature" : "review",
+						"threshold" : "0.86099476",
+						"left" : {
+							"feature" : "pay_num",
+							"threshold" : "0.07585688",
+							"left" : {
+								"value" : "-1.038482666015625"
+							},
+							"right" : {
+								"feature" : "basket",
+								"threshold" : "0.6875",
+								"left" : {
+									"feature" : "basket",
+									"threshold" : "0.68359375",
+									"left" : {
+										"feature" : "pay_num",
+										"threshold" : "0.67891836",
+										"left" : {
+											"feature" : "basket",
+											"threshold" : "0.59765625",
+											"left" : {
+												"feature" : "pay_num",
+												"threshold" : "0.52720547",
+												"left" : {
+													"feature" : "price",
+													"threshold" : "0.11751665",
+													"left" : {
+														"value" : "-0.5590596795082092"
+													},
+													"right" : {
+														"value" : "0.23497162759304047"
+													}
+												},
+												"right" : {
+													"value" : "0.5762695074081421"
+												}
+											},
+											"right" : {
+												"value" : "-0.6239013671875"
+											}
+										},
+										"right" : {
+											"value" : "0.9461624622344971"
+										}
+									},
+									"right" : {
+										"value" : "0.9598366618156433"
+									}
+								},
+								"right" : {
+									"value" : "-0.5180613994598389"
+								}
+							}
+						},
+						"right" : {
+							"value" : "1.2019251585006714"
+						}
+					},
+					"right" : {
+						"value" : "-0.2307024449110031"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.2901769",
+					"left" : {
+						"feature" : "review",
+						"threshold" : "0.86099476",
+						"left" : {
+							"feature" : "pay_num",
+							"threshold" : "0.07585688",
+							"left" : {
+								"value" : "-0.9934189915657043"
+							},
+							"right" : {
+								"feature" : "BM25",
+								"threshold" : "0.056133427",
+								"left" : {
+									"value" : "-0.20060595870018005"
+								},
+								"right" : {
+									"feature" : "BM25",
+									"threshold" : "0.075518",
+									"left" : {
+										"feature" : "add_time",
+										"threshold" : "0.9783072",
+										"left" : {
+											"value" : "0.5218988656997681"
+										},
+										"right" : {
+											"value" : "-0.6245201230049133"
+										}
+									},
+									"right" : {
+										"value" : "0.14102217555046082"
+									}
+								}
+							}
+						},
+						"right" : {
+							"value" : "1.1595007181167603"
+						}
+					},
+					"right" : {
+						"feature" : "price",
+						"threshold" : "0.609223",
+						"left" : {
+							"feature" : "pay_num",
+							"threshold" : "0.0",
+							"left" : {
+								"value" : "-1.138105034828186"
+							},
+							"right" : {
+								"feature" : "BM25",
+								"threshold" : "0.047825754",
+								"left" : {
+									"value" : "0.42837175726890564"
+								},
+								"right" : {
+									"value" : "-0.113581083714962"
+								}
+							}
+						},
+						"right" : {
+							"value" : "-1.170371413230896"
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.45533016",
+					"left" : {
+						"feature" : "review",
+						"threshold" : "0.88814324",
+						"left" : {
+							"feature" : "pay_num",
+							"threshold" : "0.0",
+							"left" : {
+								"value" : "-1.0632100105285645"
+							},
+							"right" : {
+								"feature" : "add_time",
+								"threshold" : "0.9711085",
+								"left" : {
+									"feature" : "BM25",
+									"threshold" : "0.056133427",
+									"left" : {
+										"value" : "-0.2725107967853546"
+									},
+									"right" : {
+										"feature" : "pay_num",
+										"threshold" : "0.54237676",
+										"left" : {
+											"feature" : "basket",
+											"threshold" : "0.54296875",
+											"left" : {
+												"feature" : "basket",
+												"threshold" : "0.5390625",
+												"left" : {
+													"feature" : "basket",
+													"threshold" : "0.52734375",
+													"left" : {
+														"value" : "0.23319119215011597"
+													},
+													"right" : {
+														"value" : "-1.9088925123214722"
+													}
+												},
+												"right" : {
+													"value" : "1.093579888343811"
+												}
+											},
+											"right" : {
+												"value" : "-1.0522704124450684"
+											}
+										},
+										"right" : {
+											"value" : "0.4384991228580475"
+										}
+									}
+								},
+								"right" : {
+									"value" : "-0.1764516830444336"
+								}
+							}
+						},
+						"right" : {
+							"value" : "0.9126574993133545"
+						}
+					},
+					"right" : {
+						"value" : "-0.4912838339805603"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.29768386",
+					"left" : {
+						"feature" : "review",
+						"threshold" : "0.86099476",
+						"left" : {
+							"feature" : "pay_num",
+							"threshold" : "0.54237676",
+							"left" : {
+								"feature" : "price",
+								"threshold" : "0.11751665",
+								"left" : {
+									"value" : "-0.5194277167320251"
+								},
+								"right" : {
+									"feature" : "price",
+									"threshold" : "0.13253058",
+									"left" : {
+										"value" : "0.3859967291355133"
+									},
+									"right" : {
+										"feature" : "review",
+										"threshold" : "0.5662398",
+										"left" : {
+											"value" : "0.13518212735652924"
+										},
+										"right" : {
+											"value" : "-0.5032813549041748"
+										}
+									}
+								}
+							},
+							"right" : {
+								"value" : "0.2945668697357178"
+							}
+						},
+						"right" : {
+							"value" : "1.0881776809692383"
+						}
+					},
+					"right" : {
+						"feature" : "price",
+						"threshold" : "0.609223",
+						"left" : {
+							"feature" : "pay_num",
+							"threshold" : "0.0",
+							"left" : {
+								"value" : "-1.2097147703170776"
+							},
+							"right" : {
+								"feature" : "BM25",
+								"threshold" : "0.047825754",
+								"left" : {
+									"value" : "0.40114453434944153"
+								},
+								"right" : {
+									"value" : "-0.1034001037478447"
+								}
+							}
+						},
+						"right" : {
+							"value" : "-1.1202495098114014"
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.29768386",
+					"left" : {
+						"feature" : "review",
+						"threshold" : "0.8377246",
+						"left" : {
+							"feature" : "price",
+							"threshold" : "0.012419071",
+							"left" : {
+								"value" : "1.2597529888153076"
+							},
+							"right" : {
+								"feature" : "BM25",
+								"threshold" : "0.056133427",
+								"left" : {
+									"value" : "-0.31542059779167175"
+								},
+								"right" : {
+									"feature" : "BM25",
+									"threshold" : "0.075518",
+									"left" : {
+										"feature" : "pay_num",
+										"threshold" : "0.4096273",
+										"left" : {
+											"value" : "0.14128342270851135"
+										},
+										"right" : {
+											"value" : "0.5540929436683655"
+										}
+									},
+									"right" : {
+										"feature" : "pay_num",
+										"threshold" : "0.62581885",
+										"left" : {
+											"value" : "0.018932221457362175"
+										},
+										"right" : {
+											"value" : "0.6716516017913818"
+										}
+									}
+								}
+							}
+						},
+						"right" : {
+							"value" : "0.8828362226486206"
+						}
+					},
+					"right" : {
+						"feature" : "price",
+						"threshold" : "0.609223",
+						"left" : {
+							"feature" : "pay_num",
+							"threshold" : "0.4475558",
+							"left" : {
+								"value" : "-0.30005571246147156"
+							},
+							"right" : {
+								"value" : "0.0900380089879036"
+							}
+						},
+						"right" : {
+							"value" : "-1.0796175003051758"
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.45533016",
+					"left" : {
+						"feature" : "pay_num",
+						"threshold" : "0.0",
+						"left" : {
+							"value" : "-1.010050654411316"
+						},
+						"right" : {
+							"feature" : "BM25",
+							"threshold" : "0.036748856",
+							"left" : {
+								"value" : "0.5429401993751526"
+							},
+							"right" : {
+								"feature" : "BM25",
+								"threshold" : "0.056133427",
+								"left" : {
+									"value" : "-0.4531596601009369"
+								},
+								"right" : {
+									"feature" : "add_time",
+									"threshold" : "0.9711085",
+									"left" : {
+										"feature" : "pay_num",
+										"threshold" : "0.622026",
+										"left" : {
+											"feature" : "basket",
+											"threshold" : "0.59375",
+											"left" : {
+												"feature" : "pay_num",
+												"threshold" : "0.5461696",
+												"left" : {
+													"feature" : "basket",
+													"threshold" : "0.54296875",
+													"left" : {
+														"value" : "0.20206871628761292"
+													},
+													"right" : {
+														"value" : "-1.1704686880111694"
+													}
+												},
+												"right" : {
+													"value" : "0.7042277455329895"
+												}
+											},
+											"right" : {
+												"value" : "-0.5306496620178223"
+											}
+										},
+										"right" : {
+											"value" : "0.5162822604179382"
+										}
+									},
+									"right" : {
+										"value" : "-0.1931266486644745"
+									}
+								}
+							}
+						}
+					},
+					"right" : {
+						"value" : "-0.45546644926071167"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.29768386",
+					"left" : {
+						"feature" : "review",
+						"threshold" : "0.86099476",
+						"left" : {
+							"feature" : "basket",
+							"threshold" : "0.7421875",
+							"left" : {
+								"feature" : "pay_num",
+								"threshold" : "0.62581885",
+								"left" : {
+									"feature" : "basket",
+									"threshold" : "0.59765625",
+									"left" : {
+										"feature" : "pay_num",
+										"threshold" : "0.50824136",
+										"left" : {
+											"feature" : "basket",
+											"threshold" : "0.47265625",
+											"left" : {
+												"feature" : "pay_num",
+												"threshold" : "0.4096273",
+												"left" : {
+													"value" : "0.06261652708053589"
+												},
+												"right" : {
+													"value" : "0.4025239646434784"
+												}
+											},
+											"right" : {
+												"value" : "-0.3358277678489685"
+											}
+										},
+										"right" : {
+											"value" : "0.4478815793991089"
+										}
+									},
+									"right" : {
+										"value" : "-0.5949283838272095"
+									}
+								},
+								"right" : {
+									"value" : "0.5999739766120911"
+								}
+							},
+							"right" : {
+								"value" : "-1.2513765096664429"
+							}
+						},
+						"right" : {
+							"value" : "1.0134780406951904"
+						}
+					},
+					"right" : {
+						"feature" : "price",
+						"threshold" : "0.609223",
+						"left" : {
+							"value" : "-0.12159186601638794"
+						},
+						"right" : {
+							"value" : "-1.0399237871170044"
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.28266993",
+					"left" : {
+						"feature" : "review",
+						"threshold" : "0.8377246",
+						"left" : {
+							"feature" : "add_time",
+							"threshold" : "0.98190653",
+							"left" : {
+								"feature" : "add_time",
+								"threshold" : "0.7983399",
+								"left" : {
+									"value" : "-0.16822679340839386"
+								},
+								"right" : {
+									"feature" : "price",
+									"threshold" : "0.24888857",
+									"left" : {
+										"feature" : "review",
+										"threshold" : "0.6515636",
+										"left" : {
+											"feature" : "pay_num",
+											"threshold" : "0.39824873",
+											"left" : {
+												"value" : "0.053855132311582565"
+											},
+											"right" : {
+												"value" : "0.2834637463092804"
+											}
+										},
+										"right" : {
+											"value" : "-0.9092452526092529"
+										}
+									},
+									"right" : {
+										"value" : "0.47645553946495056"
+									}
+								}
+							},
+							"right" : {
+								"value" : "-0.6252946853637695"
+							}
+						},
+						"right" : {
+							"value" : "0.8541842103004456"
+						}
+					},
+					"right" : {
+						"feature" : "pay_num",
+						"threshold" : "0.4475558",
+						"left" : {
+							"value" : "-0.35186561942100525"
+						},
+						"right" : {
+							"feature" : "add_time",
+							"threshold" : "0.5751805",
+							"left" : {
+								"value" : "0.6578617691993713"
+							},
+							"right" : {
+								"value" : "-0.0019115356262773275"
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "pay_num",
+					"threshold" : "0.0",
+					"left" : {
+						"value" : "-1.054303526878357"
+					},
+					"right" : {
+						"feature" : "price",
+						"threshold" : "0.28266993",
+						"left" : {
+							"feature" : "review",
+							"threshold" : "0.8377246",
+							"left" : {
+								"feature" : "add_time",
+								"threshold" : "0.98190653",
+								"left" : {
+									"feature" : "price",
+									"threshold" : "0.121270135",
+									"left" : {
+										"value" : "-0.1566828489303589"
+									},
+									"right" : {
+										"feature" : "price",
+										"threshold" : "0.13253058",
+										"left" : {
+											"value" : "0.6014194488525391"
+										},
+										"right" : {
+											"feature" : "pay_num",
+											"threshold" : "0.62581885",
+											"left" : {
+												"value" : "0.14848628640174866"
+											},
+											"right" : {
+												"value" : "0.4816346764564514"
+											}
+										}
+									}
+								},
+								"right" : {
+									"value" : "-0.5166632533073425"
+								}
+							},
+							"right" : {
+								"value" : "0.803982138633728"
+							}
+						},
+						"right" : {
+							"feature" : "BM25",
+							"threshold" : "0.028441176",
+							"left" : {
+								"value" : "2.1164703369140625"
+							},
+							"right" : {
+								"feature" : "review",
+								"threshold" : "0.95795363",
+								"left" : {
+									"value" : "-0.09696979820728302"
+								},
+								"right" : {
+									"value" : "1.2591962814331055"
+								}
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.45533016",
+					"left" : {
+						"feature" : "basket",
+						"threshold" : "0.23828125",
+						"left" : {
+							"value" : "-0.42475655674934387"
+						},
+						"right" : {
+							"feature" : "add_time",
+							"threshold" : "0.9711085",
+							"left" : {
+								"feature" : "review",
+								"threshold" : "0.88814324",
+								"left" : {
+									"feature" : "BM25",
+									"threshold" : "0.056133427",
+									"left" : {
+										"value" : "-0.30475273728370667"
+									},
+									"right" : {
+										"feature" : "pay_num",
+										"threshold" : "0.622026",
+										"left" : {
+											"feature" : "BM25",
+											"threshold" : "0.05890265",
+											"left" : {
+												"value" : "0.6553443074226379"
+											},
+											"right" : {
+												"feature" : "basket",
+												"threshold" : "0.73046875",
+												"left" : {
+													"feature" : "basket",
+													"threshold" : "0.44921875",
+													"left" : {
+														"value" : "0.2578684687614441"
+													},
+													"right" : {
+														"value" : "-0.06388170272111893"
+													}
+												},
+												"right" : {
+													"value" : "1.7193766832351685"
+												}
+											}
+										},
+										"right" : {
+											"value" : "0.48026853799819946"
+										}
+									}
+								},
+								"right" : {
+									"value" : "1.1156070232391357"
+								}
+							},
+							"right" : {
+								"value" : "-0.12320168316364288"
+							}
+						}
+					},
+					"right" : {
+						"value" : "-0.4049408733844757"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.29768386",
+					"left" : {
+						"feature" : "review",
+						"threshold" : "0.86099476",
+						"left" : {
+							"feature" : "basket",
+							"threshold" : "0.75390625",
+							"left" : {
+								"feature" : "pay_num",
+								"threshold" : "0.62581885",
+								"left" : {
+									"feature" : "basket",
+									"threshold" : "0.66796875",
+									"left" : {
+										"feature" : "basket",
+										"threshold" : "0.66015625",
+										"left" : {
+											"feature" : "basket",
+											"threshold" : "0.59765625",
+											"left" : {
+												"feature" : "pay_num",
+												"threshold" : "0.50824136",
+												"left" : {
+													"feature" : "basket",
+													"threshold" : "0.546875",
+													"left" : {
+														"value" : "0.08494863659143448"
+													},
+													"right" : {
+														"value" : "-1.3620179891586304"
+													}
+												},
+												"right" : {
+													"value" : "0.40794864296913147"
+												}
+											},
+											"right" : {
+												"value" : "-0.8605737686157227"
+											}
+										},
+										"right" : {
+											"value" : "1.2604135274887085"
+										}
+									},
+									"right" : {
+										"value" : "-1.3792181015014648"
+									}
+								},
+								"right" : {
+									"value" : "0.5322448015213013"
+								}
+							},
+							"right" : {
+								"value" : "-1.2856956720352173"
+							}
+						},
+						"right" : {
+							"value" : "0.9058586359024048"
+						}
+					},
+					"right" : {
+						"value" : "-0.1650323122739792"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.4891115",
+					"left" : {
+						"feature" : "price",
+						"threshold" : "0.48535803",
+						"left" : {
+							"feature" : "BM25",
+							"threshold" : "0.036748856",
+							"left" : {
+								"value" : "0.4776492416858673"
+							},
+							"right" : {
+								"feature" : "BM25",
+								"threshold" : "0.056133427",
+								"left" : {
+									"value" : "-0.4504631757736206"
+								},
+								"right" : {
+									"feature" : "pay_num",
+									"threshold" : "0.62581885",
+									"left" : {
+										"feature" : "basket",
+										"threshold" : "0.6171875",
+										"left" : {
+											"feature" : "pay_num",
+											"threshold" : "0.60685474",
+											"left" : {
+												"feature" : "BM25",
+												"threshold" : "0.05890265",
+												"left" : {
+													"value" : "0.5681664347648621"
+												},
+												"right" : {
+													"feature" : "price",
+													"threshold" : "0.25639555",
+													"left" : {
+														"value" : "0.14456051588058472"
+													},
+													"right" : {
+														"value" : "-0.102811798453331"
+													}
+												}
+											},
+											"right" : {
+												"value" : "0.9608234167098999"
+											}
+										},
+										"right" : {
+											"value" : "-0.757655680179596"
+										}
+									},
+									"right" : {
+										"value" : "0.3354332149028778"
+									}
+								}
+							}
+						},
+						"right" : {
+							"value" : "0.8513351678848267"
+						}
+					},
+					"right" : {
+						"value" : "-0.4982621967792511"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.28266993",
+					"left" : {
+						"feature" : "pay_num",
+						"threshold" : "0.62581885",
+						"left" : {
+							"feature" : "basket",
+							"threshold" : "0.6640625",
+							"left" : {
+								"feature" : "basket",
+								"threshold" : "0.66015625",
+								"left" : {
+									"feature" : "basket",
+									"threshold" : "0.59375",
+									"left" : {
+										"feature" : "add_time",
+										"threshold" : "0.7443497",
+										"left" : {
+											"value" : "-0.3252384662628174"
+										},
+										"right" : {
+											"feature" : "BM25",
+											"threshold" : "0.0644411",
+											"left" : {
+												"value" : "0.37578660249710083"
+											},
+											"right" : {
+												"value" : "0.1074785590171814"
+											}
+										}
+									},
+									"right" : {
+										"value" : "-0.7972211837768555"
+									}
+								},
+								"right" : {
+									"value" : "1.2002384662628174"
+								}
+							},
+							"right" : {
+								"value" : "-1.8344323635101318"
+							}
+						},
+						"right" : {
+							"value" : "0.4026804268360138"
+						}
+					},
+					"right" : {
+						"feature" : "price",
+						"threshold" : "0.5153859",
+						"left" : {
+							"feature" : "BM25",
+							"threshold" : "0.03951808",
+							"left" : {
+								"value" : "0.6197860240936279"
+							},
+							"right" : {
+								"value" : "-0.0867551937699318"
+							}
+						},
+						"right" : {
+							"value" : "-0.6362236738204956"
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.28266993",
+					"left" : {
+						"feature" : "basket",
+						"threshold" : "0.7421875",
+						"left" : {
+							"feature" : "review",
+							"threshold" : "0.8726298",
+							"left" : {
+								"feature" : "basket",
+								"threshold" : "0.71875",
+								"left" : {
+									"feature" : "pay_num",
+									"threshold" : "0.67891836",
+									"left" : {
+										"feature" : "add_time",
+										"threshold" : "0.98190653",
+										"left" : {
+											"feature" : "pay_num",
+											"threshold" : "0.07585688",
+											"left" : {
+												"value" : "-0.7851883172988892"
+											},
+											"right" : {
+												"feature" : "basket",
+												"threshold" : "0.0",
+												"left" : {
+													"value" : "2.5329465866088867"
+												},
+												"right" : {
+													"feature" : "basket",
+													"threshold" : "0.4453125",
+													"left" : {
+														"value" : "0.2517532706260681"
+													},
+													"right" : {
+														"value" : "-0.009850451722741127"
+													}
+												}
+											}
+										},
+										"right" : {
+											"value" : "-0.5470826029777527"
+										}
+									},
+									"right" : {
+										"value" : "0.5807052254676819"
+									}
+								},
+								"right" : {
+									"value" : "0.810089647769928"
+								}
+							},
+							"right" : {
+								"value" : "1.160840630531311"
+							}
+						},
+						"right" : {
+							"value" : "-1.2070432901382446"
+						}
+					},
+					"right" : {
+						"value" : "-0.13667306303977966"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.45533016",
+					"left" : {
+						"feature" : "basket",
+						"threshold" : "0.80078125",
+						"left" : {
+							"feature" : "review",
+							"threshold" : "0.88814324",
+							"left" : {
+								"feature" : "add_time",
+								"threshold" : "0.9711085",
+								"left" : {
+									"feature" : "basket",
+									"threshold" : "0.65234375",
+									"left" : {
+										"feature" : "basket",
+										"threshold" : "0.6171875",
+										"left" : {
+											"feature" : "pay_num",
+											"threshold" : "0.67891836",
+											"left" : {
+												"feature" : "review",
+												"threshold" : "0.57787484",
+												"left" : {
+													"feature" : "review",
+													"threshold" : "0.55072635",
+													"left" : {
+														"value" : "0.10112259536981583"
+													},
+													"right" : {
+														"value" : "0.668328583240509"
+													}
+												},
+												"right" : {
+													"value" : "-0.2769891619682312"
+												}
+											},
+											"right" : {
+												"value" : "1.1967957019805908"
+											}
+										},
+										"right" : {
+											"value" : "-0.9315226078033447"
+										}
+									},
+									"right" : {
+										"value" : "0.3335382044315338"
+									}
+								},
+								"right" : {
+									"value" : "-0.1664717048406601"
+								}
+							},
+							"right" : {
+								"value" : "1.002083659172058"
+							}
+						},
+						"right" : {
+							"value" : "-1.6738580465316772"
+						}
+					},
+					"right" : {
+						"value" : "-0.38603588938713074"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "pay_num",
+					"threshold" : "0.52720547",
+					"left" : {
+						"feature" : "price",
+						"threshold" : "0.4478232",
+						"left" : {
+							"feature" : "basket",
+							"threshold" : "0.54296875",
+							"left" : {
+								"feature" : "basket",
+								"threshold" : "0.5390625",
+								"left" : {
+									"feature" : "price",
+									"threshold" : "0.121270135",
+									"left" : {
+										"value" : "-0.4010978937149048"
+									},
+									"right" : {
+										"feature" : "pay_num",
+										"threshold" : "0.19722776",
+										"left" : {
+											"value" : "-0.30471375584602356"
+										},
+										"right" : {
+											"feature" : "price",
+											"threshold" : "0.4253023",
+											"left" : {
+												"feature" : "price",
+												"threshold" : "0.19258632",
+												"left" : {
+													"value" : "0.3129596710205078"
+												},
+												"right" : {
+													"value" : "0.009690863080322742"
+												}
+											},
+											"right" : {
+												"value" : "0.6469890475273132"
+											}
+										}
+									}
+								},
+								"right" : {
+									"value" : "1.012338638305664"
+								}
+							},
+							"right" : {
+								"value" : "-0.7321420311927795"
+							}
+						},
+						"right" : {
+							"value" : "-0.6400704383850098"
+						}
+					},
+					"right" : {
+						"feature" : "pay_num",
+						"threshold" : "0.5309983",
+						"left" : {
+							"value" : "1.077930212020874"
+						},
+						"right" : {
+							"value" : "0.09656179696321487"
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "pay_num",
+					"threshold" : "0.0",
+					"left" : {
+						"value" : "-0.9853113293647766"
+					},
+					"right" : {
+						"feature" : "BM25",
+						"threshold" : "0.036748856",
+						"left" : {
+							"value" : "0.4902302026748657"
+						},
+						"right" : {
+							"feature" : "add_time",
+							"threshold" : "0.98190653",
+							"left" : {
+								"feature" : "basket",
+								"threshold" : "0.74609375",
+								"left" : {
+									"feature" : "pay_num",
+									"threshold" : "0.62581885",
+									"left" : {
+										"feature" : "basket",
+										"threshold" : "0.73046875",
+										"left" : {
+											"feature" : "basket",
+											"threshold" : "0.59375",
+											"left" : {
+												"feature" : "pay_num",
+												"threshold" : "0.60685474",
+												"left" : {
+													"feature" : "pay_num",
+													"threshold" : "0.52720547",
+													"left" : {
+														"value" : "0.025544241070747375"
+													},
+													"right" : {
+														"value" : "0.3276972472667694"
+													}
+												},
+												"right" : {
+													"value" : "1.1317496299743652"
+												}
+											},
+											"right" : {
+												"value" : "-0.4320514500141144"
+											}
+										},
+										"right" : {
+											"value" : "1.5610748529434204"
+										}
+									},
+									"right" : {
+										"value" : "0.3410819470882416"
+									}
+								},
+								"right" : {
+									"value" : "-0.7892667651176453"
+								}
+							},
+							"right" : {
+								"value" : "-0.41063711047172546"
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "BM25",
+					"threshold" : "0.036748856",
+					"left" : {
+						"value" : "0.43421950936317444"
+					},
+					"right" : {
+						"feature" : "price",
+						"threshold" : "0.25639555",
+						"left" : {
+							"feature" : "price",
+							"threshold" : "0.24888857",
+							"left" : {
+								"feature" : "pay_num",
+								"threshold" : "0.47789863",
+								"left" : {
+									"feature" : "basket",
+									"threshold" : "0.44921875",
+									"left" : {
+										"feature" : "pay_num",
+										"threshold" : "0.38687018",
+										"left" : {
+											"value" : "-0.0014027600409463048"
+										},
+										"right" : {
+											"value" : "0.33537715673446655"
+										}
+									},
+									"right" : {
+										"value" : "-0.5482036471366882"
+									}
+								},
+								"right" : {
+									"value" : "0.20052570104599"
+								}
+							},
+							"right" : {
+								"value" : "0.7044957280158997"
+							}
+						},
+						"right" : {
+							"feature" : "add_time",
+							"threshold" : "0.9783072",
+							"left" : {
+								"feature" : "pay_num",
+								"threshold" : "0.4475558",
+								"left" : {
+									"value" : "-0.19072982668876648"
+								},
+								"right" : {
+									"feature" : "pay_num",
+									"threshold" : "0.45134866",
+									"left" : {
+										"value" : "0.8160371780395508"
+									},
+									"right" : {
+										"value" : "0.0897369235754013"
+									}
+								}
+							},
+							"right" : {
+								"value" : "-0.5580954551696777"
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "pay_num",
+					"threshold" : "0.0",
+					"left" : {
+						"value" : "-0.9589367508888245"
+					},
+					"right" : {
+						"feature" : "BM25",
+						"threshold" : "0.036748856",
+						"left" : {
+							"value" : "0.4472461938858032"
+						},
+						"right" : {
+							"feature" : "BM25",
+							"threshold" : "0.056133427",
+							"left" : {
+								"value" : "-0.30260246992111206"
+							},
+							"right" : {
+								"feature" : "price",
+								"threshold" : "0.25639555",
+								"left" : {
+									"feature" : "basket",
+									"threshold" : "0.359375",
+									"left" : {
+										"value" : "0.5008167624473572"
+									},
+									"right" : {
+										"feature" : "pay_num",
+										"threshold" : "0.38687018",
+										"left" : {
+											"value" : "-0.6971956491470337"
+										},
+										"right" : {
+											"feature" : "price",
+											"threshold" : "0.07998182",
+											"left" : {
+												"value" : "-2.520158290863037"
+											},
+											"right" : {
+												"value" : "0.1610526591539383"
+											}
+										}
+									}
+								},
+								"right" : {
+									"feature" : "review",
+									"threshold" : "0.66319865",
+									"left" : {
+										"feature" : "pay_num",
+										"threshold" : "0.6637471",
+										"left" : {
+											"value" : "-0.0623178668320179"
+										},
+										"right" : {
+											"value" : "-1.6106466054916382"
+										}
+									},
+									"right" : {
+										"value" : "0.32636019587516785"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.45533016",
+					"left" : {
+						"feature" : "price",
+						"threshold" : "0.4253023",
+						"left" : {
+							"feature" : "basket",
+							"threshold" : "0.734375",
+							"left" : {
+								"feature" : "review",
+								"threshold" : "0.8726298",
+								"left" : {
+									"feature" : "basket",
+									"threshold" : "0.72265625",
+									"left" : {
+										"feature" : "pay_num",
+										"threshold" : "0.6713327",
+										"left" : {
+											"feature" : "basket",
+											"threshold" : "0.59375",
+											"left" : {
+												"feature" : "basket",
+												"threshold" : "0.58984375",
+												"left" : {
+													"feature" : "pay_num",
+													"threshold" : "0.61064756",
+													"left" : {
+														"value" : "0.022052228450775146"
+													},
+													"right" : {
+														"value" : "1.2196582555770874"
+													}
+												},
+												"right" : {
+													"value" : "0.7431055307388306"
+												}
+											},
+											"right" : {
+												"value" : "-0.45973196625709534"
+											}
+										},
+										"right" : {
+											"value" : "0.3096206486225128"
+										}
+									},
+									"right" : {
+										"value" : "0.6736721992492676"
+									}
+								},
+								"right" : {
+									"value" : "1.1247237920761108"
+								}
+							},
+							"right" : {
+								"value" : "-0.6110942363739014"
+							}
+						},
+						"right" : {
+							"value" : "0.3338421881198883"
+						}
+					},
+					"right" : {
+						"value" : "-0.3178212642669678"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "pay_num",
+					"threshold" : "0.0",
+					"left" : {
+						"value" : "-0.9363563656806946"
+					},
+					"right" : {
+						"feature" : "BM25",
+						"threshold" : "0.036748856",
+						"left" : {
+							"value" : "0.4279734492301941"
+						},
+						"right" : {
+							"feature" : "price",
+							"threshold" : "0.19258632",
+							"left" : {
+								"value" : "0.12599831819534302"
+							},
+							"right" : {
+								"feature" : "review",
+								"threshold" : "0.7989411",
+								"left" : {
+									"feature" : "pay_num",
+									"threshold" : "0.5992691",
+									"left" : {
+										"feature" : "add_time",
+										"threshold" : "0.9783072",
+										"left" : {
+											"feature" : "price",
+											"threshold" : "0.22261418",
+											"left" : {
+												"value" : "-0.48118147253990173"
+											},
+											"right" : {
+												"feature" : "price",
+												"threshold" : "0.22636767",
+												"left" : {
+													"value" : "0.9208871126174927"
+												},
+												"right" : {
+													"feature" : "review",
+													"threshold" : "0.5701181",
+													"left" : {
+														"value" : "0.0548483207821846"
+													},
+													"right" : {
+														"value" : "-0.3312419354915619"
+													}
+												}
+											}
+										},
+										"right" : {
+											"value" : "-0.5477213263511658"
+										}
+									},
+									"right" : {
+										"value" : "0.2519203722476959"
+									}
+								},
+								"right" : {
+									"value" : "-1.0572640895843506"
+								}
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "pay_num",
+					"threshold" : "0.52720547",
+					"left" : {
+						"feature" : "price",
+						"threshold" : "0.4478232",
+						"left" : {
+							"feature" : "price",
+							"threshold" : "0.4253023",
+							"left" : {
+								"feature" : "basket",
+								"threshold" : "0.4453125",
+								"left" : {
+									"feature" : "pay_num",
+									"threshold" : "0.48169148",
+									"left" : {
+										"feature" : "pay_num",
+										"threshold" : "0.4096273",
+										"left" : {
+											"feature" : "add_time",
+											"threshold" : "0.9711085",
+											"left" : {
+												"feature" : "add_time",
+												"threshold" : "0.8055386",
+												"left" : {
+													"value" : "-0.17662453651428223"
+												},
+												"right" : {
+													"value" : "0.19094248116016388"
+												}
+											},
+											"right" : {
+												"value" : "-0.6422329545021057"
+											}
+										},
+										"right" : {
+											"value" : "0.3754255473613739"
+										}
+									},
+									"right" : {
+										"value" : "1.2083839178085327"
+									}
+								},
+								"right" : {
+									"value" : "-0.21921086311340332"
+								}
+							},
+							"right" : {
+								"value" : "0.45550334453582764"
+							}
+						},
+						"right" : {
+							"value" : "-0.5400615334510803"
+						}
+					},
+					"right" : {
+						"feature" : "pay_num",
+						"threshold" : "0.5309983",
+						"left" : {
+							"value" : "1.0088387727737427"
+						},
+						"right" : {
+							"value" : "0.06408395618200302"
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "BM25",
+					"threshold" : "0.036748856",
+					"left" : {
+						"value" : "0.38220131397247314"
+					},
+					"right" : {
+						"feature" : "BM25",
+						"threshold" : "0.056133427",
+						"left" : {
+							"value" : "-0.29858896136283875"
+						},
+						"right" : {
+							"feature" : "pay_num",
+							"threshold" : "0.4475558",
+							"left" : {
+								"feature" : "basket",
+								"threshold" : "0.4453125",
+								"left" : {
+									"feature" : "pay_num",
+									"threshold" : "0.4096273",
+									"left" : {
+										"feature" : "add_time",
+										"threshold" : "0.9711085",
+										"left" : {
+											"feature" : "add_time",
+											"threshold" : "0.84153205",
+											"left" : {
+												"value" : "-0.23707060515880585"
+											},
+											"right" : {
+												"value" : "0.21560247242450714"
+											}
+										},
+										"right" : {
+											"value" : "-0.5881982445716858"
+										}
+									},
+									"right" : {
+										"value" : "0.4200156629085541"
+									}
+								},
+								"right" : {
+									"value" : "-0.5560910105705261"
+								}
+							},
+							"right" : {
+								"feature" : "add_time",
+								"threshold" : "0.5787798",
+								"left" : {
+									"value" : "0.671248733997345"
+								},
+								"right" : {
+									"feature" : "add_time",
+									"threshold" : "0.88832355",
+									"left" : {
+										"value" : "-0.4709731936454773"
+									},
+									"right" : {
+										"value" : "0.1750679612159729"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "add_time",
+					"threshold" : "0.9639098",
+					"left" : {
+						"feature" : "price",
+						"threshold" : "0.121270135",
+						"left" : {
+							"value" : "-0.4317513406276703"
+						},
+						"right" : {
+							"feature" : "price",
+							"threshold" : "0.13253058",
+							"left" : {
+								"value" : "0.5381293892860413"
+							},
+							"right" : {
+								"feature" : "pay_num",
+								"threshold" : "0.5992691",
+								"left" : {
+									"feature" : "review",
+									"threshold" : "0.5701181",
+									"left" : {
+										"feature" : "review",
+										"threshold" : "0.5662398",
+										"left" : {
+											"feature" : "review",
+											"threshold" : "0.50806445",
+											"left" : {
+												"feature" : "add_time",
+												"threshold" : "0.9567111",
+												"left" : {
+													"feature" : "pay_num",
+													"threshold" : "0.4247987",
+													"left" : {
+														"value" : "0.036054495722055435"
+													},
+													"right" : {
+														"value" : "-0.4148341119289398"
+													}
+												},
+												"right" : {
+													"value" : "0.710391640663147"
+												}
+											},
+											"right" : {
+												"value" : "0.4043979346752167"
+											}
+										},
+										"right" : {
+											"value" : "0.9247055649757385"
+										}
+									},
+									"right" : {
+										"value" : "-0.4829990267753601"
+									}
+								},
+								"right" : {
+									"value" : "0.28738945722579956"
+								}
+							}
+						}
+					},
+					"right" : {
+						"value" : "-0.1366834044456482"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "pay_num",
+					"threshold" : "0.0",
+					"left" : {
+						"value" : "-0.9024960398674011"
+					},
+					"right" : {
+						"feature" : "add_time",
+						"threshold" : "0.9639098",
+						"left" : {
+							"feature" : "price",
+							"threshold" : "0.121270135",
+							"left" : {
+								"value" : "-0.3720967471599579"
+							},
+							"right" : {
+								"feature" : "price",
+								"threshold" : "0.267656",
+								"left" : {
+									"feature" : "basket",
+									"threshold" : "0.4453125",
+									"left" : {
+										"feature" : "BM25",
+										"threshold" : "0.075518",
+										"left" : {
+											"value" : "0.6182129979133606"
+										},
+										"right" : {
+											"value" : "0.1684620976448059"
+										}
+									},
+									"right" : {
+										"value" : "-0.08202462643384933"
+									}
+								},
+								"right" : {
+									"feature" : "BM25",
+									"threshold" : "0.028441176",
+									"left" : {
+										"value" : "2.3503785133361816"
+									},
+									"right" : {
+										"feature" : "pay_num",
+										"threshold" : "0.52720547",
+										"left" : {
+											"feature" : "BM25",
+											"threshold" : "0.105979465",
+											"left" : {
+												"value" : "-0.31985461711883545"
+											},
+											"right" : {
+												"value" : "0.1833163946866989"
+											}
+										},
+										"right" : {
+											"value" : "0.37405431270599365"
+										}
+									}
+								}
+							}
+						},
+						"right" : {
+							"value" : "-0.11735444515943527"
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "add_time",
+					"threshold" : "0.9639098",
+					"left" : {
+						"feature" : "add_time",
+						"threshold" : "0.96031046",
+						"left" : {
+							"feature" : "pay_num",
+							"threshold" : "0.19722776",
+							"left" : {
+								"value" : "-0.3475075364112854"
+							},
+							"right" : {
+								"feature" : "basket",
+								"threshold" : "0.359375",
+								"left" : {
+									"value" : "0.3875523805618286"
+								},
+								"right" : {
+									"feature" : "BM25",
+									"threshold" : "0.086594895",
+									"left" : {
+										"value" : "-0.14534465968608856"
+									},
+									"right" : {
+										"feature" : "price",
+										"threshold" : "0.121270135",
+										"left" : {
+											"value" : "-0.764870822429657"
+										},
+										"right" : {
+											"feature" : "price",
+											"threshold" : "0.12502362",
+											"left" : {
+												"value" : "1.4103039503097534"
+											},
+											"right" : {
+												"feature" : "basket",
+												"threshold" : "0.41015625",
+												"left" : {
+													"value" : "-0.43270978331565857"
+												},
+												"right" : {
+													"feature" : "basket",
+													"threshold" : "0.44140625",
+													"left" : {
+														"value" : "0.6511378884315491"
+													},
+													"right" : {
+														"value" : "0.12325753271579742"
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						},
+						"right" : {
+							"value" : "0.7398213744163513"
+						}
+					},
+					"right" : {
+						"value" : "-0.14092975854873657"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.012419071",
+					"left" : {
+						"value" : "1.208800196647644"
+					},
+					"right" : {
+						"feature" : "price",
+						"threshold" : "0.29768386",
+						"left" : {
+							"feature" : "review",
+							"threshold" : "0.86099476",
+							"left" : {
+								"feature" : "pay_num",
+								"threshold" : "0.78132457",
+								"left" : {
+									"feature" : "pay_num",
+									"threshold" : "0.7737389",
+									"left" : {
+										"feature" : "add_time",
+										"threshold" : "0.74794906",
+										"left" : {
+											"value" : "-0.21329103410243988"
+										},
+										"right" : {
+											"feature" : "add_time",
+											"threshold" : "0.9027209",
+											"left" : {
+												"value" : "0.27916014194488525"
+											},
+											"right" : {
+												"value" : "-0.016869615763425827"
+											}
+										}
+									},
+									"right" : {
+										"value" : "1.1240065097808838"
+									}
+								},
+								"right" : {
+									"value" : "-2.153975009918213"
+								}
+							},
+							"right" : {
+								"value" : "0.8256447315216064"
+							}
+						},
+						"right" : {
+							"feature" : "review",
+							"threshold" : "0.95795363",
+							"left" : {
+								"feature" : "BM25",
+								"threshold" : "0.028441176",
+								"left" : {
+									"value" : "1.7606199979782104"
+								},
+								"right" : {
+									"value" : "-0.11112795025110245"
+								}
+							},
+							"right" : {
+								"value" : "1.1735771894454956"
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.012419071",
+					"left" : {
+						"value" : "1.230080246925354"
+					},
+					"right" : {
+						"feature" : "price",
+						"threshold" : "0.29768386",
+						"left" : {
+							"feature" : "review",
+							"threshold" : "0.86099476",
+							"left" : {
+								"feature" : "basket",
+								"threshold" : "0.75390625",
+								"left" : {
+									"feature" : "pay_num",
+									"threshold" : "0.67891836",
+									"left" : {
+										"feature" : "pay_num",
+										"threshold" : "0.6637471",
+										"left" : {
+											"feature" : "basket",
+											"threshold" : "0.71875",
+											"left" : {
+												"feature" : "pay_num",
+												"threshold" : "0.6296117",
+												"left" : {
+													"feature" : "pay_num",
+													"threshold" : "0.62581885",
+													"left" : {
+														"value" : "0.0404040589928627"
+													},
+													"right" : {
+														"value" : "1.0323948860168457"
+													}
+												},
+												"right" : {
+													"value" : "-0.9107620716094971"
+												}
+											},
+											"right" : {
+												"value" : "0.5893266201019287"
+											}
+										},
+										"right" : {
+											"value" : "-3.3128509521484375"
+										}
+									},
+									"right" : {
+										"value" : "0.49462735652923584"
+									}
+								},
+								"right" : {
+									"value" : "-1.1805496215820312"
+								}
+							},
+							"right" : {
+								"value" : "0.7971155643463135"
+							}
+						},
+						"right" : {
+							"value" : "-0.0983760878443718"
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "BM25",
+					"threshold" : "0.036748856",
+					"left" : {
+						"value" : "0.35797035694122314"
+					},
+					"right" : {
+						"feature" : "BM25",
+						"threshold" : "0.056133427",
+						"left" : {
+							"value" : "-0.2975703179836273"
+						},
+						"right" : {
+							"feature" : "pay_num",
+							"threshold" : "0.4475558",
+							"left" : {
+								"feature" : "review",
+								"threshold" : "0.48091596",
+								"left" : {
+									"feature" : "BM25",
+									"threshold" : "0.0644411",
+									"left" : {
+										"value" : "0.4800010323524475"
+									},
+									"right" : {
+										"feature" : "basket",
+										"threshold" : "0.44140625",
+										"left" : {
+											"feature" : "pay_num",
+											"threshold" : "0.417213",
+											"left" : {
+												"value" : "-0.028591975569725037"
+											},
+											"right" : {
+												"value" : "0.7122029662132263"
+											}
+										},
+										"right" : {
+											"value" : "-0.4307888448238373"
+										}
+									}
+								},
+								"right" : {
+									"value" : "-0.5579245090484619"
+								}
+							},
+							"right" : {
+								"feature" : "add_time",
+								"threshold" : "0.5787798",
+								"left" : {
+									"value" : "0.6195849776268005"
+								},
+								"right" : {
+									"feature" : "basket",
+									"threshold" : "0.4375",
+									"left" : {
+										"value" : "0.7758757472038269"
+									},
+									"right" : {
+										"value" : "0.05729413405060768"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.29768386",
+					"left" : {
+						"feature" : "BM25",
+						"threshold" : "0.075518",
+						"left" : {
+							"feature" : "BM25",
+							"threshold" : "0.056133427",
+							"left" : {
+								"value" : "-0.15944840013980865"
+							},
+							"right" : {
+								"feature" : "add_time",
+								"threshold" : "0.94231373",
+								"left" : {
+									"value" : "0.4652056097984314"
+								},
+								"right" : {
+									"value" : "-0.02945997565984726"
+								}
+							}
+						},
+						"right" : {
+							"feature" : "pay_num",
+							"threshold" : "0.62581885",
+							"left" : {
+								"value" : "-0.054525282233953476"
+							},
+							"right" : {
+								"value" : "0.3803342282772064"
+							}
+						}
+					},
+					"right" : {
+						"feature" : "add_time",
+						"threshold" : "0.9783072",
+						"left" : {
+							"feature" : "BM25",
+							"threshold" : "0.028441176",
+							"left" : {
+								"value" : "1.8838454484939575"
+							},
+							"right" : {
+								"feature" : "pay_num",
+								"threshold" : "0.67512554",
+								"left" : {
+									"feature" : "pay_num",
+									"threshold" : "0.6675399",
+									"left" : {
+										"value" : "-0.04257174953818321"
+									},
+									"right" : {
+										"value" : "0.8108198046684265"
+									}
+								},
+								"right" : {
+									"value" : "-0.6494446396827698"
+								}
+							}
+						},
+						"right" : {
+							"value" : "-0.44061946868896484"
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.29768386",
+					"left" : {
+						"feature" : "review",
+						"threshold" : "0.8377246",
+						"left" : {
+							"feature" : "pay_num",
+							"threshold" : "0.7054681",
+							"left" : {
+								"feature" : "pay_num",
+								"threshold" : "0.62581885",
+								"left" : {
+									"feature" : "BM25",
+									"threshold" : "0.075518",
+									"left" : {
+										"feature" : "pay_num",
+										"threshold" : "0.59547627",
+										"left" : {
+											"feature" : "review",
+											"threshold" : "0.71361727",
+											"left" : {
+												"value" : "0.11987388134002686"
+											},
+											"right" : {
+												"value" : "1.0511698722839355"
+											}
+										},
+										"right" : {
+											"value" : "0.8166705965995789"
+										}
+									},
+									"right" : {
+										"value" : "-0.03873516246676445"
+									}
+								},
+								"right" : {
+									"value" : "0.3997713327407837"
+								}
+							},
+							"right" : {
+								"value" : "-0.6693865060806274"
+							}
+						},
+						"right" : {
+							"value" : "0.5603948831558228"
+						}
+					},
+					"right" : {
+						"feature" : "review",
+						"threshold" : "0.95795363",
+						"left" : {
+							"feature" : "basket",
+							"threshold" : "0.5859375",
+							"left" : {
+								"value" : "-0.04939349740743637"
+							},
+							"right" : {
+								"value" : "-0.29766008257865906"
+							}
+						},
+						"right" : {
+							"value" : "1.1594839096069336"
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.609223",
+					"left" : {
+						"feature" : "add_time",
+						"threshold" : "0.9639098",
+						"left" : {
+							"feature" : "price",
+							"threshold" : "0.14754452",
+							"left" : {
+								"value" : "-0.24536311626434326"
+							},
+							"right" : {
+								"feature" : "price",
+								"threshold" : "0.19258632",
+								"left" : {
+									"value" : "0.28137752413749695"
+								},
+								"right" : {
+									"feature" : "add_time",
+									"threshold" : "0.96031046",
+									"left" : {
+										"feature" : "BM25",
+										"threshold" : "0.03951808",
+										"left" : {
+											"value" : "0.6444275975227356"
+										},
+										"right" : {
+											"feature" : "pay_num",
+											"threshold" : "0.5992691",
+											"left" : {
+												"feature" : "review",
+												"threshold" : "0.6166584",
+												"left" : {
+													"feature" : "review",
+													"threshold" : "0.61278003",
+													"left" : {
+														"value" : "-0.00861317664384842"
+													},
+													"right" : {
+														"value" : "1.29781174659729"
+													}
+												},
+												"right" : {
+													"value" : "-0.6471836566925049"
+												}
+											},
+											"right" : {
+												"value" : "0.2915901839733124"
+											}
+										}
+									},
+									"right" : {
+										"value" : "0.8275306820869446"
+									}
+								}
+							}
+						},
+						"right" : {
+							"value" : "-0.10751833021640778"
+						}
+					},
+					"right" : {
+						"value" : "-0.8601136803627014"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "BM25",
+					"threshold" : "0.036748856",
+					"left" : {
+						"value" : "0.28882089257240295"
+					},
+					"right" : {
+						"feature" : "BM25",
+						"threshold" : "0.056133427",
+						"left" : {
+							"value" : "-0.3145548701286316"
+						},
+						"right" : {
+							"feature" : "BM25",
+							"threshold" : "0.05890265",
+							"left" : {
+								"value" : "0.39912617206573486"
+							},
+							"right" : {
+								"feature" : "pay_num",
+								"threshold" : "0.60685474",
+								"left" : {
+									"feature" : "price",
+									"threshold" : "0.25639555",
+									"left" : {
+										"feature" : "price",
+										"threshold" : "0.16255845",
+										"left" : {
+											"value" : "-0.13596601784229279"
+										},
+										"right" : {
+											"feature" : "BM25",
+											"threshold" : "0.067210324",
+											"left" : {
+												"value" : "0.6074350476264954"
+											},
+											"right" : {
+												"value" : "0.095900759100914"
+											}
+										}
+									},
+									"right" : {
+										"feature" : "review",
+										"threshold" : "0.55072635",
+										"left" : {
+											"feature" : "basket",
+											"threshold" : "0.73046875",
+											"left" : {
+												"value" : "-0.18323124945163727"
+											},
+											"right" : {
+												"value" : "1.3786134719848633"
+											}
+										},
+										"right" : {
+											"value" : "0.14433425664901733"
+										}
+									}
+								},
+								"right" : {
+									"value" : "0.23498323559761047"
+								}
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "pay_num",
+					"threshold" : "0.0",
+					"left" : {
+						"value" : "-0.8619738221168518"
+					},
+					"right" : {
+						"feature" : "review",
+						"threshold" : "0.0",
+						"left" : {
+							"value" : "0.30459386110305786"
+						},
+						"right" : {
+							"feature" : "BM25",
+							"threshold" : "0.036748856",
+							"left" : {
+								"value" : "0.3135327100753784"
+							},
+							"right" : {
+								"feature" : "BM25",
+								"threshold" : "0.056133427",
+								"left" : {
+									"value" : "-0.27149346470832825"
+								},
+								"right" : {
+									"feature" : "add_time",
+									"threshold" : "0.9639098",
+									"left" : {
+										"feature" : "price",
+										"threshold" : "0.121270135",
+										"left" : {
+											"value" : "-0.3952992260456085"
+										},
+										"right" : {
+											"feature" : "price",
+											"threshold" : "0.13253058",
+											"left" : {
+												"value" : "0.6044259667396545"
+											},
+											"right" : {
+												"feature" : "pay_num",
+												"threshold" : "0.622026",
+												"left" : {
+													"feature" : "price",
+													"threshold" : "0.15880497",
+													"left" : {
+														"value" : "-0.3871749937534332"
+													},
+													"right" : {
+														"value" : "0.09435179829597473"
+													}
+												},
+												"right" : {
+													"value" : "0.31298932433128357"
+												}
+											}
+										}
+									},
+									"right" : {
+										"value" : "-0.15154387056827545"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "BM25",
+					"threshold" : "0.028441176",
+					"left" : {
+						"value" : "0.5937870740890503"
+					},
+					"right" : {
+						"feature" : "price",
+						"threshold" : "0.29768386",
+						"left" : {
+							"feature" : "review",
+							"threshold" : "0.7950627",
+							"left" : {
+								"feature" : "review",
+								"threshold" : "0.76791424",
+								"left" : {
+									"feature" : "review",
+									"threshold" : "0.7601575",
+									"left" : {
+										"feature" : "review",
+										"threshold" : "0.6825904",
+										"left" : {
+											"feature" : "review",
+											"threshold" : "0.67871207",
+											"left" : {
+												"feature" : "review",
+												"threshold" : "0.65544194",
+												"left" : {
+													"feature" : "pay_num",
+													"threshold" : "0.622026",
+													"left" : {
+														"value" : "0.03371485695242882"
+													},
+													"right" : {
+														"value" : "0.4202727973461151"
+													}
+												},
+												"right" : {
+													"value" : "-1.2795662879943848"
+												}
+											},
+											"right" : {
+												"value" : "0.817970871925354"
+											}
+										},
+										"right" : {
+											"value" : "-0.4260885715484619"
+										}
+									},
+									"right" : {
+										"value" : "1.3904048204421997"
+									}
+								},
+								"right" : {
+									"value" : "-1.7575733661651611"
+								}
+							},
+							"right" : {
+								"value" : "0.4870891571044922"
+							}
+						},
+						"right" : {
+							"value" : "-0.08916450291872025"
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.609223",
+					"left" : {
+						"feature" : "price",
+						"threshold" : "0.6054695",
+						"left" : {
+							"feature" : "basket",
+							"threshold" : "0.734375",
+							"left" : {
+								"feature" : "review",
+								"threshold" : "0.8726298",
+								"left" : {
+									"feature" : "basket",
+									"threshold" : "0.73046875",
+									"left" : {
+										"feature" : "pay_num",
+										"threshold" : "0.6713327",
+										"left" : {
+											"feature" : "pay_num",
+											"threshold" : "0.6296117",
+											"left" : {
+												"feature" : "pay_num",
+												"threshold" : "0.62581885",
+												"left" : {
+													"feature" : "basket",
+													"threshold" : "0.6640625",
+													"left" : {
+														"value" : "0.0205015130341053"
+													},
+													"right" : {
+														"value" : "-1.1535512208938599"
+													}
+												},
+												"right" : {
+													"value" : "0.8211862444877625"
+												}
+											},
+											"right" : {
+												"value" : "-0.6788522005081177"
+											}
+										},
+										"right" : {
+											"value" : "0.2515699863433838"
+										}
+									},
+									"right" : {
+										"value" : "1.3292754888534546"
+									}
+								},
+								"right" : {
+									"value" : "1.0898882150650024"
+								}
+							},
+							"right" : {
+								"value" : "-0.3540007174015045"
+							}
+						},
+						"right" : {
+							"value" : "2.4442145824432373"
+						}
+					},
+					"right" : {
+						"value" : "-0.8252309560775757"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "pay_num",
+					"threshold" : "0.19722776",
+					"left" : {
+						"value" : "-0.2412547618150711"
+					},
+					"right" : {
+						"feature" : "review",
+						"threshold" : "0.0",
+						"left" : {
+							"value" : "0.37348127365112305"
+						},
+						"right" : {
+							"feature" : "basket",
+							"threshold" : "0.265625",
+							"left" : {
+								"value" : "0.6359726786613464"
+							},
+							"right" : {
+								"feature" : "BM25",
+								"threshold" : "0.036748856",
+								"left" : {
+									"value" : "0.32580479979515076"
+								},
+								"right" : {
+									"feature" : "basket",
+									"threshold" : "0.28515625",
+									"left" : {
+										"value" : "-0.8545383214950562"
+									},
+									"right" : {
+										"feature" : "review",
+										"threshold" : "0.7989411",
+										"left" : {
+											"feature" : "review",
+											"threshold" : "0.7950627",
+											"left" : {
+												"feature" : "pay_num",
+												"threshold" : "0.74339634",
+												"left" : {
+													"feature" : "pay_num",
+													"threshold" : "0.70926094",
+													"left" : {
+														"value" : "-0.007598984055221081"
+													},
+													"right" : {
+														"value" : "-1.131230354309082"
+													}
+												},
+												"right" : {
+													"value" : "0.6458516120910645"
+												}
+											},
+											"right" : {
+												"value" : "1.173641562461853"
+											}
+										},
+										"right" : {
+											"value" : "-0.6037251949310303"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "review",
+					"threshold" : "0.95795363",
+					"left" : {
+						"feature" : "add_time",
+						"threshold" : "0.9963039",
+						"left" : {
+							"feature" : "basket",
+							"threshold" : "0.7265625",
+							"left" : {
+								"feature" : "review",
+								"threshold" : "0.8726298",
+								"left" : {
+									"feature" : "pay_num",
+									"threshold" : "0.62581885",
+									"left" : {
+										"feature" : "basket",
+										"threshold" : "0.59375",
+										"left" : {
+											"feature" : "pay_num",
+											"threshold" : "0.59547627",
+											"left" : {
+												"feature" : "basket",
+												"threshold" : "0.58984375",
+												"left" : {
+													"feature" : "review",
+													"threshold" : "0.57787484",
+													"left" : {
+														"value" : "0.03829861804842949"
+													},
+													"right" : {
+														"value" : "-0.2945641577243805"
+													}
+												},
+												"right" : {
+													"value" : "0.7366270422935486"
+												}
+											},
+											"right" : {
+												"value" : "0.6788702607154846"
+											}
+										},
+										"right" : {
+											"value" : "-0.3815540075302124"
+										}
+									},
+									"right" : {
+										"value" : "0.34726783633232117"
+									}
+								},
+								"right" : {
+									"value" : "1.0805984735488892"
+								}
+							},
+							"right" : {
+								"value" : "-0.5573978424072266"
+							}
+						},
+						"right" : {
+							"value" : "-0.2482326179742813"
+						}
+					},
+					"right" : {
+						"value" : "1.144621729850769"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "BM25",
+					"threshold" : "0.028441176",
+					"left" : {
+						"value" : "0.5617040395736694"
+					},
+					"right" : {
+						"feature" : "pay_num",
+						"threshold" : "0.4475558",
+						"left" : {
+							"feature" : "basket",
+							"threshold" : "0.4453125",
+							"left" : {
+								"feature" : "pay_num",
+								"threshold" : "0.40583444",
+								"left" : {
+									"feature" : "pay_num",
+									"threshold" : "0.40204158",
+									"left" : {
+										"feature" : "basket",
+										"threshold" : "0.421875",
+										"left" : {
+											"feature" : "basket",
+											"threshold" : "0.3984375",
+											"left" : {
+												"value" : "0.015111546032130718"
+											},
+											"right" : {
+												"value" : "-0.6836913228034973"
+											}
+										},
+										"right" : {
+											"value" : "0.38522326946258545"
+										}
+									},
+									"right" : {
+										"value" : "-1.459761381149292"
+									}
+								},
+								"right" : {
+									"value" : "0.2925581932067871"
+								}
+							},
+							"right" : {
+								"value" : "-0.425322026014328"
+							}
+						},
+						"right" : {
+							"feature" : "basket",
+							"threshold" : "0.4375",
+							"left" : {
+								"value" : "0.7522100210189819"
+							},
+							"right" : {
+								"feature" : "add_time",
+								"threshold" : "0.58237916",
+								"left" : {
+									"value" : "0.5298545360565186"
+								},
+								"right" : {
+									"value" : "0.01802145503461361"
+								}
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "pay_num",
+					"threshold" : "0.0",
+					"left" : {
+						"value" : "-0.828999400138855"
+					},
+					"right" : {
+						"feature" : "review",
+						"threshold" : "0.0",
+						"left" : {
+							"value" : "0.28200310468673706"
+						},
+						"right" : {
+							"feature" : "BM25",
+							"threshold" : "0.036748856",
+							"left" : {
+								"value" : "0.2956419587135315"
+							},
+							"right" : {
+								"feature" : "BM25",
+								"threshold" : "0.11982559",
+								"left" : {
+									"feature" : "review",
+									"threshold" : "0.2714848",
+									"left" : {
+										"value" : "-0.3552471995353699"
+									},
+									"right" : {
+										"feature" : "basket",
+										"threshold" : "0.73046875",
+										"left" : {
+											"feature" : "pay_num",
+											"threshold" : "0.6713327",
+											"left" : {
+												"feature" : "basket",
+												"threshold" : "0.59375",
+												"left" : {
+													"feature" : "pay_num",
+													"threshold" : "0.59168345",
+													"left" : {
+														"value" : "0.03227207437157631"
+													},
+													"right" : {
+														"value" : "0.7659797668457031"
+													}
+												},
+												"right" : {
+													"value" : "-0.5655893683433533"
+												}
+											},
+											"right" : {
+												"value" : "0.4357292950153351"
+											}
+										},
+										"right" : {
+											"value" : "-0.9282040596008301"
+										}
+									}
+								},
+								"right" : {
+									"value" : "0.10106373578310013"
+								}
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "review",
+					"threshold" : "0.88814324",
+					"left" : {
+						"feature" : "review",
+						"threshold" : "0.88038653",
+						"left" : {
+							"feature" : "price",
+							"threshold" : "0.012419071",
+							"left" : {
+								"value" : "1.0796468257904053"
+							},
+							"right" : {
+								"feature" : "pay_num",
+								"threshold" : "0.8382169",
+								"left" : {
+									"feature" : "review",
+									"threshold" : "0.85323805",
+									"left" : {
+										"feature" : "review",
+										"threshold" : "0.79118437",
+										"left" : {
+											"feature" : "review",
+											"threshold" : "0.7795493",
+											"left" : {
+												"feature" : "review",
+												"threshold" : "0.7601575",
+												"left" : {
+													"feature" : "review",
+													"threshold" : "0.57787484",
+													"left" : {
+														"value" : "0.019163910299539566"
+													},
+													"right" : {
+														"value" : "-0.164177805185318"
+													}
+												},
+												"right" : {
+													"value" : "0.781598687171936"
+												}
+											},
+											"right" : {
+												"value" : "-1.7339917421340942"
+											}
+										},
+										"right" : {
+											"value" : "0.30837586522102356"
+										}
+									},
+									"right" : {
+										"value" : "-1.1737885475158691"
+									}
+								},
+								"right" : {
+									"value" : "1.5002421140670776"
+								}
+							}
+						},
+						"right" : {
+							"value" : "-2.3376219272613525"
+						}
+					},
+					"right" : {
+						"value" : "0.669867992401123"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "BM25",
+					"threshold" : "0.028441176",
+					"left" : {
+						"value" : "0.5453100204467773"
+					},
+					"right" : {
+						"feature" : "add_time",
+						"threshold" : "0.8667275",
+						"left" : {
+							"feature" : "price",
+							"threshold" : "0.1738189",
+							"left" : {
+								"value" : "-0.5171304941177368"
+							},
+							"right" : {
+								"value" : "-0.0052504693157970905"
+							}
+						},
+						"right" : {
+							"feature" : "add_time",
+							"threshold" : "0.9027209",
+							"left" : {
+								"value" : "0.23514965176582336"
+							},
+							"right" : {
+								"feature" : "price",
+								"threshold" : "0.10250272",
+								"left" : {
+									"value" : "0.4925096035003662"
+								},
+								"right" : {
+									"feature" : "pay_num",
+									"threshold" : "0.4475558",
+									"left" : {
+										"value" : "-0.16635330021381378"
+									},
+									"right" : {
+										"feature" : "basket",
+										"threshold" : "0.4375",
+										"left" : {
+											"value" : "0.914318323135376"
+										},
+										"right" : {
+											"feature" : "basket",
+											"threshold" : "0.4609375",
+											"left" : {
+												"value" : "0.7998273372650146"
+											},
+											"right" : {
+												"feature" : "price",
+												"threshold" : "0.16631193",
+												"left" : {
+													"value" : "-0.2820906639099121"
+												},
+												"right" : {
+													"value" : "0.08829142898321152"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "review",
+					"threshold" : "0.95795363",
+					"left" : {
+						"feature" : "BM25",
+						"threshold" : "0.22228715",
+						"left" : {
+							"feature" : "BM25",
+							"threshold" : "0.20290253",
+							"left" : {
+								"feature" : "price",
+								"threshold" : "0.19258632",
+								"left" : {
+									"value" : "0.0700201690196991"
+								},
+								"right" : {
+									"feature" : "BM25",
+									"threshold" : "0.036748856",
+									"left" : {
+										"value" : "0.42594340443611145"
+									},
+									"right" : {
+										"feature" : "review",
+										"threshold" : "0.7989411",
+										"left" : {
+											"feature" : "review",
+											"threshold" : "0.7950627",
+											"left" : {
+												"feature" : "pay_num",
+												"threshold" : "0.74339634",
+												"left" : {
+													"feature" : "pay_num",
+													"threshold" : "0.67512554",
+													"left" : {
+														"value" : "-0.043569114059209824"
+													},
+													"right" : {
+														"value" : "-0.5553149580955505"
+													}
+												},
+												"right" : {
+													"value" : "0.7579975724220276"
+												}
+											},
+											"right" : {
+												"value" : "1.2265533208847046"
+											}
+										},
+										"right" : {
+											"value" : "-1.03326416015625"
+										}
+									}
+								}
+							},
+							"right" : {
+								"value" : "0.5836918354034424"
+							}
+						},
+						"right" : {
+							"value" : "-0.8212798833847046"
+						}
+					},
+					"right" : {
+						"value" : "1.1268727779388428"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "review",
+					"threshold" : "0.88814324",
+					"left" : {
+						"feature" : "review",
+						"threshold" : "0.88038653",
+						"left" : {
+							"feature" : "add_time",
+							"threshold" : "0.74794906",
+							"left" : {
+								"value" : "-0.16109411418437958"
+							},
+							"right" : {
+								"feature" : "add_time",
+								"threshold" : "0.76234645",
+								"left" : {
+									"value" : "1.9045226573944092"
+								},
+								"right" : {
+									"feature" : "basket",
+									"threshold" : "0.44140625",
+									"left" : {
+										"feature" : "pay_num",
+										"threshold" : "0.4475558",
+										"left" : {
+											"feature" : "review",
+											"threshold" : "0.62053674",
+											"left" : {
+												"feature" : "pay_num",
+												"threshold" : "0.40583444",
+												"left" : {
+													"value" : "0.06435305625200272"
+												},
+												"right" : {
+													"value" : "0.3776674270629883"
+												}
+											},
+											"right" : {
+												"value" : "-2.1191303730010986"
+											}
+										},
+										"right" : {
+											"value" : "0.6221611499786377"
+										}
+									},
+									"right" : {
+										"feature" : "pay_num",
+										"threshold" : "0.4551415",
+										"left" : {
+											"value" : "-0.39271804690361023"
+										},
+										"right" : {
+											"value" : "0.02868952415883541"
+										}
+									}
+								}
+							}
+						},
+						"right" : {
+							"value" : "-1.6625871658325195"
+						}
+					},
+					"right" : {
+						"value" : "0.6635732650756836"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "review",
+					"threshold" : "0.7174956",
+					"left" : {
+						"feature" : "review",
+						"threshold" : "0.69034714",
+						"left" : {
+							"feature" : "review",
+							"threshold" : "0.667077",
+							"left" : {
+								"feature" : "pay_num",
+								"threshold" : "0.64099014",
+								"left" : {
+									"feature" : "pay_num",
+									"threshold" : "0.62581885",
+									"left" : {
+										"feature" : "review",
+										"threshold" : "0.6321718",
+										"left" : {
+											"feature" : "basket",
+											"threshold" : "0.6171875",
+											"left" : {
+												"feature" : "pay_num",
+												"threshold" : "0.61064756",
+												"left" : {
+													"feature" : "pay_num",
+													"threshold" : "0.4475558",
+													"left" : {
+														"value" : "-0.023259436711668968"
+													},
+													"right" : {
+														"value" : "0.13374890387058258"
+													}
+												},
+												"right" : {
+													"value" : "1.1287119388580322"
+												}
+											},
+											"right" : {
+												"value" : "-0.4981047213077545"
+											}
+										},
+										"right" : {
+											"value" : "-0.6594380736351013"
+										}
+									},
+									"right" : {
+										"value" : "0.5896274447441101"
+									}
+								},
+								"right" : {
+									"value" : "-0.65701824426651"
+								}
+							},
+							"right" : {
+								"value" : "0.378168523311615"
+							}
+						},
+						"right" : {
+							"value" : "-0.8136536478996277"
+						}
+					},
+					"right" : {
+						"value" : "0.202267125248909"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "review",
+					"threshold" : "0.88814324",
+					"left" : {
+						"feature" : "price",
+						"threshold" : "0.609223",
+						"left" : {
+							"feature" : "price",
+							"threshold" : "0.6054695",
+							"left" : {
+								"feature" : "review",
+								"threshold" : "0.0",
+								"left" : {
+									"value" : "0.2083633691072464"
+								},
+								"right" : {
+									"feature" : "price",
+									"threshold" : "0.16255845",
+									"left" : {
+										"value" : "-0.144977867603302"
+									},
+									"right" : {
+										"feature" : "price",
+										"threshold" : "0.18132587",
+										"left" : {
+											"value" : "0.32649287581443787"
+										},
+										"right" : {
+											"feature" : "BM25",
+											"threshold" : "0.028441176",
+											"left" : {
+												"value" : "0.8000844120979309"
+											},
+											"right" : {
+												"feature" : "BM25",
+												"threshold" : "0.23059484",
+												"left" : {
+													"feature" : "BM25",
+													"threshold" : "0.20290253",
+													"left" : {
+														"value" : "-0.01837235875427723"
+													},
+													"right" : {
+														"value" : "0.7819721698760986"
+													}
+												},
+												"right" : {
+													"value" : "-1.4001944065093994"
+												}
+											}
+										}
+									}
+								}
+							},
+							"right" : {
+								"value" : "2.0364882946014404"
+							}
+						},
+						"right" : {
+							"value" : "-0.7859600782394409"
+						}
+					},
+					"right" : {
+						"value" : "0.6114647388458252"
+					}
+				}
+			},
+			{
+				"weight" : "0.1",
+				"root": {
+					"feature" : "price",
+					"threshold" : "0.012419071",
+					"left" : {
+						"value" : "0.8301472663879395"
+					},
+					"right" : {
+						"feature" : "pay_num",
+						"threshold" : "0.0",
+						"left" : {
+							"value" : "-0.8081529140472412"
+						},
+						"right" : {
+							"feature" : "basket",
+							"threshold" : "0.20703125",
+							"left" : {
+								"value" : "0.4780808985233307"
+							},
+							"right" : {
+								"feature" : "basket",
+								"threshold" : "0.23828125",
+								"left" : {
+									"value" : "-1.0985597372055054"
+								},
+								"right" : {
+									"feature" : "review",
+									"threshold" : "0.0",
+									"left" : {
+										"value" : "0.2630162239074707"
+									},
+									"right" : {
+										"feature" : "review",
+										"threshold" : "0.081445396",
+										"left" : {
+											"value" : "-0.5324016809463501"
+										},
+										"right" : {
+											"feature" : "basket",
+											"threshold" : "0.25",
+											"left" : {
+												"value" : "0.9809171557426453"
+											},
+											"right" : {
+												"feature" : "BM25",
+												"threshold" : "0.028441176",
+												"left" : {
+													"value" : "0.5592858195304871"
+												},
+												"right" : {
+													"feature" : "BM25",
+													"threshold" : "0.21397945",
+													"left" : {
+														"value" : "0.005692123901098967"
+													},
+													"right" : {
+														"value" : "-0.9515839219093323"
+													}
+												}
+											}
+										}
 									}
 								}
 							}

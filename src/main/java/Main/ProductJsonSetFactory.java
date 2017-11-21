@@ -64,6 +64,9 @@ public class ProductJsonSetFactory {
 	private static JSONArray products2Json(HashMap<Integer,Product> productDict){
 		// TODO Auto-generated method stub
 		JSONArray productsJson = new JSONArray();
+		Map<String,Double> maxDict = new HashMap<String,Double>();
+		Map<String,Double> minDict = new HashMap<String,Double>();
+		Normalization.getlinerNormParms(maxDict,minDict);
 		for(Integer id:productDict.keySet()){
 			JSONObject jsonobj = new JSONObject();
 			Product product = productDict.get(id);
@@ -71,11 +74,12 @@ public class ProductJsonSetFactory {
 				jsonobj.put(key, product.strProp.get(key));
 			}
 			for(String key:product.rank_feature.keySet()){
-				jsonobj.put(key, product.rank_feature.get(key));
+				jsonobj.put(key, Normalization.getLogLinerNormResult(product.rank_feature.get(key), maxDict.get(key), minDict.get(key)));
 			}
-			for(String key:product.valueProp.keySet()){
-				jsonobj.put(key, product.valueProp.get(key));
-			}
+//			for(String key:product.valueProp.keySet()){
+//				jsonobj.put(key, product.valueProp.get(key));
+//			}
+			System.out.println(jsonobj.toString());
 			productsJson.put(jsonobj);
 		}
 		return productsJson;
@@ -89,6 +93,7 @@ public class ProductJsonSetFactory {
 		JSONArray productsJson = products2Json(IO.readProductFeatureDict());
 
 		try{
+			IO.writeTxtFile("", Path.products_json);
 			IO.writeTxtFile(productsJson.toString(), Path.products_json);	
 		}
 		catch(Exception e){

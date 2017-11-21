@@ -168,7 +168,9 @@ public class SampleSetFactory {
 		System.out.println("---读取原始数据---");
 		HashMap<Integer,Product> productDict = IO.readProductFeatureDict();
 		Map<String,Integer> keywordID = SampleSetFactory.readKeywordID();
-
+		Map<String,Double> maxDict = new HashMap<String,Double>();
+		Map<String,Double> minDict = new HashMap<String,Double>();
+		Normalization.getlinerNormParms(maxDict,minDict);
 		System.out.println("---数据预处理---");
 //		standardization.standard(productInfoDict);
 		BM25 bm25 = new BM25(productDict);
@@ -188,9 +190,19 @@ public class SampleSetFactory {
 					product.rank_feature.put("BM25", value);
 					String row =pair.relevancy+" "+keywordID.get(pair.keyword);
 					for(int i=0;i<conf.rank_feature.size();i++){
-						row+= " "+(i+1)+":"+product.rank_feature.get(conf.rank_feature.get(i));
+						if(conf.rank_feature.get(i).equals("BM25")){
+
+							double normValue = Normalization.getLinerNormResult(product.rank_feature.get(conf.rank_feature.get(i)), maxDict.get(conf.rank_feature.get(i)), minDict.get(conf.rank_feature.get(i)));
+							row+= " "+(i+1)+":"+normValue;
+						}
+						else{
+							double normValue = Normalization.getLogLinerNormResult(product.rank_feature.get(conf.rank_feature.get(i)), maxDict.get(conf.rank_feature.get(i)), minDict.get(conf.rank_feature.get(i)));
+							row+= " "+(i+1)+":"+normValue;
+						}
+
 					}
 					row+="\n";
+
 					double r = Math.random();
 					if(r>0.666){
 						IO.append(Path.testSetPath, row, Path.code);

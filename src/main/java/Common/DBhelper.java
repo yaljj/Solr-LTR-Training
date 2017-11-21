@@ -41,17 +41,17 @@ public class DBhelper {
 	    /*
 	     * sql
 	     */
-	    private String keyword_sql = "SELECT rel_keyword,pro_uv,bas_uv,pay_num FROM (SELECT rel_keyword,add_time,SUM(search_pv) AS pro_uv,SUM(basket_uv) AS bas_uv, SUM(pay_number) AS pay_num FROM (SELECT * FROM datacube.`dc_collect_days_rel_keyword` WHERE add_time>%time% AND page_type='search') AS part GROUP BY rel_keyword ) AS newTable WHERE pay_num>1  ORDER BY pay_num DESC";
+	    private String keyword_sql = "SELECT rel_keyword,pro_uv,bas_uv,pay_num FROM (SELECT rel_keyword,add_time,SUM(search_pv) AS pro_uv,SUM(basket_uv) AS bas_uv, SUM(pay_number) AS pay_num FROM (SELECT * FROM datacube.`dc_collect_days_rel_keyword` WHERE add_time>%time% AND page_type='search') AS part GROUP BY rel_keyword ) AS newTable WHERE pay_num>4  ORDER BY pay_num DESC";
 	    private String product_complex_sql ="SELECT SUM(basket),MAX(review),SUM(pay_number) FROM datacube.`dc_collect_days_product_complex` WHERE add_time>%time% AND products_id=%id%";
 	    private String product_complex_sql_all = "SELECT products_id,SUM(basket),MAX(review),SUM(pay_number) FROM datacube.`dc_collect_days_product_complex` WHERE add_time>%time% and products_id<100000000 GROUP BY products_id";
 	    private String product_prop_sql = "SELECT products_name,products_price,categories_id,brand_id,add_time FROM datacube.`dc_set_product` WHERE products_id=%id% and domain = 1";
-	    private String pair_sql = "SELECT rel_keyword,products_id,SUM(products_uv) AS pro_uv,SUM(basket_uv) AS bas_uv,SUM(pay_number) AS pay_num FROM dc_collect_days_rel_keyword_products WHERE add_time>=%time%  AND rel_keyword= '%keyword%' GROUP BY rel_keyword,products_id  ORDER BY pay_num DESC LIMIT 50";
+	    private String pair_sql = "SELECT rel_keyword,products_id,SUM(products_uv) AS pro_uv,SUM(basket_uv) AS bas_uv,SUM(pay_number) AS pay_num FROM dc_collect_days_rel_keyword_products WHERE add_time>=%time%  AND rel_keyword= '%keyword%' GROUP BY rel_keyword,products_id  ORDER BY pay_num DESC LIMIT 150";
 	    private String product_prop_sql_all = "SELECT products_id,products_name,products_price,categories_id,brand_id,modify_time FROM datacube.`dc_set_product` WHERE domain = 1";
 	    private String count_bg_product = "SELECT COUNT(*) FROM datacube.`dc_set_product` WHERE domain = 1";
 	    
     	static private long time = System.currentTimeMillis()/1000;
     	static private long day = 86200;
-    	static private long month = 5184000; //两个月时间
+    	static private long month = 2586000; //一个月时间
     	
     	
     	/***
