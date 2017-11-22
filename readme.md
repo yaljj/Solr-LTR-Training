@@ -1,4 +1,6 @@
-##Solr-LTR-Training
-本项目的目的是基于ranklib工具包，为solr（7.10）训练排序学习模型。
-目前支持的模型为org.apache.solr.ltr.model.MultipleAdditiveTreesModel 链接：https://lucene.apache.org/solr/7_0_0//solr-ltr/org/apache/solr/ltr/model/MultipleAdditiveTreesModel.html
-，项目原始数据来源于英文电商网站的某一时段内的记录数据，包含商品特征数据和搜索词-商品对(pair)的特征数据（该特征可计算搜索词对商品的转化率）。<br>
+# Solr-LTR-Training<br>
+## 简介
+  项目用于为Apache Solr（7.10）训练排序学习模型
+  项目可基于特定格式的原始数据生成用于排序学习训练的数据集后，利用ranklib对数据集进行训练生成模型参数文件，并将ranklib的模型格式转换为solr的模型格式。
+  目前支持的模型为org.apache.solr.ltr.model.MultipleAdditiveTreesModel。详细可见https://lucene.apache.org/solr/7_0_0//solr-ltr/org/apache/solr/ltr/model/MultipleAdditiveTreesModel.html。
+  项目自带的原始数据来源于https://www.banggood.com近一个星期内的搜索记录数据和近一个月内的商品特征数据。<br>
