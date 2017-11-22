@@ -39,30 +39,30 @@
   >>#### 商品一般属性（prop.json）<br>
   >>>描述:prop.json存放商品的一般属性原始数据,其中product_id为唯一区分项。数据格式如下:<br>
 
-  >>>```Java
+  ```Java
 {"product_id":"7104","product_name":"12 Colors Acrylic Nail Art Tips Glitter Powder Dust","price":"5.78","add_time":"1507896522","cat_id":"1334","brand_id":"0"}
 {"product_id":"7105","product_name":"500 White French Acrylic Half False Tips 3D Nail Art","price":"5.69","add_time":"1509783901","cat_id":"1327","brand_id":"0"}
 {"product_id":"7157","product_name":"Acrylic UV Gel False Fake Nail Art Tips Clipper Manicure Cutter Tool","price":"3.76","add_time":"1507896522","cat_id":"1367","brand_id":"0"}
 {"product_id":"7340","product_name":"5pcs 2 Way Nail Art Dotting Marbleizing Painting Pen","price":"2.25","add_time":"1507896522","cat_id":"1343","brand_id":"0"}
-  >>>```
+  ```
   >>>**注意**:属性名（如："product_id"）需要特征配置文件[FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中的属性名一致<br>
   >>>**注意**:可在此为商品添加新的特征项<br>
   <br><br>
 
   >>#### 商品统计属性(complex.json)<br>
   >>>描述:complex.json存放商品的统计属性，例如一定时间内的销售量，加够量等,其中product_id为唯一区分项。数据格式如下：<br>
-  >>>```Java
+  ```Java
 {"product_id":"18576","basket":"0.0","review":"0","pay_num":"0.0"}
 {"product_id":"18589","basket":"36.0","review":"135","pay_num":"7.0"}
 {"product_id":"18599","basket":"0.0","review":"10","pay_num":"0.0"}
-  >>>```
+  ```
   >>>**注意**:属性名（如："basket"）需要特征配置文件[FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中的属性名一致<br>
   >>>**注意**:可在此为商品添加新的特征项<br>
   <br><br>
   
   >>#### 搜索词-商品对(keyword_product_pair.txt)<br>
   >>>描述:keyword_product_pair.txt存放搜索词以及商品的关系，例如在第一行中,squishy为搜索词，1153352为商品id,14是一个月内搜索词下点击该商品的uv，6是一个月内该搜索词下加够该商品的数量，4一个月内是该搜索词下该商品的销量。数据格式如下：<br>
-  >>>```Java
+  ```Java
 	squishy`1153352`14`6`4`
 	squishy`1113507`18`10`3`
 	squishy`1181645`23`13`3`
@@ -71,5 +71,5 @@
 	squishy`1145181`19`17`3`
 	squishy`1120879`42`10`3`
 	squishy`1168577`30`17`3`
-  >>>```
+  ```
   <br><br>
