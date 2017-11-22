@@ -1,11 +1,11 @@
 # Solr-LTR-Training<br>
-> ## 间接
+> ## 简介
   >项目用于为Apache Solr（7.10）训练排序学习模型。项目基于特定格式的原始数据生成用于排序学习训练的数据集后，利用**ranklib**对数据集进行训练生成模型参数文件，并将ranklib的模型格式转换为solr的模型格式。
   目前支持的模型为[org.apache.solr.ltr.model.MultipleAdditiveTreesModel](https://lucene.apache.org/solr/7_0_0//solr-ltr/org/apache/solr/ltr/model/MultipleAdditiveTreesModel.html)。
   项目自带的原始数据源于https://www.banggood.com 一个星期内的搜索记录数据和近一个月的商品特征数据。<br>
   
 
-> ##数据文件描述和配置
+> ## 数据文件描述
   >下面将详细描述在现有数据[Solr-LTR-Training/data/OriginalData](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)的情况下，
   进行lambdaMART模型训练和solr-ltr配置的具体流程和操作。<br> 
 >### 商品特征配置文件<br>
@@ -31,7 +31,7 @@
   
 >### 原始数据<br>
   >>原始数据在目录中[Solr-LTR-Training/data/OriginalData](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)
-  >>####prop.json
+  >>#### 商品一般属性（prop.json）
   >>>描述:prop.json存放商品的一般属性原始数据,其中product_id为唯一区分项<br>
   >>>数据格式:<br>
   ```Java
@@ -43,16 +43,13 @@
   >>>**注意**:原始数据属性名（如："product_id"）需要和FeatureConf.json中的属性名一致<br>
   >>>**注意**:可在此为商品添加新的特征项<br>
   
->### 商品<br>
-  >>原始数据在目录中[Solr-LTR-Training/data/OriginalData](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)
-  >>####prop.json
-  >>>描述:prop.json存放商品的一般属性原始数据,其中product_id为唯一区分项<br>
+
+  >>#### 商品统计属性(complex.json)
+  >>>描述:complex.json存放商品的统计属性，例如一定时间内的销售量，加够量等,其中product_id为唯一区分项<br>
   >>>数据格式:<br>
   ```Java
-{"product_id":"7104","product_name":"12 Colors Acrylic Nail Art Tips Glitter Powder Dust","price":"5.78","add_time":"1507896522","cat_id":"1334","brand_id":"0"}
-{"product_id":"7105","product_name":"500 White French Acrylic Half False Tips 3D Nail Art","price":"5.69","add_time":"1509783901","cat_id":"1327","brand_id":"0"}
-{"product_id":"7157","product_name":"Acrylic UV Gel False Fake Nail Art Tips Clipper Manicure Cutter Tool","price":"3.76","add_time":"1507896522","cat_id":"1367","brand_id":"0"}
-{"product_id":"7340","product_name":"5pcs 2 Way Nail Art Dotting Marbleizing Painting Pen","price":"2.25","add_time":"1507896522","cat_id":"1343","brand_id":"0"}
+{"product_id":"18576","basket":"0.0","review":"0","pay_num":"0.0"}
+{"product_id":"18589","basket":"36.0","review":"135","pay_num":"7.0"}
+{"product_id":"18599","basket":"0.0","review":"10","pay_num":"0.0"}
   ```
-  >>>**注意**:原始数据属性名（如："product_id"）需要和FeatureConf.json中的属性名一致<br>
   >>>**注意**:可在此为商品添加新的特征项<br>
