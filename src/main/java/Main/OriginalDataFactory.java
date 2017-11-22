@@ -9,7 +9,7 @@ public class OriginalDataFactory{
 	/***
 	 * 获取并保存相关原始数据原始数据
 	 */
-    public static void updateOriginalData(){
+    public static void saveOriginalData(){
 		DBhelper db = new DBhelper();
 		db.connect2dc();
 		List<String> keywords = db.getHitKeyword();
@@ -20,6 +20,6 @@ public class OriginalDataFactory{
     
 	public static void main(String[] args) {
 
-		OriginalDataFactory.updateOriginalData();	    
+		OriginalDataFactory.saveOriginalData();	    
 	}
 }

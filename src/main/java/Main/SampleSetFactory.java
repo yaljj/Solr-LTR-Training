@@ -187,7 +187,7 @@ public class SampleSetFactory {
 				double value = bm25.getValue(pair.keyword,productDict.get(pair.productID).strProp.get("product_name"));
 				if(value > 0){
 					Product product = productDict.get(pair.productID);
-					product.rank_feature.put("BM25", value);
+					product.rank_feature.put("BM25", value); //Ìí¼ÓBM25ÌØÕ÷
 					String row =pair.relevancy+" "+keywordID.get(pair.keyword);
 					for(int i=0;i<conf.rank_feature.size();i++){
 						if(conf.rank_feature.get(i).equals("BM25")){

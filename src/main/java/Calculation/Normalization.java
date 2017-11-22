@@ -148,7 +148,7 @@ public class Normalization {
 	   for(String feature:maxDict.keySet()){
 		   if(feature.equals("BM25")){
 			   System.out.println(feature+" "+"max:"+maxDict.get(feature)+" min:"+minDict.get(feature));
-			   continue;
+			   continue; 
 		   }
 		   maxDict.put(feature,Math.log(maxDict.get(feature)+1));
 		   minDict.put(feature,Math.log(minDict.get(feature)+1));
