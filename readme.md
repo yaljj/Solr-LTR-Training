@@ -9,10 +9,11 @@
   进行lambdaMART模型训练和solr-ltr配置的具体流程和操作。<br> 
   <br><br>
 > ## 数据文件描述
-  >下面是关于项目中部分文件的描述，若需增减特征，或者改变特征的命名，需要详细阅读一下内容
+  >下面是关于项目中部分文件的描述，若需增减特征，或者改变特征的命名，需要详细阅读以下内容
   <br><br>
 >### 商品特征配置文件<br>
   >特征配置文件[Solr-LTR-Training/conf/FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)为json格式，用以定义特征。
+  定义的特征将用于利用原始数据的属性，产生ranklib训练的数据集[Solr-LTR-Training/data/SampleSet](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/SampleSet)（验证集，训练集，测试集）
   ```Java
   {  
     	"name": "productConfig",
@@ -58,4 +59,19 @@
   ```
   >>>**注意**:属性名（如："basket"）需要特征配置文件[FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中的属性名一致<br>
   >>>**注意**:可在此为商品添加新的特征项<br>
+  <br><br>
+  
+  >>#### 搜索词-商品对(keyword_product_pair.txt)<br>
+  >>>描述:keyword_product_pair.txt存放搜索词以及商品的关系，例如在第一行中,squishy为搜索词，1153352为商品id,14是一个月内搜索词下点击该商品的uv，6是一个月内该搜索词下加够该商品的数量，4一个月内是该搜索词下该商品的销量<br>
+  >>>数据格式:<br>
+  ```Java
+	squishy`1153352`14`6`4`
+	squishy`1113507`18`10`3`
+	squishy`1181645`23`13`3`
+	squishy`1122654`6`3`3`
+	squishy`1160930`35`8`3`
+	squishy`1145181`19`17`3`
+	squishy`1120879`42`10`3`
+	squishy`1168577`30`17`3`
+  ```
   <br><br>
