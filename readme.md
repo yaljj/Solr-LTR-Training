@@ -5,4 +5,4 @@
   项目自带的原始数据来源于https://www.banggood.com 近一个星期内的搜索记录数据和近一个月内的商品特征数据。<br>
   
 > ## Quick Start
-	>下面将详细描述在现有数据（Solr-LTR-Training/OriginalData）的情况下，进行lambdaMART模型训练和solr-ltr配置的具体流程和操作。<br>
+  >下面将详细描述在现有数据[Solr-LTR-Training/OriginalData](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)的情况下，进行lambdaMART模型训练和solr-ltr配置的具体流程和操作。<br>
