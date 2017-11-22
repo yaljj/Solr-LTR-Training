@@ -9,14 +9,14 @@
   进行lambdaMART模型训练和solr-ltr配置的具体流程和操作。<br> 
 >### 配置商品特征<br>
   >特征配置文件为[Solr-LTR-Training/conf/FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet),文件为json格式，用以定义特征。
-  '''json
+  '''java
   {  
     	"name": "productConfig",
     	"str_prop": ["product_name"],
     	"value_prop": ["product_id","cat_id","brand_id"],
     	"rank_feature": ["BM25","price","basket","pay_num","review","add_time"]
   }  
-  ''''''
+  '''
   其中 "str_prop"用于设置字符串型的属性名，“value_prop”用于设置数值型且不作为ltr特征的属性名。
   上述二者仅用于作为document的field上传到solr。而"rank_feature"则是用于ltr计算的特征属性。上述例子中，特征包含：<br>
   >>**BM25**:关联性因子，solr中默认的原始得分为org.apache.solr.ltr.feature.OriginalScoreFeature。（不能随意修改该特征名,关联性特征构造策略特殊，若采取其他文本关联策略需要修改包含BM25计算的相关的代码）<br>
