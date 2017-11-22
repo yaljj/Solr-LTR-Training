@@ -9,7 +9,7 @@
   进行lambdaMART模型训练和solr-ltr配置的具体流程和操作。<br> 
 >### 配置商品特征<br>
   >特征配置文件为[Solr-LTR-Training/conf/FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet),文件为json格式，用以定义特征。
-  >```Json
+  >```Java
   {  
     	"name": "productConfig",
     	"str_prop": ["product_name"],
