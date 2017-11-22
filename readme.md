@@ -44,7 +44,7 @@
 {"product_id":"7105","product_name":"500 White French Acrylic Half False Tips 3D Nail Art","price":"5.69","add_time":"1509783901","cat_id":"1327","brand_id":"0"}
 {"product_id":"7157","product_name":"Acrylic UV Gel False Fake Nail Art Tips Clipper Manicure Cutter Tool","price":"3.76","add_time":"1507896522","cat_id":"1367","brand_id":"0"}
 {"product_id":"7340","product_name":"5pcs 2 Way Nail Art Dotting Marbleizing Painting Pen","price":"2.25","add_time":"1507896522","cat_id":"1343","brand_id":"0"}
-  ```
+  >>>```
   >>>**注意**:属性名（如："product_id"）需要特征配置文件[FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中的属性名一致<br>
   >>>**注意**:可在此为商品添加新的特征项<br>
   <br><br>
@@ -55,7 +55,7 @@
 {"product_id":"18576","basket":"0.0","review":"0","pay_num":"0.0"}
 {"product_id":"18589","basket":"36.0","review":"135","pay_num":"7.0"}
 {"product_id":"18599","basket":"0.0","review":"10","pay_num":"0.0"}
-  ```
+  >>>```
   >>>**注意**:属性名（如："basket"）需要特征配置文件[FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中的属性名一致<br>
   >>>**注意**:可在此为商品添加新的特征项<br>
   <br><br>
@@ -71,5 +71,5 @@
 	squishy`1145181`19`17`3`
 	squishy`1120879`42`10`3`
 	squishy`1168577`30`17`3`
-  ```
+  >>>```
   <br><br>
