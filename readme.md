@@ -25,6 +25,8 @@ java -jar ./ranklib-2.3/bin/RankLib.jar -train ./data/SampleSet/trainSet.txt -te
 >>**-train <文件名>** ：调用训练集<br>
 >>**-test <文件名>** ：调用测试集<br>
 >>**-validate <文件名>** ：调用验证集<br>
+>>**-metric2t**: 模型测试方法<br>
+>>**-save <文件名>**: 模型保存路径<br>
 >>**-ranker [1~8]** : 选择模型，ranklib支持8类LTR模型，模型名与对应标号如下：<br>
 >>>MART (Multiple Additive Regression Trees, a.k.a. Gradient boosted regression tree) [6]<br>
 >>>RankNet [1] <br>
@@ -34,8 +36,6 @@ java -jar ./ranklib-2.3/bin/RankLib.jar -train ./data/SampleSet/trainSet.txt -te
 >>>LambdaMART [5]<br>
 >>>ListNet [7]<br>
 >>>Random Forests [8]<br>
->>**-metric2t** : 模型测试方法<br>
->>**-save <文件名>** : 模型保存路径<br>
 ><br>
 ><br>
 
