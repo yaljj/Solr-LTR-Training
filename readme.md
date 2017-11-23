@@ -15,9 +15,8 @@
 ```Java
 SampleSetFactory.createSampleSet();
 ```
-><br>
-><br>
->### 训练MART模型 <br>
+
+> ### 训练MART模型 <br>
 >利用[ranklib](https://sourceforge.net/p/lemur/wiki/RankLib/)训练模型。在根目录下执行命令：<br>
 ```Java
 java -jar ./ranklib-2.3/bin/RankLib.jar -train ./data/SampleSet/trainSet.txt -test ./data/SampleSet/testSet.txt -validate ./data/SampleSet/valiSet.txt -ranker 6 -metric2t NDCG@10 -metric2T ERR@10 -save ./model/MART.txt
@@ -35,7 +34,7 @@ java -jar ./ranklib-2.3/bin/RankLib.jar -train ./data/SampleSet/trainSet.txt -te
 >>>LambdaMART [5]<br>
 >>>ListNet [7]<br>
 >>>Random Forests [8]<br>
->>**-metric2t ** : 模型测试方法<br>
+>>**-metric2t** : 模型测试方法<br>
 >>**-save <文件名>** : 模型保存路径<br>
 ><br>
 ><br>
