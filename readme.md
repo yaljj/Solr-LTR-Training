@@ -38,6 +38,38 @@ java -jar ./ranklib-2.3/bin/RankLib.jar -train ./data/SampleSet/trainSet.txt -te
 >>>Random Forests [8]<br>
 ><br>
 ><br>
+>训练后,查看MART.txt文件:
+```Java
+## LambdaMART
+## No. of trees = 1000
+## No. of leaves = 10
+## No. of threshold candidates = 256
+## Learning rate = 0.1
+## Stop early = 100
+
+<ensemble>
+	<tree id="1" weight="0.1">
+		<split>
+			<feature> 4 </feature>
+			<threshold> 0.34135595 </threshold>
+			<split pos="left">
+				<feature> 2 </feature>
+				<threshold> 0.1963398 </threshold>
+				<split pos="left">
+					<output> 0.3290064334869385 </output>
+				</split>
+				<split pos="right">
+					<output> -0.8738656044006348 </output>
+				</split>
+			</split>
+			<split pos="right">
+				<feature> 3 </feature>
+.....
+.....
+</ensemble>
+```
+>模型文件为xml格式，不同于solr的模型存储格式，因此还需要进行转换。
+
 
 ## 数据文件描述
 下面是关于项目中部分文件的描述，若需增减特征，或者改变特征的命名，需要详细阅读以下内容
