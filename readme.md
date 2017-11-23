@@ -6,19 +6,40 @@
   <br><br>
 > ## Quick Start
   >下面将详细描述在现有数据[Solr-LTR-Training/data/OriginalData](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)的情况下，
-  进行lambdaMART模型训练和solr-ltr配置的具体流程和操作。<br> 
->### 构造训练集，测试集，验证集 <br>
->> **运行脚本**：[Solr-LTR-Training/src/main/java/Main/SampleSetFactory](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Main/SampleSetFactory.java)
->>该程序可更新Solr-LTR-Training/data/SampleSet下存放的训练集trainSet.txt，验证集VailiSet.txt，测试集testSet.txt。数据用于ranklib模型。
+  进行MART模型训练和solr-ltr配置的具体流程和操作。<br> 
+>#### 构造训练集，测试集，验证集 <br>
+>> 运行脚本程序[Solr-LTR-Training/src/main/java/Main/SampleSetFactory](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Main/SampleSetFactory.java)。
+该程序可更新Solr-LTR-Training/data/SampleSet下存放的训练集trainSet.txt，验证集VailiSet.txt，测试集testSet.txt。数据用于ranklib模型。
 这些数据集的构造，基于原始数据[Solr-LTR-Training/data/OriginalData](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)。
 三个数据集的格式一致，随机等比例的进行分配。脚本执行的代码如下：<br>
 ```Java
 SampleSetFactory.createSampleSet();
 ```
- <br><br>
+<br><br>
+>#### 训练MART模型<br>
+>>利用[ranklib](https://sourceforge.net/p/lemur/wiki/RankLib/)训练模型。在根目录下执行命令：<br>
+```Java
+java -jar ./ranklib-2.3/bin/RankLib.jar -train ./data/SampleSet/trainSet.txt -test ./data/SampleSet/testSet.txt -validate ./data/SampleSet/valiSet.txt -ranker 6 -metric2t NDCG@10 -metric2T ERR@10 -save ./model/MART.txt
+```
+>>部分参数描述:<br>
+>>**-train <文件名>** ：调用训练集
+>>**-test <文件名>** ：调用测试集
+>>**-validate <文件名>** ：调用验证集
+>>**-ranker [1~8]** : 选择模型，ranklib支持8类LTR模型，模型名与对应标号如下：
+>>>MART (Multiple Additive Regression Trees, a.k.a. Gradient boosted regression tree) [6]
+>>>RankNet [1]
+>>>RankBoost [2]
+>>>AdaRank [3]
+>>>Coordinate Ascent [4]
+>>>LambdaMART [5]
+>>>ListNet [7]
+>>>Random Forests [8]
+>>**-metric2t ** : 模型测试方法
+>>**-metric2t <文件名>** : 模型保存路径
+>><br><br>
 > ## 数据文件描述
   >下面是关于项目中部分文件的描述，若需增减特征，或者改变特征的命名，需要详细阅读以下内容
-  <br><br>
+  ><br><br>
 >### 商品特征配置文件<br>
   >特征配置文件[Solr-LTR-Training/conf/FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)为json格式，用以定义特征。
   定义的特征将用于利用原始数据的属性，产生ranklib训练的数据集[Solr-LTR-Training/data/SampleSet](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/SampleSet)（验证集，训练集，测试集）
