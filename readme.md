@@ -22,24 +22,26 @@ SampleSetFactory.createSampleSet();
 java -jar ./ranklib-2.3/bin/RankLib.jar -train ./data/SampleSet/trainSet.txt -test ./data/SampleSet/testSet.txt -validate ./data/SampleSet/valiSet.txt -ranker 6 -metric2t NDCG@10 -metric2T ERR@10 -save ./model/MART.txt
 ```
 >>部分参数描述:<br>
->>**-train <文件名>** ：调用训练集
->>**-test <文件名>** ：调用测试集
->>**-validate <文件名>** ：调用验证集
->>**-ranker [1~8]** : 选择模型，ranklib支持8类LTR模型，模型名与对应标号如下：
->>>MART (Multiple Additive Regression Trees, a.k.a. Gradient boosted regression tree) [6]
->>>RankNet [1]
->>>RankBoost [2]
->>>AdaRank [3]
->>>Coordinate Ascent [4]
->>>LambdaMART [5]
->>>ListNet [7]
->>>Random Forests [8]
->>**-metric2t ** : 模型测试方法
->>**-metric2t <文件名>** : 模型保存路径
->><br><br>
+>>**-train <文件名>** ：调用训练集<br>
+>>**-test <文件名>** ：调用测试集<br>
+>>**-validate <文件名>** ：调用验证集<br>
+>>**-ranker [1~8]** : 选择模型，ranklib支持8类LTR模型，模型名与对应标号如下：<br>
+>>>MART (Multiple Additive Regression Trees, a.k.a. Gradient boosted regression tree) [6]<br>
+>>>RankNet [1] <br>
+>>>RankBoost [2]<br>
+>>>AdaRank [3]<br>
+>>>Coordinate Ascent [4]<br>
+>>>LambdaMART [5]<br>
+>>>ListNet [7]<br>
+>>>Random Forests [8]<br>
+>>**-metric2t ** : 模型测试方法<br>
+>>**-metric2t <文件名>** : 模型保存路径<br>
+>><br>
+>><br>
 > ## 数据文件描述
   >下面是关于项目中部分文件的描述，若需增减特征，或者改变特征的命名，需要详细阅读以下内容
-  ><br><br>
+  ><br>
+  ><br>
 >### 商品特征配置文件<br>
   >特征配置文件[Solr-LTR-Training/conf/FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)为json格式，用以定义特征。
   定义的特征将用于利用原始数据的属性，产生ranklib训练的数据集[Solr-LTR-Training/data/SampleSet](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/SampleSet)（验证集，训练集，测试集）
@@ -60,8 +62,9 @@ java -jar ./ranklib-2.3/bin/RankLib.jar -train ./data/SampleSet/trainSet.txt -te
   >>**basket**：商品30天内的加购量<br>
   >>**add_time**：商品30天内的加购量<br>
   >**注意**:若需要增减特征因子，可以在rank_feature中添加新的因子<br>
- >**注意**: 由于BM25是即时计算的，并非商品属性，因此若要采用其他关联度因子或者改变BM25计算的字符串对象，则需要修改BM25相关代码。<br>
-  <br><br>
+  >**注意**: 由于BM25是即时计算的，并非商品属性，因此若要采用其他关联度因子或者改变BM25计算的字符串对象，则需要修改BM25相关代码。<br>
+  ><br>
+  ><br>
 >### 原始数据文件<br>
   >>原始数据在目录[Solr-LTR-Training/data/OriginalData](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中,
   包含了prop.json,complex.json,keyword.txt,keyword_product_pair.txt等文件,下面介绍相关文件内容和作用<br>
@@ -76,7 +79,8 @@ java -jar ./ranklib-2.3/bin/RankLib.jar -train ./data/SampleSet/trainSet.txt -te
   ```
   >>>**注意**:属性名（如："product_id"）需要特征配置文件[FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中的属性名一致<br>
   >>>**注意**:可在此为商品添加新的特征项<br>
-  <br><br>
+  >><br>
+  >><br>
 
   >>#### 商品统计属性(complex.json)<br>
   >>>描述:complex.json存放商品的统计属性，例如一定时间内的销售量，加够量等,其中product_id为唯一区分项。数据格式如下：<br>
@@ -87,7 +91,8 @@ java -jar ./ranklib-2.3/bin/RankLib.jar -train ./data/SampleSet/trainSet.txt -te
   ```
   >>>**注意**:属性名（如："basket"）需要特征配置文件[FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中的属性名一致<br>
   >>>**注意**:可在此为商品添加新的特征项<br>
-  <br><br>
+  >><br>
+  >><br>
   
   >>#### 搜索词-商品对(keyword_product_pair.txt)<br>
   >>>描述:keyword_product_pair.txt存放搜索词以及商品的关系，例如在第一行中,squishy为搜索词，1153352为商品id,14是一个月内搜索词下点击该商品的uv，6是一个月内该搜索词下加够该商品的数量，4一个月内是该搜索词下该商品的销量。数据格式如下：<br>
@@ -101,8 +106,10 @@ java -jar ./ranklib-2.3/bin/RankLib.jar -train ./data/SampleSet/trainSet.txt -te
 	squishy`1120879`42`10`3`
 	squishy`1168577`30`17`3`
   ```
-  <br><br>
+  >><br>
+  >><br>
   
    >>#### 搜索词(keywords.txt)<br>
   >>>描述:keywords.txt存放keyword_product_pair.txt中包含的搜索词<br>
-  <br><br>
+  >><br>
+  >><br>
