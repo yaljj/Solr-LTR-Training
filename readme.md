@@ -7,15 +7,15 @@
 > ## Quick Start
   >下面将详细描述在现有数据[Solr-LTR-Training/data/OriginalData](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)的情况下，
   进行lambdaMART模型训练和solr-ltr配置的具体流程和操作。<br> 
->### 构造训练集，测试集，验证集<br>
-	>>##运行脚本##：[Solr-LTR-Training/src/main/java/Main/SampleSetFactory](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Main/SampleSetFactory.java)
-	>>该程序可更新Solr-LTR-Training/data/SampleSet下存放的训练集trainSet.txt，验证集VailiSet.txt，测试集testSet.txt。数据用于ranklib模型。
-	这些数据集的构造，基于原始数据[Solr-LTR-Training/data/OriginalData](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)。
-	三个数据集的格式一致，随机等比例的进行分配。脚本执行的代码如下：<br>
-  ```Java
-	SampleSetFactory.createSampleSet();
-  ```
-  <br><br>
+>### 构造训练集，测试集，验证集 <br>
+>> **运行脚本**：[Solr-LTR-Training/src/main/java/Main/SampleSetFactory](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Main/SampleSetFactory.java)
+>>该程序可更新Solr-LTR-Training/data/SampleSet下存放的训练集trainSet.txt，验证集VailiSet.txt，测试集testSet.txt。数据用于ranklib模型。
+这些数据集的构造，基于原始数据[Solr-LTR-Training/data/OriginalData](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)。
+三个数据集的格式一致，随机等比例的进行分配。脚本执行的代码如下：<br>
+```Java
+SampleSetFactory.createSampleSet();
+```
+ <br><br>
 > ## 数据文件描述
   >下面是关于项目中部分文件的描述，若需增减特征，或者改变特征的命名，需要详细阅读以下内容
   <br><br>
