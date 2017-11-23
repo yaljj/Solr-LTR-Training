@@ -7,6 +7,8 @@
 ## Quick Start
 >下面将详细描述在现有数据[Solr-LTR-Training/data/OriginalData](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)的情况下，
 进行MART模型训练和solr-ltr配置的具体流程和操作。<br> 
+
+
 >### 构造训练集，测试集，验证集 <br>
 > 运行脚本程序[Solr-LTR-Training/src/main/java/Main/SampleSetFactory](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Main/SampleSetFactory.java)。
 该程序可更新Solr-LTR-Training/data/SampleSet下存放的训练集trainSet.txt，验证集VailiSet.txt，测试集testSet.txt。数据用于ranklib模型。
@@ -15,6 +17,17 @@
 ```Java
 SampleSetFactory.createSampleSet();
 ```
+>数据集格式如下所示：<br>
+```Java
+1.6666666666666665 0 1:0.052396521256776483 2:0.13374604874102394 3:0.5227324654138016 4:0.30751221714520194 5:0.0 6:0.8661299198332197
+6.0 0 1:0.05388126843863542 2:0.21648865808128998 3:0.43786728585006884 4:0.2384830647363997 5:0.07789122848925072 6:0.732263157721875
+3.6 0 1:0.06491879482663733 2:0.08029717416530516 3:0.5155211937446508 4:0.4131687522256421 5:0.2587490602637329 6:0.9433190286166003
+2.25 0 1:0.057118366297761736 2:0.15670786934272418 3:0.6853757184226908 4:0.6270966778889606 5:0.27923713326906724 6:0.9016873920030167
+```
+>在第一行中，1.6666666666666665表示搜索词与商品间的匹配度（类似与线性回归中的Y值），计算基于[Solr-LTR-Training/data/OriginalData/keyword_product_pair.txt]中的属性。
+具体的属性含义在数据文件描述中说明。匹配度的计算在文件[Solr-LTR-Training/src/main/java/Calculation/ValueCalculation.java]（https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Calculation/ValueCalculation.java）中。
+第二个值，“0”为关键词的标号，取决于关键词在[Solr-LTR-Training/data/OriginalData/keywords.txt](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/data/OriginalDataSet/keywords.txt)中的为位置；
+“1:0.052396521256776483”指特征标号和对应的权重。特征标号所对应的特征可参照特征配置文件[Solr-LTR-Training/conf/FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中"rerank_feature"数组的特征顺序,标号为1就是指"rerank_feature"数组中的第一个特征。<br>
 
 > ### 训练MART模型 <br>
 >利用[ranklib](https://sourceforge.net/p/lemur/wiki/RankLib/)训练模型。在根目录下执行命令：<br>
@@ -68,7 +81,15 @@ java -jar ./ranklib-2.3/bin/RankLib.jar -train ./data/SampleSet/trainSet.txt -te
 .....
 </ensemble>
 ```
->模型文件为xml格式，不同于solr的模型存储格式，因此还需要进行转换。
+>模型文件为xml格式。而solr的模型格式是json而且分布和参数命名都与ranklib训练出来的结果有一定的差别，因此还需要进行模型格式的转换。为此，专门写了一个solr模型转换的脚本程序。
+
+>### ranklib模型转solr模型<br>
+>运行脚本程序[Solr-LTR-Training/src/main/java/Main/SolrModelFactory.java](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Main/SolrModelFactory.java)。所执行的代码如下:<br>
+```Java
+SolrModelFactory mf = new SolrModelFactory(); //初始化对象
+mf.storeMultipleAdditiveTrees("model/MART.txt","model/MART.json");//调用storeMultipleAdditiveTrees函数，"model/MART.txt"为ranklib训练的模型文件，"model/MART.json"为转换后的solr模型文件
+```
+>[MART.json](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/model/MART.json)格式如下所示：<br>
 
 
 ## 数据文件描述
