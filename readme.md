@@ -93,9 +93,47 @@ mf.storeMultipleAdditiveTrees("model/MART.txt","model/MART.json");//调用storeM
 >转换后的solr MART模型格式如:[MART.json](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/model/MART.json)<br>
 
 
+>### Solr基本配置<br>
+>接下来，是Solr的环境配置和待搜索的数据导入，为ltr模型的应用作准备。
+>##### 启动Solr
+>在solr（7.1.0）根目录下输入命令：<br>
+```Java
+./bin/solr start -Dsolr.ltr.enabled=true
+```
+>##### 创建solr core
+>在solr根目录下输入命令：<br>
+```Java
+./bin/solr create -c products
+```
+>##### 配置solrconfig.xml
+>该配置文件在solr-7.1.0/server/solr/products/conf，在文件中添加如下信息：<br>
+```Java
+<lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-ltr-\d.*\.jar" />
+<queryParser name="ltr" class="org.apache.solr.ltr.search.LTRQParserPlugin"/>
+<cache name="QUERY_DOC_FV"
+       class="solr.search.LRUCache"
+       size="4096"
+       initialSize="2048"
+       autowarmCount="4096"
+       regenerator="solr.search.NoOpRegenerator" />
+<transformer name="features" class="org.apache.solr.ltr.response.transform.LTRFeatureLoggerTransformerFactory">
+	<str name="fvCacheName">QUERY_DOC_FV</str>
+</transformer>
+```
+
+>##### 导入商品数据
+>为了测试方便，目前商品的field仅有product_name,product_id和用于ltr排序的特征属性。商品数据在文件**Solr-LTR-Training/data/json/products.json**中。
+该文件由脚本程序[Solr-LTR-Training/src/main/java/Main/ProductJsonSetFactory.java](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Main/ProductJsonSetFactory.java)生成。商品的特征与[Solr-LTR-Training/conf/FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中的
+特征配置相一致（命名一致）。同时商品数据不存在"BM25"(在搜索的时候,Solr即时计算获得)。可见，学习排序在solr中的应用其实是一个“重排序”的功能。先基于文本关联度抽取一定量商品，再根据ltr模型进行再排序。
+需要注意的是，商品的特征属性也是经过标准化处理的，log运算和max-min标准化(与模型训练时的数据集格式相一致)。<br>
+>输入以下命令导入商品数据：<br>
+```Java
+./bin/post #path#/Solr-LTR-Training/data/json/products.json //路径为绝对路径，修改#path#
+```
+>这里可以对field的数据类型进行配置，也可以用让solr自动识别各filed的数据类型<br>
 
 ## 数据文件描述
-下面是关于项目中部分文件的描述，若需增减特征，或者改变特征的命名，需要详细阅读以下内容
+下面是关于项目中部分文件的描述，若需理解数据的含义和结构，从而增删训练特征，则需要详细阅读以下内容
 >#### 特征配置文件FeatureConf<br>
 >特征配置文件[Solr-LTR-Training/conf/FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)为json格式，用以定义特征。
 定义的特征将用于利用原始数据的属性，产生ranklib训练的数据集[Solr-LTR-Training/data/SampleSet](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/SampleSet)（验证集，训练集，测试集）
