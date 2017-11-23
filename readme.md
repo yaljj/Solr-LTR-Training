@@ -27,7 +27,9 @@ SampleSetFactory.createSampleSet();
 >在第一行中，1.6666666666666665表示搜索词与商品间的匹配度（类似与线性回归中的Y值），计算基于[Solr-LTR-Training/data/OriginalData/keyword_product_pair.txt]中的属性。
 具体的属性含义在数据文件描述中说明。匹配度的计算在文件[Solr-LTR-Training/src/main/java/Calculation/ValueCalculation.java]（https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Calculation/ValueCalculation.java）中。
 第二个值，“0”为关键词的标号，取决于关键词在[Solr-LTR-Training/data/OriginalData/keywords.txt](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/data/OriginalDataSet/keywords.txt)中的为位置；
-“1:0.052396521256776483”指特征标号和对应的权重。特征标号所对应的特征可参照特征配置文件[Solr-LTR-Training/conf/FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中"rerank_feature"数组的特征顺序,标号为1就是指"rerank_feature"数组中的第一个特征。<br>
+“1:0.052396521256776483”指特征标号和对应的权重。特征标号所对应的特征可参照特征配置文件[Solr-LTR-Training/conf/FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中"rerank_feature"数组的特征顺序,标号为1就是指"rerank_feature"数组中的第一个特征。
+特征的都经过标准化处理，相关代码在文件[Solr-LTR-Training/src/main/java/Calculation/Normalization.java](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Calculation/Normalization.java)。
+其中对“BM25”的处理比较特殊，为单纯的min-max标准化(Min-max normalization)，这是考虑到BM25的值偏离度不大。其余的特征先进行log运算，然后再进行min-max标准化。<br>
 
 > ### 训练MART模型 <br>
 >利用[ranklib](https://sourceforge.net/p/lemur/wiki/RankLib/)训练模型。在根目录下执行命令：<br>
@@ -49,7 +51,6 @@ java -jar ./ranklib-2.3/bin/RankLib.jar -train ./data/SampleSet/trainSet.txt -te
 >>>LambdaMART [5]<br>
 >>>ListNet [7]<br>
 >>>Random Forests [8]<br>
-><br>
 ><br>
 >训练后,查看MART.txt文件:
 ```Java
@@ -89,7 +90,8 @@ java -jar ./ranklib-2.3/bin/RankLib.jar -train ./data/SampleSet/trainSet.txt -te
 SolrModelFactory mf = new SolrModelFactory(); //初始化对象
 mf.storeMultipleAdditiveTrees("model/MART.txt","model/MART.json");//调用storeMultipleAdditiveTrees函数，"model/MART.txt"为ranklib训练的模型文件，"model/MART.json"为转换后的solr模型文件
 ```
->[MART.json](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/model/MART.json)格式如下所示：<br>
+>转换后的solr MART模型格式如:[MART.json](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/model/MART.json)<br>
+
 
 
 ## 数据文件描述
