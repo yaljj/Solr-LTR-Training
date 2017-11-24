@@ -1,8 +1,8 @@
 # Solr-LTR-Training<br>
 ## 简介
-  >项目用于为Apache Solr（7.10）训练排序学习模型。项目基于特定格式的原始数据生成用于排序学习训练的数据集，并利用**ranklib**对数据集进行训练生成模型参数文件，接着将ranklib的模型格式转换为solr的模型格式。
-  目前支持的模型为[org.apache.solr.ltr.model.MultipleAdditiveTreesModel](https://lucene.apache.org/solr/7_0_0//solr-ltr/org/apache/solr/ltr/model/MultipleAdditiveTreesModel.html)。
-  项目自带的原始数据源于https://www.banggood.com 一个星期内的搜索记录数据和近一个月的商品特征数据。<br>
+  >项目用于为Apache Solr（7.10）训练排序学习模型。项目基于特定格式的原始数据生成用于排序学习训练的数据集，并利用**ranklib**对数据集进行训练生成模型参数文件，接着将ranklib的模型格式转换为solr的模型格式。最后将model上传到solr，实现ltr排序。
+  目前项目支持的模型为[org.apache.solr.ltr.model.MultipleAdditiveTreesModel](https://lucene.apache.org/solr/7_0_0//solr-ltr/org/apache/solr/ltr/model/MultipleAdditiveTreesModel.html)。
+  项目自带的原始数据源于https://www.banggood.com 某一星期内的搜索记录数据和某一个月内的商品特征数据。<br>
   <br><br>
 ## Quick Start
 >下面将详细描述在现有数据[Solr-LTR-Training/data/OriginalData](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)的情况下，
@@ -32,7 +32,7 @@ SampleSetFactory.createSampleSet();
 其中对“BM25”的处理比较特殊，为单纯的min-max标准化(Min-max normalization)，这是考虑到BM25的值偏离度不大。其余的特征先进行log运算，然后再进行min-max标准化。<br>
 
 > ### 训练MART模型 <br>
->利用[ranklib](https://sourceforge.net/p/lemur/wiki/RankLib/)训练模型。在根目录下执行命令：<br>
+>利用[ranklib](https://sourceforge.net/p/lemur/wiki/RankLib/)训练模型。在项目根目录下执行命令：<br>
 ```Java
 java -jar ./ranklib-2.3/bin/RankLib.jar -train ./data/SampleSet/trainSet.txt -test ./data/SampleSet/testSet.txt -validate ./data/SampleSet/valiSet.txt -ranker 6 -metric2t NDCG@10 -metric2T ERR@10 -save ./model/MART.txt
 ```
@@ -352,7 +352,7 @@ http://localhost:8983/solr/products/query?q=product_name:bag&fl=product_name,id,
         "[features]":"BM25=5.6918616,add_time_weight=0.0,price_weight=0.0,basket_weight=0.0,pay_num_weight=0.0,review_weight=0.0"}]
   }}
 ```
->能明显的看出加入ltr后，搜索效果显著提升!<br>
+>可见在没用ltr的情况下，默认的搜索效果非常糟糕，排名前面的商品销量，评论等各方面都不高<br>
 ## 数据文件描述<br>
 下面是关于项目中部分文件的描述，若需理解数据的含义和结构，从而增删训练特征，则需要详细阅读以下内容<br>
 >#### 特征配置文件FeatureConf<br>
