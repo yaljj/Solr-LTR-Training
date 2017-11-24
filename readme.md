@@ -1,6 +1,6 @@
 # Solr-LTR-Training<br>
 ## 简介
-  >项目用于为Apache Solr（7.10）训练排序学习模型。项目基于特定格式的原始数据生成用于排序学习训练的数据集后，利用**ranklib**对数据集进行训练生成模型参数文件，并将ranklib的模型格式转换为solr的模型格式。
+  >项目用于为Apache Solr（7.10）训练排序学习模型。项目基于特定格式的原始数据生成用于排序学习训练的数据集，并利用**ranklib**对数据集进行训练生成模型参数文件，接着将ranklib的模型格式转换为solr的模型格式。
   目前支持的模型为[org.apache.solr.ltr.model.MultipleAdditiveTreesModel](https://lucene.apache.org/solr/7_0_0//solr-ltr/org/apache/solr/ltr/model/MultipleAdditiveTreesModel.html)。
   项目自带的原始数据源于https://www.banggood.com 一个星期内的搜索记录数据和近一个月的商品特征数据。<br>
   <br><br>
@@ -24,8 +24,8 @@ SampleSetFactory.createSampleSet();
 3.6 0 1:0.06491879482663733 2:0.08029717416530516 3:0.5155211937446508 4:0.4131687522256421 5:0.2587490602637329 6:0.9433190286166003
 2.25 0 1:0.057118366297761736 2:0.15670786934272418 3:0.6853757184226908 4:0.6270966778889606 5:0.27923713326906724 6:0.9016873920030167
 ```
->在第一行中，1.6666666666666665表示搜索词与商品间的匹配度（类似与线性回归中的Y值），计算基于[Solr-LTR-Training/data/OriginalData/keyword_product_pair.txt]中的属性。
-具体的属性含义在数据文件描述中说明。匹配度的计算在文件[Solr-LTR-Training/src/main/java/Calculation/ValueCalculation.java]（https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Calculation/ValueCalculation.java）中。
+>在第一行中，1.6666666666666665表示搜索词与商品间的匹配度（类似与线性回归中的Y值），计算基于[Solr-LTR-Training/data/OriginalData/keyword_product_pair.txt](Solr-LTR-Training/data/OriginalDataSet/keyword_product_pair.txt)中的属性。
+具体的属性含义在数据文件描述中说明。匹配度的计算在文件[Solr-LTR-Training/src/main/java/Calculation/ValueCalculation.java](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Calculation/ValueCalculation.java)中。
 第二个值，“0”为关键词的标号，取决于关键词在[Solr-LTR-Training/data/OriginalData/keywords.txt](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/data/OriginalDataSet/keywords.txt)中的为位置；
 “1:0.052396521256776483”指特征标号和对应的权重。特征标号所对应的特征可参照特征配置文件[Solr-LTR-Training/conf/FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中"rerank_feature"数组的特征顺序,标号为1就是指"rerank_feature"数组中的第一个特征。
 特征的都经过标准化处理，相关代码在文件[Solr-LTR-Training/src/main/java/Calculation/Normalization.java](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Calculation/Normalization.java)。
@@ -144,7 +144,7 @@ mf.storeMultipleAdditiveTrees("model/MART.txt","model/MART.json");//调用storeM
 ```Java
 curl -XPUT "http://localhost:8983/solr/products/schema/feature-store" --data-binary "@%PATH%/solr-ltr-feature.json" -H "Content-type:application/json" 
 ```
->命令中products为core名，%PATH%为文件所在路径。本项目中特征文件为[Solr-LTR-Training/conf/solr-ltr-feature.json](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/conf/solr-ltr-feature.json),文件的格式如下：<br>
+>命令中products为core名，%PATH%为文件所在路径。特征文件所在位置为[Solr-LTR-Training/conf/solr-ltr-feature.json](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/conf/solr-ltr-feature.json),文件的格式如下：<br>
 ```Java
 [
   {
@@ -206,7 +206,7 @@ curl -XPUT "http://localhost:8983/solr/products/schema/feature-store" --data-bin
 ......  
 ｝
 ```
->“"params" : { "min":"0.0", "max":"92.47450525426174" }”中的参数值在构造训练集，测试集，验证集时打印,也就是执行[Solr-LTR-Training/src/main/java/Main/SampleSetFactory.java](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Main/SampleSetFactory.java)的时候。<br>
+>“"params" : { "min":"0.0", "max":"92.47450525426174"}”中的参数值在构造训练集，测试集，验证集时打印,也就是执行[Solr-LTR-Training/src/main/java/Main/SampleSetFactory.java](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Main/SampleSetFactory.java)的时候。<br>
 >修改后，即可导入模型文件，命令如下：
 ```Java
 curl -XPUT 'http://localhost:8983/solr/products/schema/model-store' --data-binary "@%Path%/MART.json" -H 'Content-type:application/json'
@@ -285,7 +285,7 @@ http://localhost:8983/solr/products/query?q=product_name:bag&rq={!ltr%20model=MA
         "[features]":"BM25=4.8211126,add_time=0.82167375,price=0.29424262,basket=0.43147457,pay_num=0.28643885,review=0.07789123"}]
   }}
 ```
->可见前几名的商品无论是销量，评论量还是加够量都比较高。后几名商品相对比较少。效果应该是比较显著。<br>
+>可见，前几名的商品无论是销量，评论量还是加够量都比较高。后几名商品相对比较少。效果应该是比较显著的。<br>
 >去掉重排序的请求，输入命令：
 ```Java
 http://localhost:8983/solr/products/query?q=product_name:bag&fl=product_name,id,score,[features]
@@ -390,7 +390,7 @@ http://localhost:8983/solr/products/query?q=product_name:bag&fl=product_name,id,
 {"product_id":"7157","product_name":"Acrylic UV Gel False Fake Nail Art Tips Clipper Manicure Cutter Tool","price":"3.76","add_time":"1507896522","cat_id":"1367","brand_id":"0"}
 {"product_id":"7340","product_name":"5pcs 2 Way Nail Art Dotting Marbleizing Painting Pen","price":"2.25","add_time":"1507896522","cat_id":"1343","brand_id":"0"}
   ```
->**注意**:属性名（如："product_id"）需要特征配置文件[FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中的属性名一致<br>
+>**注意**:属性名（如："product_id"）要与特征配置文件[FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中的属性名一致<br>
 >**注意**:可在此为商品添加新的特征项<br>
 ><br>
 ><br>
@@ -402,7 +402,7 @@ http://localhost:8983/solr/products/query?q=product_name:bag&fl=product_name,id,
 {"product_id":"18589","basket":"36.0","review":"135","pay_num":"7.0"}
 {"product_id":"18599","basket":"0.0","review":"10","pay_num":"0.0"}
 ```
->**注意**:属性名（如："basket"）需要特征配置文件[FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中的属性名一致<br>
+>**注意**:属性名（如："basket"）要与特征配置文件[FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中的属性名一致<br>
 >**注意**:可在此为商品添加新的特征项<br>
 ><br>
 ><br>
@@ -422,6 +422,6 @@ http://localhost:8983/solr/products/query?q=product_name:bag&fl=product_name,id,
 ><br>
   
 >##### 搜索词(keywords.txt)<br>
->描述:keywords.txt存放keyword_product_pair.txt中包含的搜索词<br>
+>描述:keywords.txt存放keyword_product_pair.txt中包含的搜索词，用于将搜索词转化为标号(ranklib训练的需要)<br>
 ><br>
 ><br>
