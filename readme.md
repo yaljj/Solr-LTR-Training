@@ -1,23 +1,23 @@
 # Solr-LTR-Training<br>
 ## 简介
-  >项目用于为Apache Solr（7.10）训练排序学习模型。项目基于特定格式的原始数据生成用于排序学习训练的数据集，并利用**ranklib**对数据集进行训练生成模型参数文件，接着将ranklib的模型格式转换为solr的模型格式。最后将model上传到solr，实现ltr排序。
-  目前项目支持的模型为[org.apache.solr.ltr.model.MultipleAdditiveTreesModel](https://lucene.apache.org/solr/7_0_0//solr-ltr/org/apache/solr/ltr/model/MultipleAdditiveTreesModel.html)。
-  项目自带的原始数据源于https://www.banggood.com 某一星期内的搜索记录数据和某一个月内的商品特征数据。<br>
-  <br><br>
+>  项目用于为Apache Solr（7.10）训练排序学习模型。项目基于特定格式的原始数据生成用于排序学习训练的数据集，并利用**ranklib**对数据集进行训练生成模型参数文件，接着将ranklib的模型格式转换为solr的模型格式。最后将model上传到solr，实现ltr排序。
+目前项目支持的模型为[org.apache.solr.ltr.model.MultipleAdditiveTreesModel](https://lucene.apache.org/solr/7_0_0//solr-ltr/org/apache/solr/ltr/model/MultipleAdditiveTreesModel.html)。
+项目自带的原始数据源于https://www.banggood.com 某一星期内的搜索记录数据和某一个月内的商品特征数据。<br>
+<br><br>
 ## Quick Start
->下面将详细描述在现有数据[Solr-LTR-Training/data/OriginalData](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)的情况下，
+>  下面将详细描述在现有数据[Solr-LTR-Training/data/OriginalData](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)的情况下，
 进行MART模型训练和solr-ltr配置的具体流程和操作。<br> 
 
 
 >### 构造训练集，测试集，验证集 <br>
-> 运行脚本程序[Solr-LTR-Training/src/main/java/Main/SampleSetFactory](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Main/SampleSetFactory.java)。
+>  运行脚本程序[Solr-LTR-Training/src/main/java/Main/SampleSetFactory](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Main/SampleSetFactory.java)。
 该程序可更新Solr-LTR-Training/data/SampleSet下存放的训练集trainSet.txt，验证集VailiSet.txt，测试集testSet.txt。数据用于ranklib模型。
 这些数据集的构造，基于原始数据[Solr-LTR-Training/data/OriginalData](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)。
 三个数据集的格式一致，随机等比例的进行分配。脚本执行的代码如下：<br>
 ```Java
 SampleSetFactory.createSampleSet();
 ```
->数据集格式如下所示：<br>
+>  数据集格式如下所示：<br>
 ```Java
 1.6666666666666665 0 1:0.052396521256776483 2:0.13374604874102394 3:0.5227324654138016 4:0.30751221714520194 5:0.0 6:0.8661299198332197
 6.0 0 1:0.05388126843863542 2:0.21648865808128998 3:0.43786728585006884 4:0.2384830647363997 5:0.07789122848925072 6:0.732263157721875
