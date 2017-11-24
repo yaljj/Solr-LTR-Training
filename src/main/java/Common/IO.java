@@ -33,9 +33,9 @@ public class IO {
                         rows.add(lineTxt);
                     }
                     read.close();
-        }else{
-            System.out.println("找不到指定的文件");
-        }
+		        }else{
+		            System.out.println("找不到指定的文件"+":"+filePath);
+		        }
         } catch (Exception e) {
             System.out.println("读取文件内容出错");
             e.printStackTrace();
@@ -113,6 +113,13 @@ public class IO {
 		  return featureConfig;
 	}
 	
+	
+	/**
+	 * 读取商品一般属性
+	 * @param productFeatureSet
+	 * @param conf
+	 * @return
+	 */
 	static public HashMap<Integer,Product> readPropJson(HashMap<Integer,Product> productFeatureSet,FeatureConfig conf){
 //		
 		List<String> rows = IO.readTxtFile(Path.prop_json, Path.code);
@@ -185,7 +192,10 @@ public class IO {
 	}
 	
     public static void main(String[] args){ 
-
+    	HashMap<Integer,Product> maps = IO.readProductFeatureDict();
+//    	for(Integer i:maps.keySet()){
+//    		System.out.println(i);
+//    	}
     	
     }  
 }

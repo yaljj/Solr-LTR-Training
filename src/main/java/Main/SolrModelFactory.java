@@ -79,7 +79,7 @@ public class SolrModelFactory {
 		List<String> parmsJSON = new ArrayList<String>();
 		parmsJSON.add("{");
 		parmsJSON.add("   \"class\" : \"org.apache.solr.ltr.model.MultipleAdditiveTreesModel\",");
-		parmsJSON.add("   \"name\" : \"LambdaMART\",");
+		parmsJSON.add("   \"name\" : \"MART\",");
 		parmsJSON.add("   \"features\":[");
 		for(int i=0;i<conf.rank_feature.size();i++){
 			parmsJSON.add("    { \"name\" : \""+conf.rank_feature.get(i)+"\"},");

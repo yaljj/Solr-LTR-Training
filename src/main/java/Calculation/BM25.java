@@ -12,14 +12,14 @@ public class BM25 {
 	Map<String,Double> IDF;
 	
 	
-	public BM25(Map<Integer,ProductFeature> productInfoDict){
-		AvgDocLen = ValueCalculation.getAvgDocLength(productInfoDict);
-		IDF = ValueCalculation.getIDF();
-	}
+//	public BM25(Map<Integer,ProductFeature> productInfoDict){
+//		AvgDocLen = ValueCalculation.getAvgDocLength(productInfoDict);
+//		IDF = ValueCalculation.getIDF();
+//	}
 	
-	public BM25(HashMap<Integer,Product> productInfoDict){
-		AvgDocLen = ValueCalculation.getAvgDocLength2(productInfoDict);
-		IDF = ValueCalculation.getIDF();
+	public BM25(HashMap<Integer,Product> productDict){
+		AvgDocLen = ValueCalculation.getAvgDocLength2(productDict);
+		IDF = ValueCalculation.getIDF(productDict);
 	}
 	
 	public double getValue(String keyword,String product_name){

@@ -167,12 +167,13 @@ public class SampleSetFactory {
 		System.out.println("====更新训练集，验证集，测试集====");
 		System.out.println("---读取原始数据---");
 		HashMap<Integer,Product> productDict = IO.readProductFeatureDict();
+		System.out.println("read productDict finish");
 		Map<String,Integer> keywordID = SampleSetFactory.readKeywordID();
+		System.out.println("read keywordID finish");
 		Map<String,Double> maxDict = new HashMap<String,Double>();
 		Map<String,Double> minDict = new HashMap<String,Double>();
 		Normalization.getlinerNormParms(maxDict,minDict);
 		System.out.println("---数据预处理---");
-//		standardization.standard(productInfoDict);
 		BM25 bm25 = new BM25(productDict);
 		FeatureConfig conf = IO.readFeaturesCongfig();
 		//清空文件
@@ -185,6 +186,7 @@ public class SampleSetFactory {
 		for(KeywordProductPair pair:pairList){
 			try{
 				double value = bm25.getValue(pair.keyword,productDict.get(pair.productID).strProp.get("product_name"));
+
 				if(value > 0){
 					Product product = productDict.get(pair.productID);
 					product.rank_feature.put("BM25", value); //添加BM25特征
@@ -216,9 +218,9 @@ public class SampleSetFactory {
 				}
 			}
 			catch(Exception e){
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
-			}
+		}
 		System.out.println("===训练集，验证集，测试集已更新===");
 		
 	}

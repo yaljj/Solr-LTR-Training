@@ -35,13 +35,13 @@ public class ValueCalculation {
 		return sum/num;
 	}
 	
-	static public Map<String,Double> getIDF(){
-		List<String> rows = IO.readTxtFile(Path.product_prop_txt, Path.code);
+	static public Map<String,Double> getIDF(HashMap<Integer,Product> productDict){
+
+		List<String> rows = IO.readTxtFile(Path.prop_json, Path.code);
 		Map<String,Double> idfMap = new HashMap<String,Double>();
 		double docNum = rows.size();
-		for(String row:rows){
-			String[] terms= row.split("``");
-			terms = terms[1].split(" ");
+		for(Integer i:productDict.keySet()){
+			String[] terms = productDict.get(i).strProp.get("product_name").split(" ");
 			Set<String> tSet = new HashSet<String>(Arrays.asList(terms));
 			for(String term:tSet){
 				term = term.toLowerCase();
@@ -64,6 +64,6 @@ public class ValueCalculation {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ValueCalculation.getIDF();
+
 	}
 }

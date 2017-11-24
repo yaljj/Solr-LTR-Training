@@ -206,6 +206,7 @@ curl -XPUT "http://localhost:8983/solr/products/schema/feature-store" --data-bin
 ......  
 ｝
 ```
+>“"params" : { "min":"0.0", "max":"92.47450525426174" }”中的参数值在构造训练集，测试集，验证集时打印,也就是执行[Solr-LTR-Training/src/main/java/Main/SampleSetFactory.java](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Main/SampleSetFactory.java)的时候。<br>
 >修改后，即可导入模型文件，命令如下：
 ```Java
 curl -XPUT 'http://localhost:8983/solr/products/schema/model-store' --data-binary "@%Path%/MART.json" -H 'Content-type:application/json'
@@ -217,71 +218,73 @@ curl -XPUT 'http://localhost:8983/solr/products/schema/model-store' --data-binar
 > ### 测试solr-ltr效果<br>
 >solr配置好后，通过http协议，发送命令获取搜索结果：
 ```Java
-http://localhost:8983/solr/products/query?q=product_name:bag&rq={!ltr%20model=LambdaMART%20reRankDocs=100}&fl=product_name,id,score,[features]
+http://localhost:8983/solr/products/query?q=product_name:bag&rq={!ltr%20model=MART%20reRankDocs=1000}&fl=product_name,id,score,[features]
 ```
->其中rq={!ltr%20model=MART%20reRankDocs=100}是利用ltr模型进行重排序的请求。"model=MART"指使用模型MART(模型名可随便在MART.json里配置)，“reRankDocs=100”指去前100的document进行重排序。<br>
+>其中rq={!ltr%20model=MART%20reRankDocs=100}是利用ltr模型进行重排序的请求。"model=MART"指使用模型MART(模型名可随便在MART.json里配置)，“reRankDocs=100”指去前1000的document进行重排序。<br>
 
 >输出结果如下：<br>
 ```Java
+{
   "responseHeader":{
     "status":0,
-    "QTime":1,
+    "QTime":481,
     "params":{
       "q":"product_name:bag",
       "fl":"product_name,id,score,[features]",
-      "rq":"{!ltr model=MART reRankDocs=100}"}},
-  "response":{"numFound":7195,"start":0,"maxScore":0.2451679,"docs":[
+      "rq":"{!ltr model=MART reRankDocs=1000}"}},
+  "response":{"numFound":7195,"start":0,"maxScore":0.8912517,"docs":[
       {
-        "product_name":["Multifunction Canvas Tool Waist Bag Maintenance Bag Tools Kit Bag"],
-        "id":"d206567d-21d2-4715-a7c0-e069dfc293b2",
-        "score":0.2451679,
-        "[features]":"BM25=5.3548636,add_time=0.6287582,price=0.21007025,basket=0.38157985,pay_num=0.36548063,review=0.43501958"},
+        "product_name":["Men Canvas Retro Canvas Travel Cycling Crossbody Bag Chest Bag"],
+        "id":"7f0e8737-bb99-4f87-8999-8c0173e36dc6",
+        "score":0.8912517,
+        "[features]":"BM25=4.741643,add_time=0.9638977,price=0.48802152,basket=0.57379055,pay_num=0.5554985,review=0.40577072"},
+      {
+        "product_name":["Women Nylon Travel Passport Bag Crossbody Travel Bag Useful Shoulder Bag"],
+        "id":"d9de9961-febb-4617-b763-ac06e06f932b",
+        "score":0.06596118,
+        "[features]":"BM25=5.257847,add_time=0.95407635,price=0.42589036,basket=0.7309676,pay_num=0.65739316,review=0.4881277"},
+      {
+        "product_name":["  Bike Frame Front Triangle Bag Cycling Pipe Pouch Tool Bag"],
+        "id":"6d47babf-265c-4eab-ba22-b5a2ed93d305",
+        "score":0.050511904,
+        "[features]":"BM25=4.741643,add_time=0.8198018,price=0.10394799,basket=0.42217502,pay_num=0.42017365,review=0.50690013"},
       {
         "product_name":["Waterproof Shoe Bag Travel Shoe Bag Shoe Case Bag Multicolor"],
         "id":"0480a2b1-3203-487f-8508-b5f715c6cc30",
-        "score":0.11106752,
+        "score":-0.050930798,
         "[features]":"BM25=5.3548636,add_time=0.93256116,price=0.16925557,basket=0.18676566,pay_num=0.17468569,review=0.26945937"},
       {
-        "product_name":["Women Irregular Little Phone Bag Casual PU Crossbody Bag Bucket Bag"],
-        "id":"a6d35504-b2f1-4a74-a0b5-8e607b5295db",
-        "score":-0.22432475,
-        "[features]":"BM25=5.257847,add_time=0.95547944,price=0.36387274,basket=0.674846,pay_num=0.6064306,review=0.5784409"},
+        "product_name":["Multifunction Canvas Tool Waist Bag Maintenance Bag Tools Kit Bag"],
+        "id":"d206567d-21d2-4715-a7c0-e069dfc293b2",
+        "score":-0.058703594,
+        "[features]":"BM25=5.3548636,add_time=0.6287582,price=0.21007025,basket=0.38157985,pay_num=0.36548063,review=0.43501958"},
       {
-        "product_name":["Men Canvas Shoulder Bag Casual Messenger Bag Retro Laptop Bag"],
-        "id":"06d94e90-2a6e-44ee-b318-4bee57e29180",
-        "score":-0.5925206,
-        "[features]":"BM25=5.3548636,add_time=0.9475285,price=0.44561422,basket=0.31127608,pay_num=0.2256991,review=0.123454675"},
+        "product_name":["Student Forest Wind Lace Fringe Retro Floral Dot Zipper Pencil Storage Bag Makeup Bag Stationery Bag"],
+        "id":"d3b2741c-39fe-4b6f-b08d-73dd3e0ff518",
+        "score":-0.271069,
+        "[features]":"BM25=4.8211126,add_time=0.86471075,price=0.12270968,basket=0.3378133,pay_num=0.17468569,review=0.07789123"},
       {
-        "product_name":["Women Candy Color Flower Phone Bag Clutch Bag Shoulder Bag Crossbody Bag"],
-        "id":"45f8e4c4-0582-432c-a931-3be799fdf155",
-        "score":-0.64000285,
-        "[features]":"BM25=5.5605226,add_time=0.99709964,price=0.41963917,basket=0.5590606,pay_num=0.4595628,review=0.2882318"},
+        "product_name":["Women Casual Vintage Bucket Bag Crossboby Bag Light Weight Beach Bag"],
+        "id":"cdee24e1-53a5-4239-9aa6-15b248769682",
+        "score":-0.2802631,
+        "[features]":"BM25=5.257847,add_time=0.9587532,price=0.42707208,basket=0.52535886,pay_num=0.37616515,review=0.23367369"},
       {
-        "product_name":["Women Felt Home Storage Bag Travel Toiletry Bag Inner Bag"],
-        "id":"c8553a14-69d5-4483-8947-94cda36dab0e",
-        "score":-0.7000331,
-        "[features]":"BM25=5.3548636,add_time=0.96810687,price=0.37344068,basket=0.46074337,pay_num=0.3577246,review=0.07789123"},
+        "product_name":["Naturehike Travel Storage Bag Nylon Waterproof Compression Packing Picnic Bag For Sleeping Bag Clothing"],
+        "id":"0b61238a-7339-42b4-bafa-707701258fe5",
+        "score":-0.3123042,
+        "[features]":"BM25=4.9868,add_time=0.58752835,price=0.28478464,basket=0.3398781,pay_num=0.34937137,review=0.3473506"},
       {
-        "product_name":["Cartoon Owl Shape Shoulder Bag Creative Crossbody Bag Phone Bag"],
-        "id":"c2efd561-f2c4-49fb-973a-a7d852305f71",
-        "score":-0.7053185,
-        "[features]":"BM25=5.3548636,add_time=0.853028,price=0.45666453,basket=0.5683455,pay_num=0.47425252,review=0.2013459"},
+        "product_name":["12 Hole Ocarina Protective Bag Thick Waterproof Protective Bag"],
+        "id":"85cd2415-2f79-485c-9cf9-5b360f043897",
+        "score":-0.3215233,
+        "[features]":"BM25=4.8607717,add_time=0.89839727,price=0.10492812,basket=0.21536767,pay_num=0.23848307,review=0.3783941"},
       {
-        "product_name":["Women Casual PU Crossbody Bag Bucket Bag Vintage Bag Round Little Phone Bag for Xiaomi iphone"],
-        "id":"8d634c5e-7f9b-4f86-89bb-d39e7027db32",
-        "score":-0.70558554,
-        "[features]":"BM25=5.258269,add_time=0.9802657,price=0.4361614,basket=0.71180034,pay_num=0.6142707,review=0.29655954"},
-      {
-        "product_name":["Women Canvas Tote Bag Outdoor Casual Crossbody Bag Duffle Bag "],
-        "id":"3b1cb128-cd85-462f-bf59-030713345ed3",
-        "score":-0.7748899,
-        "[features]":"BM25=5.3548636,add_time=0.6325061,price=0.43663102,basket=0.39901802,pay_num=0.21120583,review=0.0"},
-      {
-        "product_name":["BUBM Multifunctional Cable Earphone Bag Power Bank Bag Digital Products Bag Travelling Storage Bag"],
-        "id":"7e245a90-ae7b-4c1b-ba5d-2e8a5e97a451",
-        "score":-0.96455353,
-        "[features]":"BM25=5.4051733,add_time=0.76222724,price=0.28977814,basket=0.09867219,pay_num=0.07523303,review=0.0"}]
+        "product_name":["Women Graffiti Toiletry Bag Cosmetic Bag Travel Must-have High End Digital Usb Cable Storage Bag"],
+        "id":"346f9802-6aca-450c-bfff-d8260a016db7",
+        "score":-0.38795632,
+        "[features]":"BM25=4.8211126,add_time=0.82167375,price=0.29424262,basket=0.43147457,pay_num=0.28643885,review=0.07789123"}]
   }}
+```
 >可见前几名的商品无论是销量，评论量还是加够量都比较高。后几名商品相对比较少。效果应该是比较显著。<br>
 >去掉重排序的请求，输入命令：
 ```Java
