@@ -212,7 +212,8 @@ curl -XPUT "http://localhost:8983/solr/products/schema/feature-store" --data-bin
 curl -XPUT 'http://localhost:8983/solr/products/schema/model-store' --data-binary "@%Path%/MART.json" -H 'Content-type:application/json'
 ```
 >%Path%为文件所在路径。<br>
->导入成功后，可以
+>导入成功后，可以在UI上看到产生了两个新的文件_schema_feature-store.json和_schema_model-store.json:<br>
+>(https://github.com/AdienHuen/Solr-LTR-Training/blob/master/picture/configResult.jpg)<br>
 ><br>
 
 <br>
