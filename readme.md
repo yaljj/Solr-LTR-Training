@@ -126,7 +126,7 @@ mf.storeMultipleAdditiveTrees("model/MART.txt","model/MART.json");//调用storeM
 ./bin/solr stop -all
 ./bin/solr start -Dsolr.ltr.enabled=true
 ```
-><br>
+
 >##### 导入商品数据
 >为了测试方便，目前商品的field仅有product_name,product_id和用于ltr排序的特征属性。商品数据在文件**Solr-LTR-Training/data/json/products.json**中。
 该文件由脚本程序[Solr-LTR-Training/src/main/java/Main/ProductJsonSetFactory.java](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Main/ProductJsonSetFactory.java)生成。商品的特征与[Solr-LTR-Training/conf/FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中的
@@ -137,7 +137,6 @@ mf.storeMultipleAdditiveTrees("model/MART.txt","model/MART.json");//调用storeM
 ./bin/post %path%/Solr-LTR-Training/data/json/products.json //路径为绝对路径，修改%path%
 ```
 >这里可以对field的数据类型进行配置，也可以让solr自动识别各filed的数据类型<br>
->
 
 >##### 导入模型和特征
 >使用solr-ltr前，需要导入两个文件分别是特征文件和模型文件。<br>
@@ -215,13 +214,148 @@ curl -XPUT 'http://localhost:8983/solr/products/schema/model-store' --data-binar
 >导入成功后，可以在UI上看到产生了两个新的文件_schema_feature-store.json和_schema_model-store.json。<br>
 >(https://github.com/AdienHuen/Solr-LTR-Training/blob/master/picture/configResult.jpg)<br>
 
+> ### 测试solr-ltr效果<br>
+>solr配置好后，通过http协议，发送命令获取搜索结果：
+```Java
+http://localhost:8983/solr/products/query?q=product_name:bag&rq={!ltr%20model=LambdaMART%20reRankDocs=100}&fl=product_name,id,score,[features]
+```
+>其中rq={!ltr%20model=MART%20reRankDocs=100}是利用ltr模型进行重排序的请求。"model=MART"指使用模型MART(模型名可随便在MART.json里配置)，“reRankDocs=100”指去前100的document进行重排序。<br>
+
+>输出结果如下：<br>
+```Java
+  "responseHeader":{
+    "status":0,
+    "QTime":1,
+    "params":{
+      "q":"product_name:bag",
+      "fl":"product_name,id,score,[features]",
+      "rq":"{!ltr model=MART reRankDocs=100}"}},
+  "response":{"numFound":7195,"start":0,"maxScore":0.2451679,"docs":[
+      {
+        "product_name":["Multifunction Canvas Tool Waist Bag Maintenance Bag Tools Kit Bag"],
+        "id":"d206567d-21d2-4715-a7c0-e069dfc293b2",
+        "score":0.2451679,
+        "[features]":"BM25=5.3548636,add_time=0.6287582,price=0.21007025,basket=0.38157985,pay_num=0.36548063,review=0.43501958"},
+      {
+        "product_name":["Waterproof Shoe Bag Travel Shoe Bag Shoe Case Bag Multicolor"],
+        "id":"0480a2b1-3203-487f-8508-b5f715c6cc30",
+        "score":0.11106752,
+        "[features]":"BM25=5.3548636,add_time=0.93256116,price=0.16925557,basket=0.18676566,pay_num=0.17468569,review=0.26945937"},
+      {
+        "product_name":["Women Irregular Little Phone Bag Casual PU Crossbody Bag Bucket Bag"],
+        "id":"a6d35504-b2f1-4a74-a0b5-8e607b5295db",
+        "score":-0.22432475,
+        "[features]":"BM25=5.257847,add_time=0.95547944,price=0.36387274,basket=0.674846,pay_num=0.6064306,review=0.5784409"},
+      {
+        "product_name":["Men Canvas Shoulder Bag Casual Messenger Bag Retro Laptop Bag"],
+        "id":"06d94e90-2a6e-44ee-b318-4bee57e29180",
+        "score":-0.5925206,
+        "[features]":"BM25=5.3548636,add_time=0.9475285,price=0.44561422,basket=0.31127608,pay_num=0.2256991,review=0.123454675"},
+      {
+        "product_name":["Women Candy Color Flower Phone Bag Clutch Bag Shoulder Bag Crossbody Bag"],
+        "id":"45f8e4c4-0582-432c-a931-3be799fdf155",
+        "score":-0.64000285,
+        "[features]":"BM25=5.5605226,add_time=0.99709964,price=0.41963917,basket=0.5590606,pay_num=0.4595628,review=0.2882318"},
+      {
+        "product_name":["Women Felt Home Storage Bag Travel Toiletry Bag Inner Bag"],
+        "id":"c8553a14-69d5-4483-8947-94cda36dab0e",
+        "score":-0.7000331,
+        "[features]":"BM25=5.3548636,add_time=0.96810687,price=0.37344068,basket=0.46074337,pay_num=0.3577246,review=0.07789123"},
+      {
+        "product_name":["Cartoon Owl Shape Shoulder Bag Creative Crossbody Bag Phone Bag"],
+        "id":"c2efd561-f2c4-49fb-973a-a7d852305f71",
+        "score":-0.7053185,
+        "[features]":"BM25=5.3548636,add_time=0.853028,price=0.45666453,basket=0.5683455,pay_num=0.47425252,review=0.2013459"},
+      {
+        "product_name":["Women Casual PU Crossbody Bag Bucket Bag Vintage Bag Round Little Phone Bag for Xiaomi iphone"],
+        "id":"8d634c5e-7f9b-4f86-89bb-d39e7027db32",
+        "score":-0.70558554,
+        "[features]":"BM25=5.258269,add_time=0.9802657,price=0.4361614,basket=0.71180034,pay_num=0.6142707,review=0.29655954"},
+      {
+        "product_name":["Women Canvas Tote Bag Outdoor Casual Crossbody Bag Duffle Bag "],
+        "id":"3b1cb128-cd85-462f-bf59-030713345ed3",
+        "score":-0.7748899,
+        "[features]":"BM25=5.3548636,add_time=0.6325061,price=0.43663102,basket=0.39901802,pay_num=0.21120583,review=0.0"},
+      {
+        "product_name":["BUBM Multifunctional Cable Earphone Bag Power Bank Bag Digital Products Bag Travelling Storage Bag"],
+        "id":"7e245a90-ae7b-4c1b-ba5d-2e8a5e97a451",
+        "score":-0.96455353,
+        "[features]":"BM25=5.4051733,add_time=0.76222724,price=0.28977814,basket=0.09867219,pay_num=0.07523303,review=0.0"}]
+  }}
+>可见前几名的商品无论是销量，评论量还是加够量都比较高。后几名商品相对比较少。效果应该是比较显著。<br>
+>去掉重排序的请求，输入命令：
+```Java
+http://localhost:8983/solr/products/query?q=product_name:bag&fl=product_name,id,score,[features]
+```
+>结果：<br>
+```Java
+{
+  "responseHeader":{
+    "status":0,
+    "QTime":3,
+    "params":{
+      "q":"product_name:bag",
+      "fl":"product_name,id,score,[features]"}},
+  "response":{"numFound":28561,"start":0,"maxScore":5.9003043,"docs":[
+      {
+        "id":"1005270",
+        "product_name":["women inflatable bag swimming bag waterproof bag beach bag inflatable bag"],
+        "score":5.9003043,
+        "[features]":"BM25=5.9003043,add_time_weight=0.7116663,price_weight=0.3607677,basket_weight=0.23175651,pay_num_weight=0.0,review_weight=0.0"},
+      {
+        "product_name":["Women Inflatable Bag Swimming Bag Waterproof Bag Beach Bag Inflatable Bag"],
+        "id":"d208a105-a57e-4998-ab0c-588c0946c756",
+        "score":5.9003043,
+        "[features]":"BM25=5.9003043,add_time_weight=0.0,price_weight=0.0,basket_weight=0.0,pay_num_weight=0.0,review_weight=0.0"},
+      {
+        "product_name":["Women Inflatable Bag Swimming Bag Waterproof Bag Beach Bag Inflatable Bag"],
+        "id":"0557f31f-b1d3-4db4-8645-feb08fbb4dd3",
+        "score":5.9003043,
+        "[features]":"BM25=5.9003043,add_time_weight=0.0,price_weight=0.0,basket_weight=0.0,pay_num_weight=0.0,review_weight=0.0"},
+      {
+        "product_name":["Women Inflatable Bag Swimming Bag Waterproof Bag Beach Bag Inflatable Bag"],
+        "id":"bb2c72c3-3fce-4083-a362-888dfdad7a0f",
+        "score":5.9003043,
+        "[features]":"BM25=5.9003043,add_time_weight=0.0,price_weight=0.0,basket_weight=0.0,pay_num_weight=0.0,review_weight=0.0"},
+      {
+        "id":"1131505",
+        "product_name":["women pu leather smartphone bag bucket bag coin bag crossbody bag vintage shoulder bag"],
+        "score":5.6918616,
+        "[features]":"BM25=5.6918616,add_time_weight=0.9724192,price_weight=0.30402035,basket_weight=0.41182953,pay_num_weight=0.07789242,review_weight=0.07789242"},
+      {
+        "id":"1136889",
+        "product_name":["women portable cosmetic bag passport bag nylon wristlet clutches bag digital bag phone bag"],
+        "score":5.6918616,
+        "[features]":"BM25=5.6918616,add_time_weight=0.9904379,price_weight=0.3632397,basket_weight=0.3949647,pay_num_weight=0.12345657,review_weight=0.12345657"},
+      {
+        "product_name":["Women PU Leather Smartphone Bag Bucket Bag Coin Bag Crossbody Bag Vintage Shoulder Bag"],
+        "id":"e9bb9cdf-3bf8-46ce-8c2c-0539cae3206c",
+        "score":5.6918616,
+        "[features]":"BM25=5.6918616,add_time_weight=0.0,price_weight=0.0,basket_weight=0.0,pay_num_weight=0.0,review_weight=0.0"},
+      {
+        "product_name":["Women Portable Cosmetic Bag Passport Bag Nylon Wristlet Clutches Bag Digital Bag Phone Bag"],
+        "id":"614efd7e-8136-4e09-8b1d-9340baf3f659",
+        "score":5.6918616,
+        "[features]":"BM25=5.6918616,add_time_weight=0.0,price_weight=0.0,basket_weight=0.0,pay_num_weight=0.0,review_weight=0.0"},
+      {
+        "product_name":["Women PU Leather Smartphone Bag Bucket Bag Coin Bag Crossbody Bag Vintage Shoulder Bag"],
+        "id":"481a7597-2541-482d-9d8a-9d13a69aebb8",
+        "score":5.6918616,
+        "[features]":"BM25=5.6918616,add_time_weight=0.0,price_weight=0.0,basket_weight=0.0,pay_num_weight=0.0,review_weight=0.0"},
+      {
+        "product_name":["Women Portable Cosmetic Bag Passport Bag Nylon Wristlet Clutches Bag Digital Bag Phone Bag"],
+        "id":"dcc7382b-6d52-4e13-8024-006486da321f",
+        "score":5.6918616,
+        "[features]":"BM25=5.6918616,add_time_weight=0.0,price_weight=0.0,basket_weight=0.0,pay_num_weight=0.0,review_weight=0.0"}]
+  }}
+```
+>能明显的看出加入ltr后，搜索效果显著提升!<br>
 ## 数据文件描述<br>
 下面是关于项目中部分文件的描述，若需理解数据的含义和结构，从而增删训练特征，则需要详细阅读以下内容<br>
 >#### 特征配置文件FeatureConf<br>
 >特征配置文件[Solr-LTR-Training/conf/FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)为json格式，用以定义特征。
 定义的特征将用于利用原始数据的属性，产生ranklib训练的数据集[Solr-LTR-Training/data/SampleSet](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/SampleSet)（验证集，训练集，测试集）<br>
 >修改后，即可导入模型文件，命令如下：
-
 ```Java
 {  
     "name": "productConfig",
