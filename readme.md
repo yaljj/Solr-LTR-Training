@@ -107,6 +107,7 @@ mf.storeMultipleAdditiveTrees("model/MART.txt","model/MART.json");//调用storeM
 ```
 >##### 配置solrconfig.xml
 >该配置文件在solr-7.1.0/server/solr/products/conf，在文件中添加如下信息：<br>
+
 ```Java
 <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-ltr-\d.*\.jar" />
 <queryParser name="ltr" class="org.apache.solr.ltr.search.LTRQParserPlugin"/>
@@ -128,9 +129,84 @@ mf.storeMultipleAdditiveTrees("model/MART.txt","model/MART.json");//调用storeM
 需要注意的是，商品的特征属性也是经过标准化处理的，log运算和max-min标准化(与模型训练时的数据集格式相一致)。<br>
 >输入以下命令导入商品数据：<br>
 ```Java
-./bin/post #path#/Solr-LTR-Training/data/json/products.json //路径为绝对路径，修改#path#
+./bin/post %path%/Solr-LTR-Training/data/json/products.json //路径为绝对路径，修改%path%
 ```
->这里可以对field的数据类型进行配置，也可以用让solr自动识别各filed的数据类型<br>
+>这里可以对field的数据类型进行配置，也可以让solr自动识别各filed的数据类型<br>
+>
+
+>##### 导入模型和特征
+>使用solr-ltr前，需要导入两个文件分别是特征文件和模型文件。<br>
+>导入特征文件，在输入命令行：
+```Java
+curl -XPUT "http://localhost:8983/solr/products/schema/feature-store" --data-binary "@%PATH%/solr-ltr-feature.json" -H "Content-type:application/json" 
+```
+>命令中products为core名，%PATH%为文件所在路径。本项目中特征文件为[Solr-LTR-Training/conf/solr-ltr-feature.json](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/conf/solr-ltr-feature.json),文件的格式如下：<br>
+```Java
+[
+  {
+    "name" : "BM25",
+    "class" : "org.apache.solr.ltr.feature.OriginalScoreFeature",
+    "params" : {}
+
+  },
+  {
+	"name":  "add_time", 
+	"class": "org.apache.solr.ltr.feature.FieldValueFeature",
+	"params": {"field": "add_time"}
+  },
+  {
+	"name":  "price",
+	"class": "org.apache.solr.ltr.feature.FieldValueFeature",
+	"params": {"field": "price"}
+
+  },
+  {
+  "name":  "basket",
+  "class": "org.apache.solr.ltr.feature.FieldValueFeature",
+  "params": {"field": "basket"}
+  },
+  {
+  "name":  "pay_num",
+  "class": "org.apache.solr.ltr.feature.FieldValueFeature",
+  "params": {"field": "pay_num"}
+  },
+  {
+  "name":  "review",
+  "class": "org.apache.solr.ltr.feature.FieldValueFeature",
+  "params": {"field": "review"}
+  }
+]
+```
+>其中“name"为特征名，可随意命名,"parms"可指定该特征所用到的商品"field"。像上述所示，就是直接用field的值来作为ltr的特征。不过,BM25比较特殊，BM25并不是商品的属性，需要搜索的时候即时计算。因此用到的类为原始搜索得分org.apache.solr.ltr.feature.OriginalScoreFeature。<br>
+>导入模型文件前，需要为训练好的模型文件添加一些配置。这是因为训练模型的时所用到的数据集中，BM25特征是经过max-min标准化的，而在solr即时计算时,BM25值并进行标准化处理。因此要在[MART.json](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/model/MART.json)中添加对BM25特征标准化处理的配置。配置如下所示：<br>
+```Java
+{  
+	{
+	"class" : "org.apache.solr.ltr.model.MultipleAdditiveTreesModel",
+	"name" : "LambdaMART",
+	"features":[
+	{ 	
+		"name" : "BM25"
+		"norm" : {
+			"class" : "org.apache.solr.ltr.norm.MinMaxNormalizer",
+			"params" : { "min":"0.0", "max":"92.47450525426174" }
+		}
+	},
+    { "name" : "price"},
+    { "name" : "basket"},
+    { "name" : "pay_num"},
+    { "name" : "review"},
+    { "name" : "add_time"},
+   ],
+  }
+......  
+｝
+```
+>修改后，即可导入模型文件，命令如下：
+```Java
+curl -XPUT 'http://localhost:8983/solr/products/schema/model-store' --data-binary "@%Path%/MART.json" -H 'Content-type:application/json'
+```
+>%Path%为文件所在路径。
 
 ## 数据文件描述
 下面是关于项目中部分文件的描述，若需理解数据的含义和结构，从而增删训练特征，则需要详细阅读以下内容
@@ -175,11 +251,11 @@ mf.storeMultipleAdditiveTrees("model/MART.txt","model/MART.json");//调用storeM
 
 >##### 商品统计属性(complex.json)<br>
 >描述:complex.json存放商品的统计属性，例如一定时间内的销售量，加够量等,其中product_id为唯一区分项。数据格式如下：<br>
-  ```Java
+```Java
 {"product_id":"18576","basket":"0.0","review":"0","pay_num":"0.0"}
 {"product_id":"18589","basket":"36.0","review":"135","pay_num":"7.0"}
 {"product_id":"18599","basket":"0.0","review":"10","pay_num":"0.0"}
-  ```
+```
 >**注意**:属性名（如："basket"）需要特征配置文件[FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中的属性名一致<br>
 >**注意**:可在此为商品添加新的特征项<br>
 ><br>
