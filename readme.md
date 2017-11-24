@@ -121,7 +121,12 @@ mf.storeMultipleAdditiveTrees("model/MART.txt","model/MART.json");//调用storeM
 	<str name="fvCacheName">QUERY_DOC_FV</str>
 </transformer>
 ```
-
+>配置完后，保存并重启solr：
+```Java
+./bin/solr stop -all
+./bin/solr start -Dsolr.ltr.enabled=true
+```
+><br>
 >##### 导入商品数据
 >为了测试方便，目前商品的field仅有product_name,product_id和用于ltr排序的特征属性。商品数据在文件**Solr-LTR-Training/data/json/products.json**中。
 该文件由脚本程序[Solr-LTR-Training/src/main/java/Main/ProductJsonSetFactory.java](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/src/main/java/Main/ProductJsonSetFactory.java)生成。商品的特征与[Solr-LTR-Training/conf/FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中的
@@ -178,7 +183,7 @@ curl -XPUT "http://localhost:8983/solr/products/schema/feature-store" --data-bin
 ]
 ```
 >其中“name"为特征名，可随意命名,"parms"可指定该特征所用到的商品"field"。像上述所示，就是直接用field的值来作为ltr的特征。不过,BM25比较特殊，BM25并不是商品的属性，需要搜索的时候即时计算。因此用到的类为原始搜索得分org.apache.solr.ltr.feature.OriginalScoreFeature。<br>
->导入模型文件前，需要为训练好的模型文件添加一些配置。这是因为训练模型的时所用到的数据集中，BM25特征是经过max-min标准化的，而在solr即时计算时,BM25值并进行标准化处理。因此要在[MART.json](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/model/MART.json)中添加对BM25特征标准化处理的配置。配置如下所示：<br>
+>导入模型文件前，需要为训练好的模型文件添加一些配置。这是因为训练模型的时所用到的数据集中，BM25特征是经过max-min标准化的，而solr搜索时BM25的计算,B并没有进行标准化处理。因此要在[MART.json](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/model/MART.json)中添加对BM25特征标准化处理的配置。配置如下所示：<br>
 ```Java
 {  
 	{
@@ -206,8 +211,12 @@ curl -XPUT "http://localhost:8983/solr/products/schema/feature-store" --data-bin
 ```Java
 curl -XPUT 'http://localhost:8983/solr/products/schema/model-store' --data-binary "@%Path%/MART.json" -H 'Content-type:application/json'
 ```
->%Path%为文件所在路径。
+>%Path%为文件所在路径。<br>
+>导入成功后，可以
+><br>
 
+<br>
+<br>
 ## 数据文件描述
 下面是关于项目中部分文件的描述，若需理解数据的含义和结构，从而增删训练特征，则需要详细阅读以下内容
 >#### 特征配置文件FeatureConf<br>
