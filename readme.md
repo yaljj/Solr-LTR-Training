@@ -212,25 +212,24 @@ curl -XPUT "http://localhost:8983/solr/products/schema/feature-store" --data-bin
 curl -XPUT 'http://localhost:8983/solr/products/schema/model-store' --data-binary "@%Path%/MART.json" -H 'Content-type:application/json'
 ```
 >%Path%为文件所在路径。<br>
->导入成功后，可以在UI上看到产生了两个新的文件_schema_feature-store.json和_schema_model-store.json:<br>
+>导入成功后，可以在UI上看到产生了两个新的文件_schema_feature-store.json和_schema_model-store.json。<br>
 >(https://github.com/AdienHuen/Solr-LTR-Training/blob/master/picture/configResult.jpg)<br>
-><br>
 
-<br>
-<br>
-## 数据文件描述
-下面是关于项目中部分文件的描述，若需理解数据的含义和结构，从而增删训练特征，则需要详细阅读以下内容
+## 数据文件描述<br>
+下面是关于项目中部分文件的描述，若需理解数据的含义和结构，从而增删训练特征，则需要详细阅读以下内容<br>
 >#### 特征配置文件FeatureConf<br>
 >特征配置文件[Solr-LTR-Training/conf/FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)为json格式，用以定义特征。
-定义的特征将用于利用原始数据的属性，产生ranklib训练的数据集[Solr-LTR-Training/data/SampleSet](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/SampleSet)（验证集，训练集，测试集）
-  ```Java
-  {  
-    	"name": "productConfig",
-    	"str_prop": ["product_name"],
-    	"value_prop": ["product_id","cat_id","brand_id"],
-    	"rank_feature": ["BM25","price","basket","pay_num","review","add_time"]
-  }  
-  ```
+定义的特征将用于利用原始数据的属性，产生ranklib训练的数据集[Solr-LTR-Training/data/SampleSet](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/SampleSet)（验证集，训练集，测试集）<br>
+>修改后，即可导入模型文件，命令如下：
+
+```Java
+{  
+    "name": "productConfig",
+    "str_prop": ["product_name"],
+    "value_prop": ["product_id","cat_id","brand_id"],
+    "rank_feature": ["BM25","price","basket","pay_num","review","add_time"]
+}  
+```
 >其中 "str_prop"用于设置字符串型的属性名，“value_prop”用于设置数值型且不作为ltr特征的属性名。
 上述二者作为document的field上传到solr，但不用于ltr排序。而"rank_feature"则是用于ltr计算的特征属性。上述例子中，特征包含：<br>
 >>**BM25**:关联性因子，solr中默认的原始得分为org.apache.solr.ltr.feature.OriginalScoreFeature。<br>
