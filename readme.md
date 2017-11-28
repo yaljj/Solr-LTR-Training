@@ -112,11 +112,11 @@ mf.storeMultipleAdditiveTrees("model/MART.txt","model/MART.json");//调用storeM
 <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-ltr-\d.*\.jar" />
 <queryParser name="ltr" class="org.apache.solr.ltr.search.LTRQParserPlugin"/>
 <cache name="QUERY_DOC_FV"
-       class="solr.search.LRUCache"
-       size="4096"
-       initialSize="2048"
-       autowarmCount="4096"
-       regenerator="solr.search.NoOpRegenerator" />
+    class="solr.search.LRUCache"
+    size="4096"
+    initialSize="2048"
+    autowarmCount="4096"
+    regenerator="solr.search.NoOpRegenerator" />
 <transformer name="features" class="org.apache.solr.ltr.response.transform.LTRFeatureLoggerTransformerFactory">
 	<str name="fvCacheName">QUERY_DOC_FV</str>
 </transformer>
@@ -146,46 +146,44 @@ curl -XPUT "http://localhost:8983/solr/products/schema/feature-store" --data-bin
 ```
 >命令中products为core名，%PATH%为文件所在路径。特征文件所在位置为[Solr-LTR-Training/conf/solr-ltr-feature.json](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/conf/solr-ltr-feature.json),文件的格式如下：<br>
 ```Java
-	[
-	  {
-		"name" : "BM25",
-		"class" : "org.apache.solr.ltr.feature.OriginalScoreFeature",
-		"params" : {}
-
-	  },
-	  {
-		"name":  "add_time", 
-		"class": "org.apache.solr.ltr.feature.FieldValueFeature",
-		"params": {"field": "add_time"}
-	  },
-	  {
-		"name":  "price",
-		"class": "org.apache.solr.ltr.feature.FieldValueFeature",
-		"params": {"field": "price"}
-
-	  },
-	  {
-	  "name":  "basket",
-	  "class": "org.apache.solr.ltr.feature.FieldValueFeature",
-	  "params": {"field": "basket"}
-	  },
-	  {
-	  "name":  "pay_num",
-	  "class": "org.apache.solr.ltr.feature.FieldValueFeature",
-	  "params": {"field": "pay_num"}
-	  },
-	  {
-	  "name":  "review",
-	  "class": "org.apache.solr.ltr.feature.FieldValueFeature",
-	  "params": {"field": "review"}
-	  }
-	]
+[
+	{
+	"name" : "BM25",
+	"class" : "org.apache.solr.ltr.feature.OriginalScoreFeature",
+	"params" : {}
+	},
+	{
+	"name":  "add_time", 
+	"class": "org.apache.solr.ltr.feature.FieldValueFeature",
+	"params": {"field": "add_time"}
+	},
+	{
+	"name":  "price",
+	"class": "org.apache.solr.ltr.feature.FieldValueFeature",
+	params": {"field": "price"}
+	},
+	{
+	"name":  "basket",
+	"class": "org.apache.solr.ltr.feature.FieldValueFeature",
+	"params": {"field": "basket"}
+	},
+	{
+	"name":  "pay_num",
+	"class": "org.apache.solr.ltr.feature.FieldValueFeature",
+	"params": {"field": "pay_num"}
+	},
+	{
+	"name":  "review",
+	"class": "org.apache.solr.ltr.feature.FieldValueFeature",
+	"params": {"field": "review"}
+	}
+]
 ```
 >其中“name"为特征名，可随意命名,"parms"可指定该特征所用到的商品"field"。像上述所示，就是直接用field的值来作为ltr的特征。不过,BM25比较特殊，BM25并不是商品的属性，需要搜索的时候即时计算。因此用到的类为原始搜索得分org.apache.solr.ltr.feature.OriginalScoreFeature。<br>
 >导入模型文件前，需要为训练好的模型文件添加一些配置。这是因为训练模型的时所用到的数据集中，BM25特征是经过max-min标准化的，而solr搜索时BM25的计算,B并没有进行标准化处理。因此要在[MART.json](https://github.com/AdienHuen/Solr-LTR-Training/blob/master/model/MART.json)中添加对BM25特征标准化处理的配置。配置如下所示：<br>
 ```Java
 	{  
-		{
+	{
 		"class" : "org.apache.solr.ltr.model.MultipleAdditiveTreesModel",
 		"name" : "LambdaMART",
 		"features":[
@@ -224,17 +222,17 @@ http://localhost:8983/solr/products/query?q=product_name:bag&rq={!ltr%20model=MA
 
 >输出结果如下：<br>
 ```Java
-	{
-	  "responseHeader":{
-		"status":0,
-		"QTime":481,
-		"params":{
-		  "q":"product_name:bag",
-		  "fl":"product_name,id,score,[features]",
-		  "rq":"{!ltr model=MART reRankDocs=1000}"}},
-	  "response":{"numFound":7195,"start":0,"maxScore":0.8912517,"docs":[
-		  {
-			"product_name":["Men Canvas Retro Canvas Travel Cycling Crossbody Bag Chest Bag"],
+{
+	"responseHeader":{
+	"status":0,
+	"QTime":481,
+	"params":{
+		"q":"product_name:bag",
+		"fl":"product_name,id,score,[features]",
+		"rq":"{!ltr model=MART reRankDocs=1000}"}},
+	"response":{"numFound":7195,"start":0,"maxScore":0.8912517,"docs":[
+		{
+		"product_name":["Men Canvas Retro Canvas Travel Cycling Crossbody Bag Chest Bag"],
 			"id":"7f0e8737-bb99-4f87-8999-8c0173e36dc6",
 			"score":0.8912517,
 			"[features]":"BM25=4.741643,add_time=0.9638977,price=0.48802152,basket=0.57379055,pay_num=0.5554985,review=0.40577072"},
@@ -360,12 +358,12 @@ http://localhost:8983/solr/products/query?q=product_name:bag&fl=product_name,id,
 定义的特征将用于利用原始数据的属性，产生ranklib训练的数据集[Solr-LTR-Training/data/SampleSet](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/SampleSet)（验证集，训练集，测试集）<br>
 >修改后，即可导入模型文件，命令如下：
 ```Java
-	{  
-		"name": "productConfig",
-		"str_prop": ["product_name"],
-		"value_prop": ["product_id","cat_id","brand_id"],
-		"rank_feature": ["BM25","price","basket","pay_num","review","add_time"]
-	}  
+{  
+	"name": "productConfig",
+	"str_prop": ["product_name"],
+	"value_prop": ["product_id","cat_id","brand_id"],
+	"rank_feature": ["BM25","price","basket","pay_num","review","add_time"]
+}  
 ```
 >其中 "str_prop"用于设置字符串型的属性名，“value_prop”用于设置数值型且不作为ltr特征的属性名。
 上述二者作为document的field上传到solr，但不用于ltr排序。而"rank_feature"则是用于ltr计算的特征属性。上述例子中，特征包含：<br>
@@ -384,12 +382,12 @@ http://localhost:8983/solr/products/query?q=product_name:bag&fl=product_name,id,
 包含了prop.json,complex.json,keyword.txt,keyword_product_pair.txt等文件,下面介绍相关文件内容和作用<br>
 >##### 商品一般属性（prop.json）<br>
 >描述:prop.json存放商品的一般属性原始数据,其中product_id为唯一区分项。数据格式如下:<br>
-  ```Java
-	{"product_id":"7104","product_name":"12 Colors Acrylic Nail Art Tips Glitter Powder Dust","price":"5.78","add_time":"1507896522","cat_id":"1334","brand_id":"0"}
-	{"product_id":"7105","product_name":"500 White French Acrylic Half False Tips 3D Nail Art","price":"5.69","add_time":"1509783901","cat_id":"1327","brand_id":"0"}
-	{"product_id":"7157","product_name":"Acrylic UV Gel False Fake Nail Art Tips Clipper Manicure Cutter Tool","price":"3.76","add_time":"1507896522","cat_id":"1367","brand_id":"0"}
-	{"product_id":"7340","product_name":"5pcs 2 Way Nail Art Dotting Marbleizing Painting Pen","price":"2.25","add_time":"1507896522","cat_id":"1343","brand_id":"0"}
-  ```
+```Java
+{"product_id":"7104","product_name":"12 Colors Acrylic Nail Art Tips Glitter Powder Dust","price":"5.78","add_time":"1507896522","cat_id":"1334","brand_id":"0"}
+{"product_id":"7105","product_name":"500 White French Acrylic Half False Tips 3D Nail Art","price":"5.69","add_time":"1509783901","cat_id":"1327","brand_id":"0"}
+{"product_id":"7157","product_name":"Acrylic UV Gel False Fake Nail Art Tips Clipper Manicure Cutter Tool","price":"3.76","add_time":"1507896522","cat_id":"1367","brand_id":"0"}
+{"product_id":"7340","product_name":"5pcs 2 Way Nail Art Dotting Marbleizing Painting Pen","price":"2.25","add_time":"1507896522","cat_id":"1343","brand_id":"0"}
+```
 >**注意**:属性名（如："product_id"）要与特征配置文件[FeatureConf.json](https://github.com/AdienHuen/Solr-LTR-Training/tree/master/data/OriginalDataSet)中的属性名一致<br>
 >**注意**:可在此为商品添加新的特征项<br>
 ><br>
@@ -408,16 +406,16 @@ http://localhost:8983/solr/products/query?q=product_name:bag&fl=product_name,id,
 ><br>
 >##### 搜索词-商品对(keyword_product_pair.txt)<br>
 >描述:keyword_product_pair.txt存放搜索词以及商品的关系，例如在第一行中,"squishy"为搜索词，"1153352"为商品id,"14"是搜索词下点击该商品的uv，"6"是搜索词下加够该商品的数量，"4"搜索词下该商品的销量。数据格式如下：<br>
-  ```Java
-	squishy`1153352`14`6`4`
-	squishy`1113507`18`10`3`
-	squishy`1181645`23`13`3`
-	squishy`1122654`6`3`3`
-	squishy`1160930`35`8`3`
-	squishy`1145181`19`17`3`
-	squishy`1120879`42`10`3`
-	squishy`1168577`30`17`3`
-  ```
+```Java
+squishy`1153352`14`6`4`
+squishy`1113507`18`10`3`
+squishy`1181645`23`13`3`
+squishy`1122654`6`3`3`
+squishy`1160930`35`8`3`
+squishy`1145181`19`17`3`
+squishy`1120879`42`10`3`
+squishy`1168577`30`17`3`
+```
 ><br>
 ><br>
   
